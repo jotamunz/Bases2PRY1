@@ -1,0 +1,27 @@
+Editor: Alejandro Garcia Bejarano 
+Edited: 11/4/2020
+
+-- GITFLOW DESCRIPTION --
+This is a simple explanation of the branch hierarchy.
+
+There will be one master branch just for final implementations
+that are tested before committing. The branch one level lower
+in the hierarchy is called "Development" and it is used as the
+merge "hub" from the Front-end (branch) and Back-end (branch).
+
+Front-end: is the main branch of the contributor that will be working
+on the interface of the project in Angular. Each contributor will have
+its own branch for developing specific features. Ones the feature is 
+complete they will commit to the Front-end branch and then after merging
+their work they will update their own corresponding branches.
+
+Back-end: is the main branch of the contributors that will be working
+on the database of the project in Mongo. Same as the front end but 
+their corresponding branch is called Back-end
+
+-- GIT HIERARCHY --
+
+1. Main 
+2. Development
+3. Back-end, Front-end
+4. Contributor #1, Contributor #2
