@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const FormSchema = mongoose.Schema({
     schemeId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Scheme',
-        required:true 
+        ref: 'Schemes',
+        required: true 
     },
     fields: {
         type: [FieldSchema],
@@ -12,11 +12,12 @@ const FormSchema = mongoose.Schema({
     },
     creationDate: {
         type: Date,
-        required: true
+        required: true,
+        default: Date.now
     },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Users',
         required: true
     },
     status: {
@@ -25,7 +26,7 @@ const FormSchema = mongoose.Schema({
     },
     routes: {
         type: [ApprovalRouteSchema],
-        required: true
+        required: false
     },
 });
 
@@ -40,11 +41,31 @@ const FieldSchema = mongoose.Schema({
     },
 });
 
+const ApprovalRouteSchema = mongoose.Schema({
+    approvalRouteId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'ApprovalRoutes',
+        required: true 
+    },
+    approvers: {
+        type: [ApproverSchema],
+        required: true 
+    },
+    currentApprovals: {
+        type: Number,
+        required: true 
+    }, 
+    currentRejections: {
+        type: Number,
+        required: true 
+    },    
+});
+
 const ApproverSchema = mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required:true 
+        ref: 'Users',
+        required: true 
     },
     decision: {
         type: Number,
@@ -52,28 +73,9 @@ const ApproverSchema = mongoose.Schema({
     },
     approvalDate: {
         type: Date,
-        required: true
+        required: false,
+        default: Date.now
     },
-});
-
-const ApprovalRouteSchema = mongoose.Schema({
-    approvalRouteId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'ApprovalRoutes',
-        required:true 
-    },
-    approvers: {
-        type: [ApproverSchema],
-        required:true 
-    },
-    currentApprovals: {
-        type: Number,
-        required:true 
-    }, 
-    currentRejections: {
-        type: Number,
-        required:true 
-    },    
 });
 
 module.exports = mongoose.model('Forms', FormSchema);
