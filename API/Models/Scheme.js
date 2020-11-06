@@ -7,7 +7,7 @@ const SchemeSchema = mongoose.Schema({
     },
     fields: {
         type: [FieldSchema],
-        required:true
+        required: true
     },
 });
 
@@ -32,4 +32,4 @@ const FieldSchema = mongoose.Schema({
 });
 
 
-module.exports = mongoose.model('Scheme', SchemeSchema);
+module.exports = mongoose.model('Schemes', SchemeSchema);
