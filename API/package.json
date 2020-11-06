@@ -4,7 +4,7 @@
   "description": "ITCR Bases de Datos 2 \r II Semestre 2020 \r Proyecto #1 \r Jose Pablo Munoz, Ignacio Alvarez, Joseph Tenorio, Andres Aguilar, Alejandro Garcia",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
