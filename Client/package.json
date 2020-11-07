@@ -19,6 +19,9 @@
     "@angular/platform-browser": "~10.2.0",
     "@angular/platform-browser-dynamic": "~10.2.0",
     "@angular/router": "~10.2.0",
+    "@auth0/angular-jwt": "^5.0.1",
+    "angular2-flash-messages": "^3.0.1",
+    "materialize-css": "^1.0.0-rc.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
