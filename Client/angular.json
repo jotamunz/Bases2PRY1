@@ -25,6 +25,7 @@
             ],
             "styles": [
               "node_modules/materialize-css/dist/css/materialize.css",
+              "node_modules/@fontawesome/fontawesome-free/css/all.css",
               "src/styles.css"
             ],
             "scripts": [
