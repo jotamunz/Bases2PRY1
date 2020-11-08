@@ -24,13 +24,12 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/materialize-css/dist/css/materialize.css",
-              "node_modules/@fontawesome/fontawesome-free/css/all.css",
-              "src/styles.css"
+              "src/styles.css",
+              "src/materialize/materialize.min.css"
             ],
             "scripts": [
-              "node_modules/materialize-css/dist/js/materialize.js",
-              "src/utils.js"
+              "src/utils.js",
+              "src/materialize/materialize.min.js"
             ]
           },
           "configurations": {
@@ -93,7 +92,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css", 
+              "src/materialize.min.css"
             ],
             "scripts": []
           }
@@ -124,6 +124,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "Project-BD2"
+    }
+  },
+  "defaultProject": "Project-BD2",
+  "cli": {
+    "analytics": "e2e019d5-dd78-4b28-9776-c4c2abfd3062"
+  }
 }
