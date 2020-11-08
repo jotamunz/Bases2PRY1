@@ -1,3 +1,10 @@
+:root {
+  --primary-color: #b2ffe5;
+  --dark-primary-color: #149167;
+  --light-color: #f3f3f3;
+  --dark-color: #333;
+}
+
 /* Alert utilities */
 .alert {
   width: 100%;

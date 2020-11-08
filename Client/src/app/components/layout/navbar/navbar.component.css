@@ -1,0 +1,13 @@
+.main-navbar {
+  background-color: var(--dark-primary-color);
+}
+
+@media (max-width: 748px) {
+  a.brand-logo i {
+    margin-top: 1rem;
+  }
+
+  a.brand-logo span {
+    display: none;
+  }
+}
