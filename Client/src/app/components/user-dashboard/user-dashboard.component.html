@@ -1,3 +1,12 @@
 <div class="container">
-  <h3><i class="fa fa-cog"></i> Dashboard</h3>
+  <h3><i class="fa fa-envelope"></i> My Inbox</h3>
+  <p>Here are your pending documents for approval</p>
+  <!-- Pending documents -->
+  <div class="card" *ngFor="let document of pendingDocuments">
+    <div class="card-content">
+      <span class="card-title">{{ document.name }}</span>
+      <p><strong>Date submitted: </strong> {{ document.date | date }}</p>
+      <a href="#" class="btn grey btn-block darken-2">Read more</a>
+    </div>
+  </div>
 </div>

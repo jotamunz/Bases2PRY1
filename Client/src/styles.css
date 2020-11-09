@@ -5,6 +5,12 @@
   --dark-color: #333;
 }
 
+/* Button utilities */
+.btn-block {
+  width: 100%;
+  margin-top: 1rem;
+}
+
 /* Alert utilities */
 .alert {
   width: 100%;
@@ -64,4 +70,15 @@
 .warning-alert .close {
   border-color: #8a5700;
   color: #8a5700;
+}
+
+/* Mobile components */
+@media (max-width: 600px) {
+  a.brand-logo i {
+    margin-top: 1rem;
+  }
+
+  a.brand-logo span {
+    display: none;
+  }
 }

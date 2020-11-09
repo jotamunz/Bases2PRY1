@@ -13,13 +13,3 @@
 .sidenav li a i {
   color: #f3f3f3;
 }
-
-@media (max-width: 600px) {
-  a.brand-logo i {
-    margin-top: 1rem;
-  }
-
-  a.brand-logo span {
-    display: none;
-  }
-}
