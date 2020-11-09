@@ -2,7 +2,19 @@
   background-color: var(--dark-primary-color);
 }
 
-@media (max-width: 748px) {
+.sidenav {
+  background-color: var(--dark-color);
+}
+
+.sidenav li a {
+  color: #f3f3f3;
+}
+
+.sidenav li a i {
+  color: #f3f3f3;
+}
+
+@media (max-width: 600px) {
   a.brand-logo i {
     margin-top: 1rem;
   }
