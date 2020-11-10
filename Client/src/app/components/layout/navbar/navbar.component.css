@@ -7,9 +7,13 @@
 }
 
 .sidenav li a {
-  color: #f3f3f3;
+  color: var(--light-color);
 }
 
 .sidenav li a i {
-  color: #f3f3f3;
+  color: var(--light-color);
+}
+
+li a.close-sidenav:hover {
+  cursor: pointer;
 }
