@@ -8,13 +8,15 @@ const app = express();
 // Middleware
 app.use(cors());
 
+
 app.use(
     express.urlencoded({
       extended: true
     })
-  );
-app.use(express.json());
+);
+app.use(express.json())
 
+//Cdasdadsasdasdasdasdasdasdasdasds
 mongoose.connect(process.env.DB_CONNECTION,
   {useUnifiedTopology: true, useNewUrlParser: true},
   () => {console.log('connected to DB')}
