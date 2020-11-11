@@ -28,10 +28,12 @@ mongoose.connect(
 const userRoute = require('./Routes/users');
 const schemeRoute = require('./Routes/schemes');
 const approvalRouteRoute = require('./Routes/approvalRoutes');
+const formRoute = require('./Routes/forms');
 
 app.use('/users', userRoute);
 app.use('/schemes', schemeRoute);
 app.use('/approvalRoutes', approvalRouteRoute);
+app.use('/forms', formRoute);
 
 // Server start
 app.listen(3000, () => console.log('Server started on port 3000'));
