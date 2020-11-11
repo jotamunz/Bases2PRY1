@@ -6,7 +6,7 @@ const AccessibleSchemeSchema = mongoose.Schema({
         ref: 'Schemes',
         required: true
     }
-});
+},{_id: false});
 
 const UserSchema = mongoose.Schema({
     username: {
