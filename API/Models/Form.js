@@ -1,5 +1,54 @@
 const mongoose = require('mongoose');
 
+const FieldSchema = mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    input: {
+        type: mongoose.Schema.Types.Mixed,
+        required: true
+    },
+},{_id: false});
+
+const ApprovalRouteSchema = mongoose.Schema({
+    approvalRouteId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'ApprovalRoutes',
+        required: true 
+    },
+    approvers: {
+        type: [ApproverSchema],
+        required: true 
+    },
+    currentApprovals: {
+        type: Number,
+        required: true 
+    }, 
+    currentRejections: {
+        type: Number,
+        required: true 
+    },    
+},{_id: false});
+
+const ApproverSchema = mongoose.Schema({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Users',
+        required: true 
+    },
+    decision: {
+        type: Number,
+        required: true
+    },
+    approvalDate: {
+        type: Date,
+        required: false,
+        default: Date.now
+    },
+},{_id: false});
+
+
 const FormSchema = mongoose.Schema({
     schemeId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -27,54 +76,6 @@ const FormSchema = mongoose.Schema({
     routes: {
         type: [ApprovalRouteSchema],
         required: false
-    },
-});
-
-const FieldSchema = mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    input: {
-        type: Mixed,
-        required: true
-    },
-});
-
-const ApprovalRouteSchema = mongoose.Schema({
-    approvalRouteId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'ApprovalRoutes',
-        required: true 
-    },
-    approvers: {
-        type: [ApproverSchema],
-        required: true 
-    },
-    currentApprovals: {
-        type: Number,
-        required: true 
-    }, 
-    currentRejections: {
-        type: Number,
-        required: true 
-    },    
-});
-
-const ApproverSchema = mongoose.Schema({
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Users',
-        required: true 
-    },
-    decision: {
-        type: Number,
-        required: true
-    },
-    approvalDate: {
-        type: Date,
-        required: false,
-        default: Date.now
     },
 });
 

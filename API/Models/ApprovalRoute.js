@@ -1,5 +1,13 @@
 const mongoose = require('mongoose');
 
+const UserSchema = mongoose.Schema({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Users',
+        required:true
+    }
+},{_id: false});
+
 const ApprovalRouteSchema = mongoose.Schema({
     schemeId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -21,14 +29,6 @@ const ApprovalRouteSchema = mongoose.Schema({
     requiredRejections: {
         type: Number,
         required: true
-    }
-});
-
-const UserSchema = mongoose.Schema({
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Users',
-        required = true
     }
 });
 
