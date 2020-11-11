@@ -37,4 +37,28 @@ export class AuthService {
     this.currentUser = this.jwtHelper.decodeToken(token).user;
     this.isAuthenticated = true;
   }
+
+  /**
+   * Removes user and token from localStorage
+   */
+  public logout(): void {
+    this.token = null;
+    this.isAuthenticated = false;
+    this.currentUser = {
+      _id: '',
+      username: '',
+      name: '',
+      password: '',
+    };
+    // Remove token from localStorage
+    localStorage.removeItem('authToken');
+  }
+
+  public getCurrentUser(): User {
+    return this.currentUser;
+  }
+
+  public getIsAuthenticated(): boolean {
+    return this.isAuthenticated;
+  }
 }
