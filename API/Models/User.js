@@ -1,5 +1,13 @@
 const mongoose = require('mongoose');
 
+const AccessibleSchemeSchema = mongoose.Schema({
+    schemeId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Schemes',
+        required: true
+    }
+});
+
 const UserSchema = mongoose.Schema({
     username: {
         type: String,
@@ -23,13 +31,5 @@ const UserSchema = mongoose.Schema({
     }
 });
 
-const AccessibleSchemeSchema = mongoose.Schema({
-    schemeId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Schemes',
-        required = true
-    }
-});
 
-//name and schema to use
-module.exports = mongoose.model('Users', UserSchema); 
+module.exports = mongoose.model('users', UserSchema); 
