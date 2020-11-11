@@ -5,3 +5,5 @@ export interface User {
   password?: string;
   isAdmin?: boolean;
 }
+
+export default User;

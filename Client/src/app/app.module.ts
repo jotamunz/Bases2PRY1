@@ -3,8 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+//FORM MODULES
+import { MatSelectModule } from '@angular/material/select';
 
 // LOGIN MODULES
 import { MatSliderModule } from '@angular/material/slider';
@@ -22,11 +25,14 @@ import { LoginComponent } from './components/login/login.component';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { MatCardModule } from '@angular/material/card';
+import { DynamicFormQuestionComponent } from './components/dynamic-form-question/dynamic-form-question.component';
+import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
 
 // SERVICE MODULES
 import { AuthService } from './services/auth.service';
 import { AuthAdminGuard } from './guards/authadmin.guard';
 import { AuthUserGuard } from './guards/authuser.guard';
+import { LayoutDynamicFormComponent } from './components/layout-dynamic-form/layout-dynamic-form.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +41,9 @@ import { AuthUserGuard } from './guards/authuser.guard';
     LoginComponent,
     UserDashboardComponent,
     AdminDashboardComponent,
+    DynamicFormQuestionComponent,
+    DynamicFormComponent,
+    LayoutDynamicFormComponent,
   ],
 
   imports: [
@@ -50,7 +59,9 @@ import { AuthUserGuard } from './guards/authuser.guard';
     MatCardModule,
     MatToolbarModule,
     HttpClientModule,
+    MatSelectModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [AuthService, AuthUserGuard, AuthAdminGuard],
   bootstrap: [AppComponent],
