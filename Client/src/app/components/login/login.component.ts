@@ -17,10 +17,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {
-    this.users = this.authService.getUser();
-    console.log(this.users[0].username);
-  }
+  ngOnInit(): void {}
 
   // @param User information
   // @returns Action event
