@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
 // Gets form by Id
 router.get('/:formId',async (req, res) => {
 	try {
-		const form = await ApprovalRoute.findById(
+		const form = await Form.findById(
 			req.params.formId
 		);
 		res.json(form);
@@ -51,7 +51,7 @@ router.post('/', async (req, res) => {
 		const savedForm = await form.save();
 		res.json(savedForm);
 	} catch (error) {
-		res.status(408).json({ message: error });
+		res.status(408).json({ message: error});
 	}
 });
 
