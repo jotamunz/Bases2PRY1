@@ -6,6 +6,7 @@ import { UserDashboardComponent } from './components/user-dashboard/user-dashboa
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 
 import { AuthUserGuard } from './guards/authuser.guard';
+import { AuthAdminGuard } from './guards/authadmin.guard';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
@@ -14,7 +15,11 @@ const routes: Routes = [
     component: UserDashboardComponent,
     canActivate: [AuthUserGuard],
   },
-  { path: 'admin/dashboard', component: AdminDashboardComponent },
+  {
+    path: 'admin/dashboard',
+    component: AdminDashboardComponent,
+    canActivate: [AuthAdminGuard],
+  },
 ];
 
 @NgModule({
