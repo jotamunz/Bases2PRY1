@@ -1,6 +1,7 @@
 const express = require('express');
 const ApprovalRoute = require('../models/ApprovalRoute');
 const router = express.Router();
+const mongoose = require('mongoose');
 
 /*
 ROUTES: http://localhost:3000/
@@ -35,15 +36,21 @@ router.get ('/:approvalRouteId', async (req, res) => {
 /*POSTS*/
 //Creates a new approval route
 router.post('/', async (req, res) => {
+    for(var i = 0; i < (req.body.authors).length; i++) {
+        ((req.body.authors)[i]).userId =  new mongoose.Types.ObjectId(((req.body.authors)[i]).userId);
+    }
+    for(var i = 0; i < (req.body.approvers).length; i++) {
+        ((req.body.approvers)[i]).userId = new mongoose.Types.ObjectId(((req.body.approvers)[i]).userId);
+    }
     const approvalRoute = new ApprovalRoute({
-        schemeId : req.body.schemeId,
+        schemeId : new mongoose.Types.ObjectId(req.body.schemeId),
         authors: req.body.authors,
         approvers: req.body.approvers,
         requiredApprovals: req.body.requiredApprovals,
         requiredRejections: req.body.requiredRejections,
     });
     try{
-        const savedApprovalRoute = await scheme.save();
+        const savedApprovalRoute = await approvalRoute.save();
         res.json(savedApprovalRoute);
     } catch (error){
         res.status(408).json({message: error});

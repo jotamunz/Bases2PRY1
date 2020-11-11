@@ -4,7 +4,7 @@ const UserSchema = mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Users',
-        required = true
+        required:true
     }
 },{_id: false});
 
