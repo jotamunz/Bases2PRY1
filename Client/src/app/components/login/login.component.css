@@ -1,0 +1,26 @@
+.mat-card {
+  background: lightslategray;
+}
+
+.greenCard {
+  background: #63d6c5;
+  color: #7b1fa2;
+}
+
+.elementWidth {
+  max-width: 300px !important;
+}
+
+.centerButton {
+  text-align: center !important;
+  width: 260px;
+}
+
+/* MOVING BACKGROUND */
+
+body,
+html {
+  background: #090d00;
+}
+
+/* BACKGROUND */

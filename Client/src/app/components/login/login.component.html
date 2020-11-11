@@ -1,18 +1,30 @@
-<div class="row">
-  <div class="col s12 m6">
-    <div class="card blue-grey darken-1">
-      <div class="card-content white-text">
-        <span class="card-title">Card Title</span>
-        <p>
-          I am a very simple card. I am good at containing small bits of
-          information. I am convenient because I require little markup to use
-          effectively.
-        </p>
-      </div>
-      <div class="card-action">
-        <a href="#">This is a link</a>
-        <a href="#">This is a link</a>
-      </div>
-    </div>
+<div class="container" fxFlexFill>
+  <div fxLayoutAlign="center center" fxFlexFill>
+    <mat-card class="color elementWidth" fxFlex="25">
+      <mat-toolbar class="mat-card greenCard">Login Page</mat-toolbar>
+      <form fxLayoutAlign="stretch" fxLayout="column" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Username"
+            name="username"
+            [(ngModel)]="username"
+          />
+        </mat-form-field>
+
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Password"
+            type="password"
+            name="password"
+            [(ngModel)]="password"
+          />
+        </mat-form-field>
+        <button mat-button type="submit" class="centerButton" value="Submit">
+          Login
+        </button>
+      </form>
+    </mat-card>
   </div>
 </div>
