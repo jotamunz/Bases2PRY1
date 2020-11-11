@@ -24,9 +24,11 @@ mongoose.connect(process.env.DB_CONNECTION,
 // Routes imports
 const userRoute = require ('./Routes/users');
 const schemeRoute = require ('./Routes/schemes');
+const approvalRoute = require ('./Routes/approvalRoutes');
 
 app.use('/users', userRoute);
 app.use('/schemes', schemeRoute);
+app.use('/approvalRoutes', approvalRoute);
 
 
 // Server start

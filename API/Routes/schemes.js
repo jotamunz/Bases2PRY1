@@ -1,7 +1,6 @@
 const express = require('express');
 const Scheme = require('../models/Scheme');
 const router = express.Router();
-const Form = require('../models/Scheme')
 
 /*
 ROUTES: http://localhost:3000/
@@ -36,7 +35,7 @@ router.get ('/:schemeId', async (req, res) => {
 /*POSTS*/
 //Creates new scheme
 router.post('/', async (req, res) => {
-    const scheme = new Form({
+    const scheme = new Scheme({
         name : req.body.name,
         fields: req.body.fields,
     });
