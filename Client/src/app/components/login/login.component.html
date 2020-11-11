@@ -1,18 +1,72 @@
-<div class="row">
-  <div class="col s12 m6">
-    <div class="card blue-grey darken-1">
-      <div class="card-content white-text">
-        <span class="card-title">Card Title</span>
-        <p>
-          I am a very simple card. I am good at containing small bits of
-          information. I am convenient because I require little markup to use
-          effectively.
-        </p>
-      </div>
-      <div class="card-action">
-        <a href="#">This is a link</a>
-        <a href="#">This is a link</a>
-      </div>
+<!DOCTYPE html>
+<!--Code by Divinector - divinectorweb.com-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>animated background with pure css and html</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="login.component.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="banner-text">
+      <ul>
+        <li>Home</li>
+        <li>About</li>
+        <li>Portfolio</li>
+        <li>Services</li>
+        <li>Contact</li>
+      </ul>
     </div>
-  </div>
-</div>
+    <div class="animation-area">
+      <ul class="box-area">
+        <div fxLayoutAlign="center center" fxFlexFill>
+          <mat-card class="color elementWidth" fxFlex="25">
+            <mat-toolbar class="mat-card greenCard">Login Page</mat-toolbar>
+            <form
+              fxLayoutAlign="stretch"
+              fxLayout="column"
+              (ngSubmit)="onSubmit()"
+            >
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="Username"
+                  name="username"
+                  [(ngModel)]="username"
+                />
+              </mat-form-field>
+
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="Password"
+                  type="password"
+                  name="password"
+                  [(ngModel)]="password"
+                />
+              </mat-form-field>
+              <button
+                mat-button
+                type="submit"
+                class="centerButton"
+                value="Submit"
+              >
+                Login
+              </button>
+            </form>
+          </mat-card>
+        </div>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+  </body>
+</html>
