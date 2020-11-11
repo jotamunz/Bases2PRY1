@@ -1,7 +1,7 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 
-import { User } from '../../../models/User';
+import { User } from '../../models/User';
 
 @Component({
   selector: 'app-login',
@@ -9,11 +9,9 @@ import { User } from '../../../models/User';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  @Output() submitUser: EventEmitter<any> = new EventEmitter();
-
-  users: User[];
-  username: string;
-  password: string;
+  public user: User;
+  public username: string;
+  public password: string;
 
   constructor(private authService: AuthService) {}
 
@@ -22,15 +20,14 @@ export class LoginComponent implements OnInit {
   // @param User information
   // @returns Action event
   // On submit sends the information on the Login form
-
-  onSubmit() {
-    const user = {
+  public onSubmit(): void {
+    this.user = {
       username: this.username,
       password: this.password,
     };
 
-    //dentro de ese metodo iria el authService;
-    console.log(user.username);
-    console.log(user.password);
+    // TODO: Incluir auth service aqui
+    console.log(this.user.username);
+    console.log(this.user.password);
   }
 }

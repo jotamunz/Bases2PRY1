@@ -27,6 +27,7 @@ import { MatCardModule } from '@angular/material/card';
 import { AuthService } from './services/auth.service';
 import { AuthAdminGuard } from './guards/authadmin.guard';
 import { AuthUserGuard } from './guards/authuser.guard';
+import { AddFormSchemeComponent } from './components/add-form-scheme/add-form-scheme.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { AuthUserGuard } from './guards/authuser.guard';
     LoginComponent,
     UserDashboardComponent,
     AdminDashboardComponent,
+    AddFormSchemeComponent,
   ],
 
   imports: [
