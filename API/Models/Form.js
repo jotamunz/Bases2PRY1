@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const FieldSchema = mongoose.Schema(
+const ResponseSchema = mongoose.Schema(
 	{
 		name: {
 			type: String,
@@ -8,29 +8,6 @@ const FieldSchema = mongoose.Schema(
 		},
 		input: {
 			type: mongoose.Schema.Types.Mixed,
-			required: true
-		}
-	},
-	{ _id: false }
-);
-
-const ApprovalRouteSchema = mongoose.Schema(
-	{
-		approvalRouteId: {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'ApprovalRoutes',
-			required: true
-		},
-		approvers: {
-			type: [ApproverSchema],
-			required: true
-		},
-		currentApprovals: {
-			type: Number,
-			required: true
-		},
-		currentRejections: {
-			type: Number,
 			required: true
 		}
 	},
@@ -46,7 +23,8 @@ const ApproverSchema = mongoose.Schema(
 		},
 		decision: {
 			type: Number,
-			required: true
+			required: true,
+			default: 0
 		},
 		approvalDate: {
 			type: Date,
@@ -57,14 +35,41 @@ const ApproverSchema = mongoose.Schema(
 	{ _id: false }
 );
 
+
+const ApprovalRouteSchema = mongoose.Schema(
+	{
+		approvalRouteId: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'ApprovalRoutes',
+			required: true
+		},
+		approvers: {
+			type: [ApproverSchema],
+			required: true
+		},
+		currentApprovals: {
+			type: Number,
+			required: true,
+			default: 0
+		},
+		currentRejections: {
+			type: Number,
+			required: true,
+			default: 0
+		}
+	},
+	{ _id: false }
+);
+
+
 const FormSchema = mongoose.Schema({
 	schemeId: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Schemes',
 		required: true
 	},
-	fields: {
-		type: [FieldSchema],
+	responses: {
+		type: [ResponseSchema],
 		required: true
 	},
 	creationDate: {
@@ -79,11 +84,13 @@ const FormSchema = mongoose.Schema({
 	},
 	status: {
 		type: Number,
-		required: true
+		required: true,
+		default: 0
 	},
 	routes: {
 		type: [ApprovalRouteSchema],
-		required: false
+		required: true,
+		default: []
 	}
 });
 
