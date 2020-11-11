@@ -1,17 +1,5 @@
 const mongoose = require('mongoose');
 
-const SchemeSchema = mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    fields: {
-        type: [FieldSchema],
-        required: true
-    },
-});
-
-
 const FieldSchema = mongoose.Schema({
     name: {
         type: String,
@@ -26,9 +14,22 @@ const FieldSchema = mongoose.Schema({
         required: true
     },
     displayables: {
-        type: Mixed,
+        type: mongoose.Schema.Types.Mixed,
         required: true
     } 
+},{_id: false});
+
+
+
+const SchemeSchema = mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    fields: {
+        type: [FieldSchema],
+        required: true
+    },
 });
 
 
