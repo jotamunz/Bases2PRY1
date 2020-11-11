@@ -10,6 +10,8 @@ import { UserDashboardComponent } from './components/user-dashboard/user-dashboa
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 
 import { AuthService } from './services/auth.service';
+import { AuthAdminGuard } from './guards/authadmin.guard';
+import { AuthUserGuard } from './guards/authuser.guard';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,7 @@ import { AuthService } from './services/auth.service';
     AdminDashboardComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FlashMessagesModule.forRoot()],
-  providers: [AuthService],
+  providers: [AuthService, AuthUserGuard, AuthAdminGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
