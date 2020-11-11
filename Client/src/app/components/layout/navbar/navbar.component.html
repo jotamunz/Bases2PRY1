@@ -14,8 +14,9 @@
           ><i class="fa fa-bars"></i
         ></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <!-- TODO: Remove this -->
-          <li>Welcome Test!</li>
+          <li *ngIf="this.isUserAuthenticated()">
+            Welcome {{ this.getCurrentUser().name }}
+          </li>
         </ul>
       </div>
     </div>
@@ -23,12 +24,12 @@
 </div>
 <!-- Side navigation -->
 <ul class="sidenav" id="mobile-sidenav">
-  <!-- TODO: Add access-control -->
   <li>
     <a routerLink="/"><i class="fa fa-sign-in"></i>Login</a>
   </li>
-  <li>
-    <a routerLink="/user/dashboard/"><i class="fa fa-cog"></i> Dashboard</a>
+  <!-- USER LINKS -->
+  <li *ngIf="this.isUserAuthenticated() && !this.isAdmin()">
+    <a routerLink="/user/dashboard/"><i class="fa fa-cog"></i>My Inbox</a>
   </li>
   <!-- Close navigation -->
   <li>
