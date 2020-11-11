@@ -39,6 +39,23 @@ export class AuthService {
   }
 
   /**
+   * Loads authentication token and user information
+   */
+  public loadAuthenticationToken(): void {
+    // Check for token
+    const token: string = localStorage.getItem('authToken');
+    if (token) {
+      // Check if token is expired
+      if (this.jwtHelper.isTokenExpired(token)) {
+        localStorage.removeItem('authToken');
+        return;
+      }
+      // Authenticate user and load user information
+      this.setAuthenticationToken(token);
+    }
+  }
+
+  /**
    * Removes user and token from localStorage
    */
   public logout(): void {
