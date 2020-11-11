@@ -1,0 +1,19 @@
+.main-navbar {
+  background-color: var(--dark-primary-color);
+}
+
+.sidenav {
+  background-color: var(--dark-color);
+}
+
+.sidenav li a {
+  color: var(--light-color);
+}
+
+.sidenav li a i {
+  color: var(--light-color);
+}
+
+li a.close-sidenav:hover {
+  cursor: pointer;
+}

@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // LOGIN MODULES
 import { MatSliderModule } from '@angular/material/slider';
@@ -24,7 +25,8 @@ import { MatCardModule } from '@angular/material/card';
 
 // SERVICE MODULES
 import { AuthService } from './services/auth.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthAdminGuard } from './guards/authadmin.guard';
+import { AuthUserGuard } from './guards/authuser.guard';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     UserDashboardComponent,
     AdminDashboardComponent,
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -49,7 +52,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     FormsModule,
   ],
-  providers: [AuthService],
+  providers: [AuthService, AuthUserGuard, AuthAdminGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

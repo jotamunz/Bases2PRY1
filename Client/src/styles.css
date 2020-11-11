@@ -1,6 +1,19 @@
+:root {
+  --primary-color: #b2ffe5;
+  --dark-primary-color: #149167;
+  --light-color: #f3f3f3;
+  --dark-color: #333;
+}
+
+/* Button utilities */
+.btn-block {
+  width: 100%;
+  margin-top: 1rem;
+}
+
 /* Alert utilities */
 .alert {
-  width: 100%;
+  width: 80%;
   margin: 20px auto;
   padding: 20px;
   position: relative;
@@ -57,6 +70,17 @@
 .warning-alert .close {
   border-color: #8a5700;
   color: #8a5700;
+}
+
+/* Mobile components */
+@media (max-width: 600px) {
+  a.brand-logo i {
+    margin-top: 1rem;
+  }
+
+  a.brand-logo span {
+    display: none;
+  }
 }
 
 html, body { height: 100%; }
