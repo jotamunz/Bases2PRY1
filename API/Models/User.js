@@ -30,7 +30,7 @@ const UserSchema = mongoose.Schema({
 	},
 	accessibleSchemes: {
 		type: [AccessibleSchemeSchema],
-		required: true,
+		required: false,
 		default: []
 	}
 });

@@ -7,10 +7,14 @@ const User = require('../models/User');
 const router = express.Router();
 
 /*GETS*/
-// Find all users
+
+// GET ALL USERS
+// I: -
+// O: all users without password sorted
+// E: 408, 401
 router.get('/', verifyToken, async (req, res) => {
 	try {
-		const users = await User.find();
+		const users = await User.find({}, { password: 0 }).sort({ name: 1 });
 		res.json(users);
 	} catch (error) {
 		res.status(408).json({ message: error });
@@ -18,24 +22,40 @@ router.get('/', verifyToken, async (req, res) => {
 });
 
 /*POSTS*/
-// Register new user
-router.post('/register', async (req, res) => {
+
+// REGISTER NEW USER
+// I:
+/*
+	username: String,
+	name: String,
+	password: String,
+	isAdmin: Boolean
+*/
+// O: Saved user username
+// E: 408, 401
+router.post('/register', verifyToken, async (req, res) => {
 	const user = new User({
 		username: req.body.username,
 		name: req.body.name,
 		password: req.body.password,
 		isAdmin: req.body.isAdmin
-		// TODO: missing arguments
 	});
 	try {
 		const savedUser = await user.save();
-		res.json(savedUser);
+		res.json(savedUser.username);
 	} catch (error) {
 		res.status(408).json({ message: error });
 	}
 });
 
-// Log in user
+// LOGIN USER
+// I:
+/*
+	username: String,
+	password: String
+*/
+// O: Json Web Token
+// E: 400, 408, 500
 router.post('/login', async (req, res) => {
 	var user;
 	try {
