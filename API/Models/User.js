@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+const beautifyUnique = require('mongoose-beautiful-unique-validation');
+
+mongoose.set('useCreateIndex', true);
 
 const AccessibleSchemeSchema = mongoose.Schema(
 	{
@@ -14,7 +17,8 @@ const AccessibleSchemeSchema = mongoose.Schema(
 const UserSchema = mongoose.Schema({
 	username: {
 		type: String,
-		required: true
+		required: true,
+		unique: true
 	},
 	name: {
 		type: String,
@@ -30,9 +34,11 @@ const UserSchema = mongoose.Schema({
 	},
 	accessibleSchemes: {
 		type: [AccessibleSchemeSchema],
-		required: true,
+		required: false,
 		default: []
 	}
 });
+
+UserSchema.plugin(beautifyUnique);
 
 module.exports = mongoose.model('Users', UserSchema);
