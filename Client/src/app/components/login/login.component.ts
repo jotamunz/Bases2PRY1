@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private FlashMessagesService: FlashMessagesService
+    private flashMessagesService: FlashMessagesService
   ) {}
 
   ngOnInit(): void {
@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
 
     this.authService.authenticateUser(this.user).subscribe(
       (res) => {
+        console.log(1);
         this.authService.setAuthenticationToken(res.token);
 
         if (this.authService.getCurrentUser().isAdmin) {
@@ -48,21 +49,15 @@ export class LoginComponent implements OnInit {
         } else {
           this.router.navigateByUrl('/user/dashboard');
         }
-        this.FlashMessagesService.show('You´ve logged in succesfully!', {
+        this.flashMessagesService.show('You´ve logged in succesfully!', {
           cssClass: 'alert success-alert',
         });
       },
       (error) => {
-        this.FlashMessagesService.show(error.error.message, {
+        this.flashMessagesService.show(error.error.message, {
           cssClass: 'alert danger-alert',
         });
       }
     );
-
-    // Set Token setAuthenticationToken(token: string)
-
-    // TODO: Incluir auth service aqui
-    console.log(this.user.username);
-    console.log(this.user.password);
   }
 }
