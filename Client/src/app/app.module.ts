@@ -28,6 +28,7 @@ import { AuthService } from './services/auth.service';
 import { AuthAdminGuard } from './guards/authadmin.guard';
 import { AuthUserGuard } from './guards/authuser.guard';
 import { AddFormSchemeComponent } from './components/add-form-scheme/add-form-scheme.component';
+import { UserRegistrationComponent } from './components/user-registration/user-registration.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { AddFormSchemeComponent } from './components/add-form-scheme/add-form-sc
     UserDashboardComponent,
     AdminDashboardComponent,
     AddFormSchemeComponent,
+    UserRegistrationComponent,
   ],
 
   imports: [
