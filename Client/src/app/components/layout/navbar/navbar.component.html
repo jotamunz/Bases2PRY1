@@ -28,6 +28,50 @@
   <li *ngIf="this.isUserAuthenticated() && !this.isAdmin()">
     <a routerLink="/user/dashboard/"><i class="fa fa-cog"></i>My Inbox</a>
   </li>
+  <!-- ADMIN LINKS -->
+  <!-- User management -->
+  <li *ngIf="this.isUserAuthenticated() && this.isAdmin()" class="no-padding">
+    <ul class="collapsible collapsible-accordion">
+      <li>
+        <a class="collapsible-header"
+          >Users<i class="material-icons">arrow_drop_down</i></a
+        >
+        <div class="collapsible-body">
+          <ul>
+            <li>
+              <a routerLink="/admin/users"
+                ><i class="fa fa-user"></i> All users</a
+              >
+            </li>
+            <li>
+              <a routerLink="/admin/users/register"
+                ><i class="fa fa-plus"></i> Register new user</a
+              >
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </li>
+  <!-- Scheme management -->
+  <li *ngIf="this.isUserAuthenticated() && this.isAdmin()" class="no-padding">
+    <ul class="collapsible collapsible-accordion">
+      <li>
+        <a class="collapsible-header"
+          >Form Schemes<i class="material-icons">arrow_drop_down</i></a
+        >
+        <div class="collapsible-body">
+          <ul>
+            <li>
+              <a routerLink="/admin/schemes/assign"
+                ><i class="fa fa-link"></i> Assign schemes to users</a
+              >
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </li>
   <!-- Close navigation -->
   <li *ngIf="this.isUserAuthenticated()">
     <a href="#" (click)="onLogoutClick()"

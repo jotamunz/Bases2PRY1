@@ -25,17 +25,17 @@ const routes: Routes = [
     canActivate: [AuthAdminGuard],
   },
   {
-    path: 'admin/users/register',
-    component: UserRegistrationComponent,
-    canActivate: [AuthAdminGuard],
-  },
-  {
     path: 'admin/users',
     component: UsersComponent,
     canActivate: [AuthAdminGuard],
   },
   {
-    path: 'admin/:userId/edit',
+    path: 'admin/users/register',
+    component: UserRegistrationComponent,
+    canActivate: [AuthAdminGuard],
+  },
+  {
+    path: 'admin/users/:userId/edit',
     component: EditUserComponent,
     canActivate: [AuthAdminGuard],
   },
