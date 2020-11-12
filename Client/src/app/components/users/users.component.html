@@ -6,6 +6,7 @@
         <th>Username</th>
         <th>Name</th>
         <th>Edit</th>
+        <th>Assign Schemes</th>
       </tr>
     </thead>
     <tbody>
@@ -14,7 +15,12 @@
         <td>{{ user.username }}</td>
         <td>{{ user.name }}</td>
         <td>
-          <a class="btn btn-edit" routerLink="">Edit user</a>
+          <a routerLink="/admin/users/{{ user.username }}/edit">Edit user</a>
+        </td>
+        <td>
+          <a routerLink="/admin/users/{{ user.username }}/assignSchemes"
+            >Assign schemes</a
+          >
         </td>
       </tr>
     </tbody>

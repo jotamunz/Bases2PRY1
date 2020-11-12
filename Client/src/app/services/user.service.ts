@@ -42,4 +42,20 @@ export class UserService {
       },
     });
   }
+
+  /**
+   * Fetches a single user by username
+   * @param username The username of the user
+   */
+  public getUserByUsername(username: string): Observable<User> {
+    return this.httpClient.get<User>(
+      `http://localhost:3000/users/${username}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.authService.getToken()}`,
+        },
+      }
+    );
+  }
 }

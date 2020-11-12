@@ -35,14 +35,15 @@ const routes: Routes = [
     canActivate: [AuthAdminGuard],
   },
   {
-    path: 'admin/users/:userId/edit',
+    path: 'admin/users/:username/edit',
     component: EditUserComponent,
     canActivate: [AuthAdminGuard],
   },
   {
-    path: 'admin/schemes/assign',
+    path: 'admin/users/:username/assignSchemes',
     component: AssignSchemeToUserComponent,
     canActivate: [AuthAdminGuard],
+    pathMatch: 'full',
   },
 ];
 
