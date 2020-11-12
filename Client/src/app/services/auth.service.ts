@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
-
+import { Observable } from 'rxjs'
 import { User } from '../models/User';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class AuthService {
   private token: string;
   private jwtHelper: JwtHelperService;
 
-  constructor() {
+  constructor(private httpClient : HttpClient) {
     this.isAuthenticated = false;
     this.token = null;
     this.currentUser = {
@@ -77,5 +77,10 @@ export class AuthService {
 
   public getIsAuthenticated(): boolean {
     return this.isAuthenticated;
+  }
+
+  public authenticateUser(userInfo:User): Observable<any>
+  {
+    return this.httpClient.post("http://localhost:3000/users/login",userInfo,{headers:{"Content-Type":"application/json"}})
   }
 }

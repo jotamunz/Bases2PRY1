@@ -33,6 +33,7 @@ import { AuthService } from './services/auth.service';
 import { AuthAdminGuard } from './guards/authadmin.guard';
 import { AuthUserGuard } from './guards/authuser.guard';
 import { LayoutDynamicFormComponent } from './components/layout-dynamic-form/layout-dynamic-form.component';
+import { AddFormSchemeComponent } from './components/add-form-scheme/add-form-scheme.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { LayoutDynamicFormComponent } from './components/layout-dynamic-form/lay
     DynamicFormQuestionComponent,
     DynamicFormComponent,
     LayoutDynamicFormComponent,
+    AddFormSchemeComponent,
   ],
 
   imports: [
