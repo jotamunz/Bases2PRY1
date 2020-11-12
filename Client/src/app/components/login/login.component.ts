@@ -16,7 +16,16 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService, private router : Router, private FlashMessagesService : FlashMessagesService ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if(this.authService.getIsAuthenticated()){
+      if (this.authService.getCurrentUser().isAdmin){
+        this.router.navigateByUrl("/admin/dashboard")
+      }
+      else{
+        this.router.navigateByUrl("/user/dashboard")
+      }
+    }
+  }
 
   // @param User information
   // @returns Action event

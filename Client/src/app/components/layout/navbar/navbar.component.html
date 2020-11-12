@@ -24,14 +24,16 @@
 </div>
 <!-- Side navigation -->
 <ul class="sidenav" id="mobile-sidenav">
-  <li>
-    <a routerLink="/"><i class="fa fa-sign-in"></i>Login</a>
-  </li>
   <!-- USER LINKS -->
   <li *ngIf="this.isUserAuthenticated() && !this.isAdmin()">
     <a routerLink="/user/dashboard/"><i class="fa fa-cog"></i>My Inbox</a>
   </li>
   <!-- Close navigation -->
+  <li *ngIf="this.isUserAuthenticated()">
+    <a href="#" (click)="onLogoutClick()"
+      ><i class="fa fa-sign-out"></i> Logout</a
+    >
+  </li>
   <li>
     <a class="close-sidenav"><i class="fa fa-times"></i> Close</a>
   </li>
