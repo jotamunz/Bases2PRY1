@@ -24,9 +24,14 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
+              "src/styles.css",
+              "src/materialize/materialize.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/utils.js",
+              "src/materialize/materialize.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -88,7 +93,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
+              "src/styles.css",
+              "src/materialize.min.css"
             ],
             "scripts": []
           }
@@ -119,6 +126,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "Project-BD2"
+    }
+  },
+  "defaultProject": "Project-BD2",
+  "cli": {
+    "analytics": "e2e019d5-dd78-4b28-9776-c4c2abfd3062"
+  }
 }
