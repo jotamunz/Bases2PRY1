@@ -32,7 +32,7 @@ router.get('/', verifyToken, async (req, res) => {
 	isAdmin: Boolean
 */
 // O: Saved user username
-// E: 408, 401
+// E: 400, 408, 401
 router.post('/register', verifyToken, async (req, res) => {
 	const user = new User({
 		username: req.body.username,
@@ -44,7 +44,11 @@ router.post('/register', verifyToken, async (req, res) => {
 		const savedUser = await user.save();
 		res.json(savedUser.username);
 	} catch (error) {
-		res.status(408).json({ message: error });
+		if (error.message == 'Validation failed') {
+			res.status(400).json({ message: error });
+		} else {
+			res.status(408).json({ message: error });
+		}
 	}
 });
 
