@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { QuestionService } from '../../services/question.service';
-import { QuestionBase } from '../../models/question-base';
+import { QuestionService } from '../../../services/question.service';
+import { QuestionBase } from '../../../models/question-base';
 import { Observable } from 'rxjs';
 
 @Component({

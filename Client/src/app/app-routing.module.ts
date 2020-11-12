@@ -6,7 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
-import { LayoutDynamicFormComponent } from './components/layout-dynamic-form/layout-dynamic-form.component';
+import { LayoutDynamicFormComponent } from './components/Request-Forms-Components/layout-dynamic-form/layout-dynamic-form.component';
+import { UserRequestDashboardComponent } from './components/Request-Forms-Components/user-request-dashboard/user-request-dashboard.component';
 
 //SERVICES
 import { AuthUserGuard } from './guards/authuser.guard';
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'user/form/fill',
     component: LayoutDynamicFormComponent,
+  },
+  {
+    path: 'user/form/dashboard',
+    component: UserRequestDashboardComponent,
   },
 ];
 

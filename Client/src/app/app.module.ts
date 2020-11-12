@@ -25,15 +25,16 @@ import { LoginComponent } from './components/login/login.component';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { MatCardModule } from '@angular/material/card';
-import { DynamicFormQuestionComponent } from './components/dynamic-form-question/dynamic-form-question.component';
-import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
+import { DynamicFormQuestionComponent } from './components/Request-Forms-Components/dynamic-form-question/dynamic-form-question.component';
+import { DynamicFormComponent } from './components/Request-Forms-Components/dynamic-form/dynamic-form.component';
 
 // SERVICE MODULES
 import { AuthService } from './services/auth.service';
 import { AuthAdminGuard } from './guards/authadmin.guard';
 import { AuthUserGuard } from './guards/authuser.guard';
-import { LayoutDynamicFormComponent } from './components/layout-dynamic-form/layout-dynamic-form.component';
+import { LayoutDynamicFormComponent } from './components/Request-Forms-Components/layout-dynamic-form/layout-dynamic-form.component';
 import { AddFormSchemeComponent } from './components/add-form-scheme/add-form-scheme.component';
+import { UserRequestDashboardComponent } from './components/Request-Forms-Components/user-request-dashboard/user-request-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { AddFormSchemeComponent } from './components/add-form-scheme/add-form-sc
     DynamicFormComponent,
     LayoutDynamicFormComponent,
     AddFormSchemeComponent,
+    UserRequestDashboardComponent,
   ],
 
   imports: [
