@@ -27,21 +27,18 @@ export class UserRegistrationComponent implements OnInit {
   ngOnInit(): void {}
 
   public onSubmit(): void {
+    // TODO: Check for required fields
     // Register new user
-    console.log(this.user);
     this.userService.registerNewUser(this.user).subscribe(
       (newUser: User) => {
         this.flashMesagesService.show(`${this.user.name} has been registered`, {
           cssClass: 'alert success-alert',
         });
-        this.router.navigateByUrl('/admin/dashboard');
+        this.router.navigateByUrl('/admin/users');
       },
       (err) => {
-        // TODO: User validation
-        // Show error messages
-        this.flashMesagesService.show('Please fill in the form correctly', {
-          cssClass: 'alert danger-alert',
-        });
+        // TODO: Add repeated usernames validation
+        console.log(err);
       }
     );
   }

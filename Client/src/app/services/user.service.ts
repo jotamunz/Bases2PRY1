@@ -30,4 +30,16 @@ export class UserService {
       }
     );
   }
+
+  /**
+   * Gets all the current users
+   */
+  public getAllUsers(): Observable<User[]> {
+    return this.httpClient.get<User[]>('http://localhost:3000/users/', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.authService.getToken()}`,
+      },
+    });
+  }
 }

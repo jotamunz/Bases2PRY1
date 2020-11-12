@@ -1,1 +1,22 @@
-<p>users works!</p>
+<div class="container">
+  <h1><i class="fa fa-users"></i> Current users</h1>
+  <table class="striped">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Name</th>
+        <th>Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Show users -->
+      <tr *ngFor="let user of users">
+        <td>{{ user.username }}</td>
+        <td>{{ user.name }}</td>
+        <td>
+          <a class="btn btn-edit" routerLink="">Edit user</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
