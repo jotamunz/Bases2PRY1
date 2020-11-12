@@ -19,13 +19,22 @@ router.get('/', verifyToken, async (req, res) => {
 	}
 });
 
-// Gets schemes by Id
-router.get('/:schemeId', async (req, res) => {
+// GET SCHEME BY NAME
+// I: /name
+// O: all scheme information
+// E: 408, 401, 400
+router.get('/:name', verifyToken, async (req, res) => {
+	var scheme;
 	try {
-		const scheme = await Scheme.findById(req.params.schemeId);
-		res.json(scheme);
+		scheme = await Scheme.findOne({ name: req.params.name });
 	} catch (error) {
 		res.status(408).json({ message: error });
+	}
+	if (scheme == null) {
+		res.status(400).json({ message: 'No scheme found' });
+		return;
+	} else {
+		res.json(scheme);
 	}
 });
 
@@ -38,7 +47,7 @@ router.get('/:schemeId', async (req, res) => {
 	fields: []
 */
 // O: Saved scheme name
-// E: 400, 408, 401
+// E: 408, 401, 400
 router.post('/', verifyToken, async (req, res) => {
 	const scheme = new Scheme({
 		name: req.body.name,

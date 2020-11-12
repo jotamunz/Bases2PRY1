@@ -10,14 +10,42 @@ const router = express.Router();
 
 // GET ALL USERS
 // I: -
-// O: all users without password sorted
+// O: all users name and username sorted
 // E: 408, 401
 router.get('/', verifyToken, async (req, res) => {
 	try {
-		const users = await User.find({}, { password: 0 }).sort({ name: 1 });
+		const users = await User.find(
+			{},
+			{
+				name: 1,
+				username: 1
+			}
+		).sort({ name: 1 });
 		res.json(users);
 	} catch (error) {
 		res.status(408).json({ message: error });
+	}
+});
+
+// GET USER BY USERNAME
+// I: /username
+// O: all user information except password
+// E: 408, 401, 400
+router.get('/:username', verifyToken, async (req, res) => {
+	var user;
+	try {
+		user = await User.findOne(
+			{ username: req.params.username },
+			{ password: 0 }
+		);
+	} catch (error) {
+		res.status(408).json({ message: error });
+	}
+	if (user == null) {
+		res.status(400).json({ message: 'No user found' });
+		return;
+	} else {
+		res.json(user);
 	}
 });
 
@@ -32,7 +60,7 @@ router.get('/', verifyToken, async (req, res) => {
 	isAdmin: Boolean
 */
 // O: Saved user username
-// E: 400, 408, 401
+// E: 408, 401, 400
 router.post('/register', verifyToken, async (req, res) => {
 	const user = new User({
 		username: req.body.username,
@@ -59,7 +87,7 @@ router.post('/register', verifyToken, async (req, res) => {
 	password: String
 */
 // O: Json Web Token
-// E: 400, 408, 500
+// E: 408, 400, 500
 router.post('/login', async (req, res) => {
 	var user;
 	try {
