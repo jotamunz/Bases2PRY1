@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+const beautifyUnique = require('mongoose-beautiful-unique-validation');
+
+mongoose.set('useCreateIndex', true);
 
 const FieldSchema = mongoose.Schema(
 	{
@@ -25,12 +28,15 @@ const FieldSchema = mongoose.Schema(
 const SchemeSchema = mongoose.Schema({
 	name: {
 		type: String,
-		required: true
+		required: true,
+		unique: true
 	},
 	fields: {
 		type: [FieldSchema],
 		required: true
 	}
 });
+
+SchemeSchema.plugin(beautifyUnique);
 
 module.exports = mongoose.model('Schemes', SchemeSchema);

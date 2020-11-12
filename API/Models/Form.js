@@ -35,7 +35,6 @@ const ApproverSchema = mongoose.Schema(
 	{ _id: false }
 );
 
-
 const ApprovalRouteSchema = mongoose.Schema(
 	{
 		approvalRouteId: {
@@ -60,7 +59,6 @@ const ApprovalRouteSchema = mongoose.Schema(
 	},
 	{ _id: false }
 );
-
 
 const FormSchema = mongoose.Schema({
 	schemeId: {
@@ -89,7 +87,7 @@ const FormSchema = mongoose.Schema({
 	},
 	routes: {
 		type: [ApprovalRouteSchema],
-		required: true,
+		required: false,
 		default: []
 	}
 });

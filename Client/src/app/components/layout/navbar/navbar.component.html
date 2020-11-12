@@ -1,0 +1,40 @@
+<div class="navbar-fixed">
+  <!-- Navigation bar -->
+  <nav class="main-navbar">
+    <div class="container">
+      <div class="nav-wrapper">
+        <a routerLink="/" class="brand-logo center">
+          <i class="fa fa-list-alt" aria-hidden="true"></i
+          ><span>Form System</span>
+        </a>
+        <a
+          href="#"
+          data-target="mobile-sidenav"
+          class="sidenav-trigger show-on-large"
+          ><i class="fa fa-bars"></i
+        ></a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li *ngIf="this.isUserAuthenticated()">
+            Welcome {{ this.getCurrentUser().name }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+<!-- Side navigation -->
+<ul class="sidenav" id="mobile-sidenav">
+  <!-- USER LINKS -->
+  <li *ngIf="this.isUserAuthenticated() && !this.isAdmin()">
+    <a routerLink="/user/dashboard/"><i class="fa fa-cog"></i>My Inbox</a>
+  </li>
+  <!-- Close navigation -->
+  <li *ngIf="this.isUserAuthenticated()">
+    <a href="#" (click)="onLogoutClick()"
+      ><i class="fa fa-sign-out"></i> Logout</a
+    >
+  </li>
+  <li>
+    <a class="close-sidenav"><i class="fa fa-times"></i> Close</a>
+  </li>
+</ul>
