@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-
+import { FlashMessagesService } from 'angular2-flash-messages';
+import { Router } from '@angular/router';
 import { User } from '../../models/User';
 
 @Component({
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   public username: string;
   public password: string;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router : Router, private FlashMessagesService : FlashMessagesService ) {}
 
   ngOnInit(): void {}
 
@@ -25,6 +26,23 @@ export class LoginComponent implements OnInit {
       username: this.username,
       password: this.password,
     };
+    
+    this.authService.authenticateUser(this.user).subscribe(res => {
+      this.authService.setAuthenticationToken(res.token)
+      
+      if (this.authService.getCurrentUser().isAdmin){
+        this.router.navigateByUrl("/admin/dashboard")
+      }
+      else{
+        this.router.navigateByUrl("/user/dashboard")
+      }
+      this.FlashMessagesService.show("You´ve logged in succesfully!",{"cssClass": "alert success-alert"})
+    }, error =>{
+      this.FlashMessagesService.show(error.error.message
+      ,{"cssClass": "alert danger-alert"})
+    })
+
+    // Set Token setAuthenticationToken(token: string)
 
     // TODO: Incluir auth service aqui
     console.log(this.user.username);
