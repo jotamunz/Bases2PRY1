@@ -26,5 +26,6 @@ export class DynamicFormComponent implements OnInit {
   // Todo: submit data to MongoDB
   onSubmit() {
     this.payLoad = JSON.stringify(this.form.getRawValue());
+    console.log(this.payLoad);
   }
 }

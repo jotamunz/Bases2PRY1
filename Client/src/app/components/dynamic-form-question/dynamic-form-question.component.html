@@ -1,29 +1,29 @@
-<html class="backg">
-  <!-- Question value rendering -->
-  <div [formGroup]="form">
-    <label [attr.for]="question.key">{{ question.label }}</label>
+<!-- Question value rendering -->
+<div [formGroup]="form">
+  <label [attr.for]="question.key">{{ question.label }}</label>
 
-    <div [ngSwitch]="question.controlType">
+  <div [ngSwitch]="question.controlType">
+    <div *ngSwitchCase="'textbox'">
       <input
-        *ngSwitchCase="'textbox'"
         [formControlName]="question.key"
         [id]="question.key"
         [type]="question.type"
       />
-      <div *ngSwitchCase="'dropdown'">
-        <mat-form-field appearance="fill">
-          <mat-label class="color1">Options</mat-label>
-          <mat-select [id]="question.key" [formControlName]="question.key">
-            <mat-option *ngFor="let opt of question.options" [value]="opt.key">
-              {{ opt.value }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+    </div>
 
-      <div class="errorMessage" *ngIf="!isValid">
-        {{ question.label }} is required
-      </div>
+    <div *ngSwitchCase="'dropdown'">
+      <mat-form-field appearance="fill">
+        <mat-label class="color1">Options</mat-label>
+        <mat-select [id]="question.key" [formControlName]="question.key">
+          <mat-option *ngFor="let opt of question.options" [value]="opt.key">
+            {{ opt.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="errorMessage" *ngIf="!isValid">
+      {{ question.label }} is required
     </div>
   </div>
-</html>
+</div>

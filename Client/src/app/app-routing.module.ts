@@ -25,7 +25,7 @@ const routes: Routes = [
     canActivate: [AuthAdminGuard],
   },
   {
-    path: 'user/form/view',
+    path: 'user/form/fill',
     component: LayoutDynamicFormComponent,
   },
 ];

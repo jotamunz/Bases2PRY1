@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import { DropdownQuestion } from '../models/question-dropdown';
+//import { DropdownQuestion } from '../models/question-dropdown';
 import { QuestionBase } from '../models/question-base';
-import { TextboxQuestion } from '../models/question-textbox';
+//import { TextboxQuestion } from '../models/question-textbox';
 import { of } from 'rxjs';
 
 @Injectable({
@@ -20,7 +20,7 @@ export class QuestionService {
 
   getQuestions() {
     const questions: QuestionBase<string>[] = [
-      new DropdownQuestion({
+      new QuestionBase<string>({
         key: 'brave',
         label: 'Bravery Rating',
         options: [
@@ -29,25 +29,25 @@ export class QuestionService {
           { key: 'good', value: 'Good' },
           { key: 'unproven', value: 'Unproven' },
         ],
-        order: 3,
+        controlType: 'dropdown',
       }),
 
-      new TextboxQuestion({
+      new QuestionBase<string>({
         key: 'firstName',
         label: 'First name',
-        value: 'Bombasto',
-        required: true,
-        order: 1,
+        type: 'email',
+        controlType: 'textbox',
       }),
 
-      new TextboxQuestion({
+      new QuestionBase<string>({
         key: 'emailAddress',
         label: 'Email',
         type: 'email',
-        order: 2,
+        controlType: 'textbox',
       }),
     ];
 
-    return of(questions.sort((a, b) => a.order - b.order));
+    // return of(questions.sort((a, b) => a.order - b.order));
+    return of(questions);
   }
 }
