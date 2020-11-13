@@ -6,7 +6,7 @@ export interface User {
   isAdmin?: boolean;
   accessibleSchemes?: [
     {
-      schemeName: string;
+      schemeId: string;
     }
   ];
 }

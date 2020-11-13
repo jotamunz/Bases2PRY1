@@ -41,7 +41,7 @@ export class AssignSchemeToUserComponent implements OnInit {
           // Map to items in form
           this.schemeItems = schemes.map((scheme) => {
             // Check if user has it
-            if (this.checkIfInUserSchemes(scheme.name)) {
+            if (this.checkIfInUserSchemes(scheme._id)) {
               return {
                 checked: true,
                 name: scheme.name,
@@ -61,10 +61,10 @@ export class AssignSchemeToUserComponent implements OnInit {
    * Checks if scheme exists in the user
    * @param schemeId The scheme id to search for
    */
-  private checkIfInUserSchemes(schemeName: string): boolean {
+  private checkIfInUserSchemes(schemeId: string): boolean {
     let isInUser: boolean = false;
     for (let scheme of this.user.accessibleSchemes) {
-      if (scheme.schemeName === schemeName) {
+      if (scheme.schemeId === schemeId) {
         isInUser = true;
         break;
       }
