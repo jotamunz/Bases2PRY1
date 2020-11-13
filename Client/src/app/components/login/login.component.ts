@@ -14,15 +14,18 @@ export class LoginComponent implements OnInit {
   public username: string;
   public password: string;
 
-  constructor(private authService: AuthService, private router : Router, private FlashMessagesService : FlashMessagesService ) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private flashMessagesService: FlashMessagesService
+  ) {}
 
   ngOnInit(): void {
-    if(this.authService.getIsAuthenticated()){
-      if (this.authService.getCurrentUser().isAdmin){
-        this.router.navigateByUrl("/admin/dashboard")
-      }
-      else{
-        this.router.navigateByUrl("/user/dashboard")
+    if (this.authService.getIsAuthenticated()) {
+      if (this.authService.getCurrentUser().isAdmin) {
+        this.router.navigateByUrl('/admin/dashboard');
+      } else {
+        this.router.navigateByUrl('/user/dashboard');
       }
     }
   }
@@ -35,26 +38,26 @@ export class LoginComponent implements OnInit {
       username: this.username,
       password: this.password,
     };
-    
-    this.authService.authenticateUser(this.user).subscribe(res => {
-      this.authService.setAuthenticationToken(res.token)
-      
-      if (this.authService.getCurrentUser().isAdmin){
-        this.router.navigateByUrl("/admin/dashboard")
-      }
-      else{
-        this.router.navigateByUrl("/user/dashboard")
-      }
-      this.FlashMessagesService.show("You´ve logged in succesfully!",{"cssClass": "alert success-alert"})
-    }, error =>{
-      this.FlashMessagesService.show(error.error.message
-      ,{"cssClass": "alert danger-alert"})
-    })
 
-    // Set Token setAuthenticationToken(token: string)
+    this.authService.authenticateUser(this.user).subscribe(
+      (res) => {
+        console.log(1);
+        this.authService.setAuthenticationToken(res.token);
 
-    // TODO: Incluir auth service aqui
-    console.log(this.user.username);
-    console.log(this.user.password);
+        if (this.authService.getCurrentUser().isAdmin) {
+          this.router.navigateByUrl('/admin/dashboard');
+        } else {
+          this.router.navigateByUrl('/user/dashboard');
+        }
+        this.flashMessagesService.show('You´ve logged in succesfully!', {
+          cssClass: 'alert success-alert',
+        });
+      },
+      (error) => {
+        this.flashMessagesService.show(error.error.message, {
+          cssClass: 'alert danger-alert',
+        });
+      }
+    );
   }
 }

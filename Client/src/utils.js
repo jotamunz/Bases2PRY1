@@ -1,5 +1,6 @@
 function $initializeComponents() {
   $(".sidenav").sidenav();
+  $(".collapsible").collapsible();
 }
 
 function $closeSideNav() {
@@ -11,5 +12,5 @@ $(document).ready(() => {
   $initializeComponents();
   // Event listeners
   $(".close-sidenav").on("click", $closeSideNav);
-  $("ul.sidenav li a").on("click", $closeSideNav);
+  // $("ul.sidenav li a").on("click", $closeSideNav);
 });
