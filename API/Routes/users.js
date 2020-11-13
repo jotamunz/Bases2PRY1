@@ -31,13 +31,13 @@ router.get('/', verifyToken, async (req, res) => {
 
 // GET USER BY USERNAME
 // I: /username
-// O: all user information except password
+// O: all user information
 // E: 408, 401, 400
 router.get('/:username', verifyToken, async (req, res) => {
 	try {
 		const user = await User.findOne(
 			{ username: req.params.username },
-			{ _id: 0, password: 0 }
+			{ _id: 0 }
 		);
 		if (user == null) {
 			res.status(400).json({ message: 'Specified user not found' });
@@ -121,35 +121,34 @@ router.post('/login', async (req, res) => {
 // I:
 /*
 	username: String,
-	schemaName: String
+	accessibleSchemes: [
+		name: String
+	]
 */
-// O: An array with the users new accesible schemas
+// O: Updated user username
 // E: 408, 401, 400
-router.patch('/addSchemas', verifyToken, async (req, res) => {
+router.patch('/addSchemes', verifyToken, async (req, res) => {
 	try {
 		const user = await User.findOne({ username: req.body.username });
 		if (user == null) {
 			res.status(400).json({ message: 'Specified user not found' });
 			return;
 		}
-		const scheme = await Scheme.findOne({ name: req.body.schemeName });
-		if (scheme == null || scheme.isActive == false) {
-			res.status(400).json({ message: 'Specified schema not found' });
-			return;
+		let newAccessibleSchemes = [];
+		for (let key in req.body.accessibleSchemes) {
+			if (req.body.accessibleSchemes.hasOwnProperty(key)) {
+				schemeName = req.body.accessibleSchemes[key];
+				let scheme = await Scheme.findOne({ name: schemeName.name });
+				if (scheme == null || scheme.isActive == false) {
+					res.status(400).json({ message: 'Specified scheme not found' });
+					return;
+				}
+				newAccessibleSchemes.push({ schemeId: scheme._id });
+			}
 		}
-		const schemeExists = await User.findOne({
-			username: req.body.username,
-			accessibleSchemes: { $elemMatch: { schemeId: scheme._id } }
-		});
-		if (schemeExists != null) {
-			res
-				.status(400)
-				.json({ message: 'User already has access to the specified scheme' });
-			return;
-		}
-		user.accessibleSchemes.push({ schemeId: scheme._id });
+		user.accessibleSchemes = newAccessibleSchemes;
 		const updatedUser = await user.save();
-		res.json({ accessibleSchemes: updatedUser.accessibleSchemes });
+		res.json({ accessibleSchemesTotal: updatedUser.accessibleSchemes.length });
 	} catch (error) {
 		res.status(408).json({ message: error });
 	}
