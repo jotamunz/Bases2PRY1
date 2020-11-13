@@ -29,17 +29,31 @@ export class UserRegistrationComponent implements OnInit {
   public onSubmit(): void {
     // TODO: Check for required fields
     // Register new user
-    this.userService.registerNewUser(this.user).subscribe(
-      (newUser: User) => {
-        this.flashMesagesService.show(`${this.user.name} has been registered`, {
-          cssClass: 'alert success-alert',
-        });
-        this.router.navigateByUrl('/admin/users');
-      },
-      (err) => {
-        // TODO: Add repeated usernames validation
-        console.log(err);
-      }
-    );
+
+    if( this.user.name == "" || this.user.password == "" || this.user.username == "" ){
+      this.flashMesagesService.show("Invalid spaces", {
+        cssClass: 'alert danger-alert',
+      })
+    }
+
+    else {  
+      this.userService.registerNewUser(this.user).subscribe(
+        (newUser: User) => {
+          this.flashMesagesService.show(`${this.user.name} has been registered`, {
+            cssClass: 'alert success-alert',
+          });
+          this.router.navigateByUrl('/admin/users');
+        },
+        (err) => {
+          this.flashMesagesService.show(err.error.message, {
+            cssClass: 'alert danger-alert',
+          })
+        }
+      );
+    }
+  
+
+
+
   }
 }

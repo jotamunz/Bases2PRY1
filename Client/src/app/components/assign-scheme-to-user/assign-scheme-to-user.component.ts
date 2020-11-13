@@ -72,8 +72,34 @@ export class AssignSchemeToUserComponent implements OnInit {
     return isInUser;
   }
 
+  private getSelectedSchemes() : any {
+    let selectedSchemes : any[] = [] 
+    this.schemeItems.forEach(scheme => {
+      if(scheme.checked){
+        selectedSchemes.push({name : scheme.name})
+      }
+    });
+    return {username : this.user.username, accessibleSchemes: selectedSchemes}
+  }
+
   public onSubmit(): void {
     // TODO: Submit form
-    console.log(this.schemeItems);
+    let selectedSchemes : any =  this.getSelectedSchemes();  
+    console.log(selectedSchemes);
+
+    this.userService.editUserSchemas(selectedSchemes).subscribe(
+      response => {
+        this.flashMessagesService.show(`${this.user.name} has been updated`, {
+          cssClass: 'alert success-alert',
+        });
+        this.router.navigateByUrl('/admin/users');
+      },
+      (err) => {
+        this.flashMessagesService.show(err.error.message, {
+          cssClass: 'alert danger-alert',
+        })
+      }
+    );
+    
   }
 }

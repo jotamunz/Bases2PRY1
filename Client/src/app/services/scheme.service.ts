@@ -25,4 +25,19 @@ export class SchemeService {
       },
     });
   }
+
+  /**
+   * Get single scheme with fields
+   */
+  public getCompleteScheme(schemeName: string): Observable<Scheme> {
+    return this.httpClient.get<Scheme>(
+      `http://localhost:3000/schemes/${schemeName}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.authService.getToken()}`,
+        },
+      }
+    );
+  }
 }
