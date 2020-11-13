@@ -49,9 +49,10 @@ router.get('/:name', verifyToken, async (req, res) => {
 /*
 	name: String,
 	fields: [
-		name: String
-		expectType: String
-		component: String
+		name: String,
+		label: String,
+		expectType: String,
+		component: String,
 		displayables: Mixed
 	]
 */
