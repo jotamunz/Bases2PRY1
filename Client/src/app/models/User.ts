@@ -4,4 +4,11 @@ export interface User {
   name?: string;
   password?: string;
   isAdmin?: boolean;
+  accessibleSchemes?: [
+    {
+      schemeId: string;
+    }
+  ];
 }
+
+export default User;

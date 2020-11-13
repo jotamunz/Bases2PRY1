@@ -1,0 +1,28 @@
+<div class="container">
+  <h1><i class="fa fa-users"></i> Current users</h1>
+  <table class="striped">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Name</th>
+        <th>Edit</th>
+        <th>Assign Schemes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Show users -->
+      <tr *ngFor="let user of users">
+        <td>{{ user.username }}</td>
+        <td>{{ user.name }}</td>
+        <td>
+          <a routerLink="/admin/users/{{ user.username }}/edit">Edit user</a>
+        </td>
+        <td>
+          <a routerLink="/admin/users/{{ user.username }}/assignSchemes"
+            >Assign schemes</a
+          >
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
