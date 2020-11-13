@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const verifyToken = require('../Middleware/verifyToken');
 require('dotenv/config');
 const User = require('../models/User');
+const Scheme = require('../models/Scheme');
 
 const router = express.Router();
 
@@ -117,5 +118,97 @@ router.post('/login', async (req, res) => {
 		);
 	}
 });
+
+
+/*PATCH*/
+
+// ASSIGN SCHEMA TO USER
+// I:
+/*
+	username: String,
+	schemaName: String
+*/
+// O: An array with the users new accesible schemas 
+// E: 408, 400
+router.patch('/assign', verifyToken, async (req, res) => {
+	var user;
+	var scheme;
+	var result;
+	var validation;
+	try {
+		user = await User.findOne(
+			{ username: req.body.username },
+		);
+		if (user == null) {
+			res.status(400).json({ message: 'Specified user not found' });
+			return;
+		};
+		scheme = await Scheme.findOne(
+			{ name : req.body.schemeName },
+		);
+		if (scheme == null || scheme.isActive == false) {
+			res.status(400).json({ message: 'Specified schema not found' });
+			return;
+		};
+		validation = await User.findOne(
+			{ username: req.body.username, accessibleSchemes: {$elemMatch: { schemeId: (scheme._id)}}}
+		);
+		if (validation != null) {
+			res.status(400).json({ message: 'User already has acces to the specified scheme' });
+			return;
+		}
+		user.accessibleSchemes.push ( {schemeId: (scheme._id)});
+		result = await user.save();
+		res.status(200).json({accesibleSchemes: user.accessibleSchemes});
+		return;
+	} catch (error) {
+		res.status(408).json({ message: error });
+	}
+});
+
+
+// UPDATE USER
+// I:
+/*
+	oldUsername: String,
+	newUsername: String, (same as oldUsername if username wasnt modified)
+	name: String,
+	password: String
+	isAdmin: Boolean
+*/
+// O: Updated user
+// E: 408, 400
+router.patch('/update', async (req, res) => {
+	var user;
+	var result;
+	try {
+		user = await User.findOne(
+			{ username: req.body.oldUsername},
+		);
+		if (user == null) {
+			res.status(400).json({ message: 'Specified user not found' });
+			return;
+		};
+		user.username = req.body.newUsername;
+		user.name = req.body.name;
+		user.password = req.body.password;
+		user.isAdmin = req.body.isAdmin;
+		result = await user.save();
+		res.status(200).json({
+			username: req.body.newUsername,
+			name: user.name,
+			password: user.password,
+			isAdmin: user.isAdmin 
+		});
+		return;
+	} catch (error) {
+		if (error.message == 'Validation failed') {
+			res.status(400).json({ message: "The new username is already taken" });
+		} else {
+			res.status(408).json({ message: error });
+		}
+	}
+});
+
 
 module.exports = router;
