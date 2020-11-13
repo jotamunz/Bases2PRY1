@@ -44,7 +44,12 @@ router.get('/:name', verifyToken, async (req, res) => {
 // I:
 /*
 	name: String,
-	fields: []
+	fields: [
+			name: String
+		expectType: String
+		component: String
+		displayables: Anything
+	]
 */
 // O: Saved scheme name
 // E: 408, 401, 400
