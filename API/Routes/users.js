@@ -31,11 +31,11 @@ router.get('/', verifyToken, async (req, res) => {
 
 // GET USER BY USERNAME
 // I: /username
-// O: all user information, with scheme object ID translated to scheme name
+// O: all user information, with accessible schemes object ID translated to scheme name
 // E: 408, 401, 400
 router.get('/:username', verifyToken, async (req, res) => {
 	try {
-		var user = await User.findOne(
+		const user = await User.findOne(
 			{ username: req.params.username },
 			{ _id: 0 }
 		);
@@ -43,7 +43,28 @@ router.get('/:username', verifyToken, async (req, res) => {
 			res.status(400).json({ message: 'Specified user not found' });
 			return;
 		}
-		res.json(user);
+		let accessibleSchemesNames = [];
+		for (let key in user.accessibleSchemes) {
+			if (user.accessibleSchemes.hasOwnProperty(key)) {
+				schemeId = user.accessibleSchemes[key];
+				let schemeName = await Scheme.findOne(
+					{ _id: schemeId.schemeId },
+					{ _id: 0, name: 1 }
+				);
+				if (schemeName == null) {
+					res.status(400).json({ message: 'Specified scheme not found' });
+					return;
+				}
+				accessibleSchemesNames.push(schemeName);
+			}
+		}
+		res.json({
+			username: user.username,
+			name: user.name,
+			password: user.password,
+			isAdmin: user.isAdmin,
+			accessibleSchemes: accessibleSchemesNames
+		});
 	} catch (error) {
 		res.status(408).json({ message: error });
 	}
@@ -117,7 +138,7 @@ router.post('/login', async (req, res) => {
 
 /*PATCHES*/
 
-// ASSIGN SCHEMAS TO USER
+// ASSIGN SCHEMES TO USER
 // I:
 /*
 	username: String,
