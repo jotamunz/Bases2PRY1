@@ -2,11 +2,17 @@
   <h1><i class="fa fa-envelope"></i> My Forms</h1>
   <p>Here are templates of forms for your requests</p>
   <!-- Pending documents -->
-  <div class="card" *ngFor="let document of pendingDocuments">
+  <div class="card" *ngFor="let document of schemeItems">
     <div class="card-content">
       <span class="card-title">{{ document.name }}</span>
-      <p><strong>Date submitted: </strong> {{ document.date | date }}</p>
-      <a href="#" class="btn grey btn-block darken-2">Request</a>
+      <a
+        href="#"
+        class="btn grey btn-block darken-2"
+        (click)="onSubmit()"
+        routerLink="{{ document.name }}/fill"
+      >
+        Request
+      </a>
     </div>
   </div>
 </div>

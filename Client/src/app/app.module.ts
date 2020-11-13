@@ -32,7 +32,7 @@ import { UserRegistrationComponent } from './components/user-registration/user-r
 import { UsersComponent } from './components/users/users.component';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
 import { AssignSchemeToUserComponent } from './components/assign-scheme-to-user/assign-scheme-to-user.component';
-
+import { UserRequestDashboardComponent } from './components/Request-Forms-Components/user-request-dashboard/user-request-dashboard.component';
 // SERVICE MODULES
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
@@ -53,6 +53,7 @@ import { AuthUserGuard } from './guards/authuser.guard';
     UsersComponent,
     EditUserComponent,
     AssignSchemeToUserComponent,
+    UserRequestDashboardComponent,
   ],
 
   imports: [

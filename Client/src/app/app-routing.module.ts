@@ -30,12 +30,13 @@ const routes: Routes = [
     canActivate: [AuthAdminGuard],
   },
   {
-    path: 'user/form/fill',
+    path: 'user/form/dashboard/:schemeName/fill',
     component: LayoutDynamicFormComponent,
   },
   {
     path: 'user/form/dashboard',
     component: UserRequestDashboardComponent,
+    canActivate: [AuthAdminGuard],
   },
   {
     path: 'admin/users',
