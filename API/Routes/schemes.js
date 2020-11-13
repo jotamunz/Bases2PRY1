@@ -14,7 +14,7 @@ router.get('/', verifyToken, async (req, res) => {
 	try {
 		const scheme = await Scheme.find(
 			{ isActive: true },
-			{ _id: 0, name: 1 }
+			{name: 1 }
 		).sort({ name: 1 });
 		res.json(scheme);
 	} catch (error) {
