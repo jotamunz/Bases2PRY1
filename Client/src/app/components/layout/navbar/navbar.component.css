@@ -2,6 +2,11 @@
   background-color: var(--dark-primary-color);
 }
 
+.collapsible-body li a {
+  background-color: var(--dark-color);
+  color: var(--light-color);
+}
+
 .sidenav {
   background-color: var(--dark-color);
 }
