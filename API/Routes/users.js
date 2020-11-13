@@ -31,11 +31,11 @@ router.get('/', verifyToken, async (req, res) => {
 
 // GET USER BY USERNAME
 // I: /username
-// O: all user information
+// O: all user information, with scheme object ID translated to scheme name
 // E: 408, 401, 400
 router.get('/:username', verifyToken, async (req, res) => {
 	try {
-		const user = await User.findOne(
+		var user = await User.findOne(
 			{ username: req.params.username },
 			{ _id: 0 }
 		);
@@ -115,9 +115,9 @@ router.post('/login', async (req, res) => {
 	}
 });
 
-/*PATCH*/
+/*PATCHES*/
 
-// ASSIGN SCHEMA TO USER
+// ASSIGN SCHEMAS TO USER
 // I:
 /*
 	username: String,
@@ -125,7 +125,7 @@ router.post('/login', async (req, res) => {
 		name: String
 	]
 */
-// O: Updated user username
+// O: Updated total of accessible schemes for the user
 // E: 408, 401, 400
 router.patch('/addSchemes', verifyToken, async (req, res) => {
 	try {
