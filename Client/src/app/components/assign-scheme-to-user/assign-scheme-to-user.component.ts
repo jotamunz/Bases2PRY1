@@ -41,7 +41,7 @@ export class AssignSchemeToUserComponent implements OnInit {
           // Map to items in form
           this.schemeItems = schemes.map((scheme) => {
             // Check if user has it
-            if (this.checkIfInUserSchemes(scheme._id)) {
+            if (this.checkIfInUserSchemes(scheme.name)) {
               return {
                 checked: true,
                 name: scheme.name,
@@ -61,10 +61,10 @@ export class AssignSchemeToUserComponent implements OnInit {
    * Checks if scheme exists in the user
    * @param schemeId The scheme id to search for
    */
-  private checkIfInUserSchemes(schemeId: string): boolean {
+  private checkIfInUserSchemes(schemeName: string): boolean {
     let isInUser: boolean = false;
     for (let scheme of this.user.accessibleSchemes) {
-      if (scheme.schemeId === schemeId) {
+      if (scheme.schemeName === schemeName) {
         isInUser = true;
         break;
       }
@@ -72,8 +72,34 @@ export class AssignSchemeToUserComponent implements OnInit {
     return isInUser;
   }
 
+  private getSelectedSchemes() : any {
+    let selectedSchemes : any[] = [] 
+    this.schemeItems.forEach(scheme => {
+      if(scheme.checked){
+        selectedSchemes.push({name : scheme.name})
+      }
+    });
+    return {username : this.user.username, accessibleSchemes: selectedSchemes}
+  }
+
   public onSubmit(): void {
     // TODO: Submit form
-    console.log(this.schemeItems);
+    let selectedSchemes : any =  this.getSelectedSchemes();  
+    console.log(selectedSchemes);
+
+    this.userService.editUserSchemas(selectedSchemes).subscribe(
+      response => {
+        this.flashMessagesService.show(`${this.user.name} has been updated`, {
+          cssClass: 'alert success-alert',
+        });
+        this.router.navigateByUrl('/admin/users');
+      },
+      (err) => {
+        this.flashMessagesService.show(err.error.message, {
+          cssClass: 'alert danger-alert',
+        })
+      }
+    );
+    
   }
 }
