@@ -12,7 +12,7 @@ const router = express.Router();
 // E: 408, 401
 router.get('/', verifyToken, async (req, res) => {
 	try {
-		const scheme = await Scheme.find({}, { name: 1 }).sort({ name: 1 });
+		const scheme = await Scheme.find({isActive: true}, { name: 1, _id: 0 }).sort({ name: 1 });
 		res.json(scheme);
 	} catch (error) {
 		res.status(408).json({ message: error });
@@ -26,7 +26,7 @@ router.get('/', verifyToken, async (req, res) => {
 router.get('/:name', verifyToken, async (req, res) => {
 	var scheme;
 	try {
-		scheme = await Scheme.findOne({ name: req.params.name });
+		scheme = await Scheme.findOne({ name: req.params.name }, {_id: 0});
 	} catch (error) {
 		res.status(408).json({ message: error });
 	}
@@ -44,7 +44,12 @@ router.get('/:name', verifyToken, async (req, res) => {
 // I:
 /*
 	name: String,
-	fields: []
+	fields: [
+			name: String
+		expectType: String
+		component: String
+		displayables: Anything
+	]
 */
 // O: Saved scheme name
 // E: 408, 401, 400
