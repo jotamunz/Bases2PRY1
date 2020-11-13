@@ -30,12 +30,38 @@ export class EditUserComponent implements OnInit {
       const { username } = params;
       this.userService.getUserByUsername(username).subscribe((user: User) => {
         this.user = user;
+        this.user.password = "";
       });
     });
   }
 
   onSubmit(): void {
-    // TODO: Update user (PUT)
-    // TODO: Form validations
+    // TODO: Ver caso passwords
+    if( this.user.name == "" || this.user.password == "" || this.user.username == "" ){
+      this.flashMessagesService.show("Invalid spaces", {
+        cssClass: 'alert danger-alert',
+      })
+    }
+    else{
+      this.userService.editUser({
+        oldUsername : this.user.username,
+        newUsername : this.user.username,
+        name : this.user.name,
+        password : this.user.password,
+        isAdmin : this.user.isAdmin}).subscribe(response =>{
+
+          this.flashMessagesService.show(`${this.user.username} has been modified succesfully`, {
+            cssClass: 'alert success-alert',
+          });
+          this.router.navigateByUrl('/admin/users');
+        },
+
+        (err) => {
+          console.log(err.error.message)
+          this.flashMessagesService.show(err.error.message.message, {
+            cssClass: 'alert danger-alert',
+          })
+        })
+    }
   }
 }
