@@ -1,6 +1,6 @@
-const express = require("express");
-const verifyToken = require("../Middleware/verifyToken");
-const Scheme = require("../models/Scheme");
+const express = require('express');
+const verifyToken = require('../Middleware/verifyToken');
+const Scheme = require('../models/Scheme');
 
 const router = express.Router();
 
@@ -14,7 +14,7 @@ router.get('/', verifyToken, async (req, res) => {
 	try {
 		const scheme = await Scheme.find(
 			{ isActive: true },
-			{name: 1 }
+			{ _id: 0, name: 1 }
 		).sort({ name: 1 });
 		res.json(scheme);
 	} catch (error) {
