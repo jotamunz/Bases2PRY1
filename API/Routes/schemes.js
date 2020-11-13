@@ -26,7 +26,7 @@ router.get('/', verifyToken, async (req, res) => {
 router.get('/:name', verifyToken, async (req, res) => {
 	var scheme;
 	try {
-		scheme = await Scheme.findOne({ name: req.params.name });
+		scheme = await Scheme.findOne({ name: req.params.name }, {_id: 0});
 	} catch (error) {
 		res.status(408).json({ message: error });
 	}

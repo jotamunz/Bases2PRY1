@@ -121,6 +121,7 @@ router.post('/login', async (req, res) => {
 
 
 /*PATCH*/
+
 // ASSIGN SCHEMA TO USER
 // I:
 /*
@@ -162,6 +163,50 @@ router.patch('/assign', verifyToken, async (req, res) => {
 		return;
 	} catch (error) {
 		res.status(408).json({ message: error });
+	}
+});
+
+
+// UPDATE USER
+// I:
+/*
+	oldUsername: String,
+	newUsername: String, (same as oldUsername if username wasnt modified)
+	name: String,
+	password: String
+	isAdmin: Boolean
+*/
+// O: Updated user
+// E: 408, 400
+router.patch('/update', async (req, res) => {
+	var user;
+	var result;
+	try {
+		user = await User.findOne(
+			{ username: req.body.oldUsername},
+		);
+		if (user == null) {
+			res.status(400).json({ message: 'Specified user not found' });
+			return;
+		};
+		user.username = req.body.newUsername;
+		user.name = req.body.name;
+		user.password = req.body.password;
+		user.isAdmin = req.body.isAdmin;
+		result = await user.save();
+		res.status(200).json({
+			username: req.body.newUsername,
+			name: user.name,
+			password: user.password,
+			isAdmin: user.isAdmin 
+		});
+		return;
+	} catch (error) {
+		if (error.message == 'Validation failed') {
+			res.status(400).json({ message: "The new username is already taken" });
+		} else {
+			res.status(408).json({ message: error });
+		}
 	}
 });
 
