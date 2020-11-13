@@ -115,9 +115,9 @@ router.post('/login', async (req, res) => {
 	}
 });
 
-/*PATCH*/
+/*PATCHES*/
 
-// ASSIGN SCHEMA TO USER
+// ASSIGN SCHEMAS TO USER
 // I:
 /*
 	username: String,
@@ -125,7 +125,7 @@ router.post('/login', async (req, res) => {
 		name: String
 	]
 */
-// O: Updated user username
+// O: Updated total of accessible schemes for the user
 // E: 408, 401, 400
 router.patch('/addSchemes', verifyToken, async (req, res) => {
 	try {
