@@ -12,7 +12,7 @@ const router = express.Router();
 // E: 408, 401
 router.get('/', verifyToken, async (req, res) => {
 	try {
-		const scheme = await Scheme.find({}, { name: 1 }).sort({ name: 1 });
+		const scheme = await Scheme.find({isActive: true}, { name: 1, _id: 0 }).sort({ name: 1 });
 		res.json(scheme);
 	} catch (error) {
 		res.status(408).json({ message: error });
