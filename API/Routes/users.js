@@ -18,6 +18,7 @@ router.get('/', verifyToken, async (req, res) => {
 		const users = await User.find(
 			{},
 			{
+				_id: 0,
 				name: 1,
 				username: 1
 			}
@@ -30,23 +31,21 @@ router.get('/', verifyToken, async (req, res) => {
 
 // GET USER BY USERNAME
 // I: /username
-// O: all user information except password
+// O: all user information
 // E: 408, 401, 400
 router.get('/:username', verifyToken, async (req, res) => {
-	var user;
 	try {
-		user = await User.findOne(
+		const user = await User.findOne(
 			{ username: req.params.username },
-			{ password: 0 }
+			{ _id: 0 }
 		);
+		if (user == null) {
+			res.status(400).json({ message: 'Specified user not found' });
+			return;
+		}
+		res.json(user);
 	} catch (error) {
 		res.status(408).json({ message: error });
-	}
-	if (user == null) {
-		res.status(400).json({ message: 'No user found' });
-		return;
-	} else {
-		res.json(user);
 	}
 });
 
@@ -71,10 +70,10 @@ router.post('/register', verifyToken, async (req, res) => {
 	});
 	try {
 		const savedUser = await user.save();
-		res.json(savedUser.username);
+		res.json({ username: savedUser.username });
 	} catch (error) {
 		if (error.message == 'Validation failed') {
-			res.status(400).json({ message: error });
+			res.status(400).json({ message: 'Username is unavailable' });
 		} else {
 			res.status(408).json({ message: error });
 		}
@@ -90,82 +89,70 @@ router.post('/register', verifyToken, async (req, res) => {
 // O: Json Web Token
 // E: 408, 400, 500
 router.post('/login', async (req, res) => {
-	var user;
 	try {
-		user = await User.findOne({
+		const user = await User.findOne({
 			username: req.body.username,
 			password: req.body.password
 		});
-	} catch (error) {
-		res.status(408).json({ message: error });
-		return;
-	}
-	if (user == null) {
-		res.status(400).json({ message: 'Incorrect user or password' });
-		return;
-	} else {
+		if (user == null) {
+			res.status(400).json({ message: 'Incorrect user or password' });
+			return;
+		}
 		jwt.sign(
 			{ user: user },
 			process.env.KEY,
-			{ expiresIn: '2h' },
+			{ expiresIn: '3h' },
 			(error, token) => {
 				if (error) {
 					res.status(500).json({ message: error });
-				} else {
-					res.json({ token: token });
+					return;
 				}
+				res.json({ token: token });
 			}
 		);
-	}
-});
-
-
-/*PATCH*/
-
-// ASSIGN SCHEMA TO USER
-// I:
-/*
-	username: String,
-	schemaName: String
-*/
-// O: An array with the users new accesible schemas 
-// E: 408, 400
-router.patch('/assign', verifyToken, async (req, res) => {
-	var user;
-	var scheme;
-	var result;
-	var validation;
-	try {
-		user = await User.findOne(
-			{ username: req.body.username },
-		);
-		if (user == null) {
-			res.status(400).json({ message: 'Specified user not found' });
-			return;
-		};
-		scheme = await Scheme.findOne(
-			{ name : req.body.schemeName },
-		);
-		if (scheme == null || scheme.isActive == false) {
-			res.status(400).json({ message: 'Specified schema not found' });
-			return;
-		};
-		validation = await User.findOne(
-			{ username: req.body.username, accessibleSchemes: {$elemMatch: { schemeId: (scheme._id)}}}
-		);
-		if (validation != null) {
-			res.status(400).json({ message: 'User already has acces to the specified scheme' });
-			return;
-		}
-		user.accessibleSchemes.push ( {schemeId: (scheme._id)});
-		result = await user.save();
-		res.status(200).json({accesibleSchemes: user.accessibleSchemes});
-		return;
 	} catch (error) {
 		res.status(408).json({ message: error });
 	}
 });
 
+/*PATCHES*/
+
+// ASSIGN SCHEMAS TO USER
+// I:
+/*
+	username: String,
+	accessibleSchemes: [
+		name: String
+	]
+*/
+// O: Updated total of accessible schemes for the user
+// E: 408, 401, 400
+router.patch('/addSchemes', verifyToken, async (req, res) => {
+	try {
+		const user = await User.findOne({ username: req.body.username });
+		if (user == null) {
+			res.status(400).json({ message: 'Specified user not found' });
+			return;
+		}
+		let newAccessibleSchemes = [];
+		for (let key in req.body.accessibleSchemes) {
+			if (req.body.accessibleSchemes.hasOwnProperty(key)) {
+				schemeName = req.body.accessibleSchemes[key];
+				let scheme = await Scheme.findOne({ name: schemeName.name });
+				if (scheme == null || scheme.isActive == false) {
+					res.status(400).json({ message: 'Specified scheme not found' });
+					return;
+				}
+				newAccessibleSchemes.push({ schemeId: scheme._id });
+			}
+		}
+		user.accessibleSchemes = newAccessibleSchemes;
+		const updatedUser = await user.save();
+		res.json({ accessibleSchemesTotal: updatedUser.accessibleSchemes.length });
+	} catch (error) {
+		res.status(408).json({ message: error });
+	}
+});
 
 // UPDATE USER
 // I:
@@ -173,42 +160,31 @@ router.patch('/assign', verifyToken, async (req, res) => {
 	oldUsername: String,
 	newUsername: String, (same as oldUsername if username wasnt modified)
 	name: String,
-	password: String
+	password: String,
 	isAdmin: Boolean
 */
-// O: Updated user
-// E: 408, 400
-router.patch('/update', async (req, res) => {
-	var user;
-	var result;
+// O: Updated user username
+// E: 408, 401, 400
+router.patch('/', verifyToken, async (req, res) => {
 	try {
-		user = await User.findOne(
-			{ username: req.body.oldUsername},
-		);
+		const user = await User.findOne({ username: req.body.oldUsername });
 		if (user == null) {
 			res.status(400).json({ message: 'Specified user not found' });
 			return;
-		};
+		}
 		user.username = req.body.newUsername;
 		user.name = req.body.name;
 		user.password = req.body.password;
 		user.isAdmin = req.body.isAdmin;
-		result = await user.save();
-		res.status(200).json({
-			username: req.body.newUsername,
-			name: user.name,
-			password: user.password,
-			isAdmin: user.isAdmin 
-		});
-		return;
+		const updatedUser = await user.save();
+		res.json({ username: updatedUser.username });
 	} catch (error) {
 		if (error.message == 'Validation failed') {
-			res.status(400).json({ message: "The new username is already taken" });
+			res.status(400).json({ message: 'Username is unavailable' });
 		} else {
 			res.status(408).json({ message: error });
 		}
 	}
 });
-
 
 module.exports = router;
