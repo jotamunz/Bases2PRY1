@@ -9,6 +9,10 @@ const FieldSchema = mongoose.Schema(
 			type: String,
 			required: true
 		},
+		label: {
+			type: String,
+			required: true
+		},
 		expectType: {
 			type: String,
 			required: true
