@@ -33,7 +33,7 @@ router.get('/:name', verifyToken, async (req, res) => {
 			{ name: req.params.name },
 			{ _id: 0, isActive: 0 }
 		);
-		if (scheme == null) {
+		if (scheme == null || scheme.isActive == false) {
 			res.status(400).json({ message: 'Specified scheme not found' });
 			return;
 		}
@@ -86,12 +86,12 @@ router.post('/', verifyToken, async (req, res) => {
 */
 // O: N/A
 // E: 408, 400
-router.delete('/:name', async (req, res) => {
+router.delete('/:name',verifyToken, async (req, res) => {
 	try {
 		const scheme = await Scheme.findOne(
 			{ name: req.params.name , isActive: true}
 		);
-		if (scheme == null) {
+		if (scheme == null|| scheme.isActive == false) {
 			res.status(400).json({ message: 'Specified scheme not found' });
 			return;
 		}
@@ -108,6 +108,55 @@ router.delete('/:name', async (req, res) => {
 		res.status(408).json({ message: error });
 	}
 });
+
+/*PATCHS*/
+
+// DELETE SCHEME BY NAME
+// I:
+/*
+	name: String, (same as oldName if name wasn´t modified)
+	fields: [
+		name: String,
+		label: String,
+		expectType: String,
+		component: String,
+		displayables: Mixed
+	],
+	oldName: String 
+	
+*/
+// O: updated scheme
+// E: 408, 400
+router.patch('/', async (req, res) => {
+	try {
+		const scheme = await Scheme.findOne(
+			{ name: req.body.oldName , isActive: true}
+		);
+		if (scheme == null || scheme.isActive == false) {
+			res.status(400).json({ message: 'Specified scheme not found' });
+			return;
+		}
+		const newScheme = new Scheme({
+			name: req.body.name,
+			fields: req.body.fields
+		});
+		scheme.isActive = false;
+		scheme.name = (scheme.name).concat(" (" + (scheme._id).toString() + ")");
+		await scheme.save();
+		await newScheme.save();
+		res.json({ 
+			name: newScheme.name,
+			fields: newScheme.fields
+		});
+	} catch (error) {
+		if (error.message == 'Validation failed') {
+			res.status(400).json({ message: 'Scheme name is unavailable' });
+		} else {
+			res.status(408).json({ message: error });
+		}
+	}
+});
+
 
 
 module.exports = router;
