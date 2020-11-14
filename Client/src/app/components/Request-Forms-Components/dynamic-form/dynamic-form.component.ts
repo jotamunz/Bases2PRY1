@@ -13,7 +13,7 @@ import { QuestionControlService } from '../../../services/question-control.servi
   styleUrls: ['./dynamic-form.component.css'],
 })
 export class DynamicFormComponent implements OnInit {
-  @Input() questions: QuestionBase<string>[] = [];
+  @Input() questions: QuestionBase<string>[];
   form: FormGroup;
   payLoad = '';
 
