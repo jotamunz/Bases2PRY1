@@ -1,29 +1,27 @@
 <!-- Question value rendering -->
 <div [formGroup]="form">
-  <label [attr.for]="question.key">{{ question.label }}</label>
-
-  <div [ngSwitch]="question.controlType">
+  <div [ngSwitch]="question.component">
     <div *ngSwitchCase="'textbox'">
-      <input
-        [formControlName]="question.key"
-        [id]="question.key"
-        [type]="question.type"
-      />
+      <mat-form-field appearance="fill">
+        <mat-label>{{ question.label }}</mat-label>
+        <input
+          matInput
+          [formControlName]="question.name"
+          [id]="question.name"
+          [type]="question.type"
+        />
+      </mat-form-field>
     </div>
 
     <div *ngSwitchCase="'dropdown'">
       <mat-form-field appearance="fill">
-        <mat-label class="color1">Options</mat-label>
-        <mat-select [id]="question.key" [formControlName]="question.key">
+        <mat-label class="color1">{{ question.label }}</mat-label>
+        <mat-select [id]="question.name" [formControlName]="question.name">
           <mat-option *ngFor="let opt of question.options" [value]="opt.key">
             {{ opt.value }}
           </mat-option>
         </mat-select>
       </mat-form-field>
-    </div>
-
-    <div class="errorMessage" *ngIf="!isValid">
-      {{ question.label }} is required
     </div>
   </div>
 </div>
