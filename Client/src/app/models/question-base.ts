@@ -1,29 +1,29 @@
 export class QuestionBase<T> {
   value: T;
-  key: string;
+  name: string;
   label: string;
   required: boolean;
-  controlType: string;
+  component: string;
   type: string;
   options: { key: string; value: string }[];
 
   constructor(
     options: {
       value?: T;
-      key?: string;
+      name?: string;
       label?: string;
       required?: boolean;
       order?: number;
-      controlType?: string;
+      component?: string;
       type?: string;
       options?: { key: string; value: string }[];
     } = {}
   ) {
     this.value = options.value;
-    this.key = options.key || '';
+    this.name = options.name || '';
     this.label = options.label || '';
     this.required = !!options.required;
-    this.controlType = options.controlType || '';
+    this.component = options.component || '';
     this.type = options.type || '';
     this.options = options.options || [];
   }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SchemeService } from '../../services/scheme.service';
-
+import { FlashMessagesService } from 'angular2-flash-messages';
 import { Scheme } from '../../models/Scheme';
 
 @Component({
@@ -11,7 +11,9 @@ import { Scheme } from '../../models/Scheme';
 export class ListAllSchemesComponent implements OnInit {
   public schemes: Scheme[];
 
-  constructor(private schemeService: SchemeService) {}
+  constructor(
+    private flashMessagesService: FlashMessagesService,
+    private schemeService: SchemeService) {}
 
   ngOnInit(): void {
     // Get all schemes
@@ -21,6 +23,27 @@ export class ListAllSchemesComponent implements OnInit {
   }
 
   public onDeleteClick(schemeName: string) {
-    console.log(schemeName);
+    this.schemeService.deleteScheme(schemeName).subscribe(response => {
+      this.flashMessagesService.show(`${schemeName} has been deleted succesfully`, {
+        cssClass: 'alert success-alert',
+      });
+    },
+    (err) => {
+      this.flashMessagesService.show(err.error.message, {
+        cssClass: 'alert danger-alert',
+      })
+    })
+    this.removeScheme(schemeName);
   }
+
+  public removeScheme(schemeName: string): void {
+    let schemesTemp = [];
+    this.schemes.forEach((scheme) => {
+      if (scheme.name != schemeName) {
+        schemesTemp.push(scheme);
+      }
+    });
+    this.schemes = schemesTemp;
+  } 
+  
 }

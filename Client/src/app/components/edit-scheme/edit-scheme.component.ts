@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SchemeService } from '../../services/scheme.service';
+import { SchemeUpdate } from '../../models/SchemeUpdate';
 
 import { Scheme } from '../../models/Scheme';
 import { SchemeField } from '../../models/SchemeField';
@@ -22,6 +23,12 @@ export class EditSchemeComponent implements OnInit {
     expectType: 'text',
     component: 'textbox',
     displayables: [],
+    label : ''
+  };
+  public updateScheme: SchemeUpdate = {
+    name: '',
+    fields: [],
+    oldName : ''
   };
   public currentDisplayable: string = '';
 
@@ -40,15 +47,29 @@ export class EditSchemeComponent implements OnInit {
         .subscribe((scheme: Scheme) => {
           this.scheme.name = scheme.name;
           this.schemeFields = scheme.fields;
+          this.updateScheme.oldName = scheme.name
         });
     });
   }
 
   public onSubmit(): void {
     this.scheme.fields = this.schemeFields;
-    console.log(this.scheme);
-    // TODO: Conectar con el service
-    // TODO: oldname y newname
+
+    this.updateScheme._id = this.scheme._id;
+    this.updateScheme.fields = this.scheme.fields;
+    this.updateScheme.name = this.scheme.name;
+    console.log(this.updateScheme);
+    this.schemeService.updateScheme(this.updateScheme).subscribe(response => {
+      this.flashMessagesService.show(`${this.updateScheme.name} has been registered`, {
+        cssClass: 'alert success-alert',
+      });
+      this.router.navigateByUrl('/admin/schemes');
+    },
+    (err) => {
+      this.flashMessagesService.show(err.error.message, {
+        cssClass: 'alert danger-alert',
+      })
+    })
   }
 
   public addDisplayableToField(): void {
@@ -73,13 +94,14 @@ export class EditSchemeComponent implements OnInit {
   }
 
   public onFieldSubmit(): void {
+    this.currentSchemeField.label = this.currentSchemeField.name;
     this.schemeFields.push(this.currentSchemeField);
-    console.log(this.schemeFields);
     this.currentSchemeField = {
       name: '',
       expectType: 'text',
       component: 'textbox',
       displayables: [],
+      label : ''
     };
   }
 }

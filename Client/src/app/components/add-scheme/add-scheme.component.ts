@@ -22,6 +22,7 @@ export class AddSchemeComponent implements OnInit {
     expectType: 'text',
     component: 'textbox',
     displayables: [],
+    label : ''
   };
   public currentDisplayable: string = '';
 
@@ -36,6 +37,17 @@ export class AddSchemeComponent implements OnInit {
   public onSubmit(): void {
     this.scheme.fields = this.schemeFields;
     // TODO: Conectar con el service
+    this.schemeService.postScheme(this.scheme).subscribe(response => {
+      this.flashMessagesService.show(`${this.scheme.name} has been registered`, {
+        cssClass: 'alert success-alert',
+      });
+      this.router.navigateByUrl('/admin/schemes');
+    },
+    (err) => {
+      this.flashMessagesService.show(err.error.message, {
+        cssClass: 'alert danger-alert',
+      })
+    })
   }
 
   public addDisplayableToField(): void {
@@ -60,13 +72,14 @@ export class AddSchemeComponent implements OnInit {
   }
 
   public onFieldSubmit(): void {
+    this.currentSchemeField.label = this.currentSchemeField.name;
     this.schemeFields.push(this.currentSchemeField);
-    console.log(this.schemeFields);
     this.currentSchemeField = {
       name: '',
       expectType: 'text',
       component: 'textbox',
       displayables: [],
+      label : ''
     };
   }
 }
