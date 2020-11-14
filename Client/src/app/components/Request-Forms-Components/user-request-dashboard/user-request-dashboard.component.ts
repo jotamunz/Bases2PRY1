@@ -39,24 +39,10 @@ export class UserRequestDashboardComponent implements OnInit {
 
   public onSubmit(): void {
     // TODO: Go to form display
-
-    this.activatedRoute.params.subscribe((params) => {
-      const { schemeName } = params;
-      this.schemeService
-        .getCompleteScheme('Vacaciones')
-        .subscribe((scheme: Scheme) => {
-          console.log(scheme.name);
-          console.log(scheme.fields);
-          this.temp = scheme;
-        });
-    });
-    //console.log(this.temp.name);
-    //console.log(this.temp.fields);
   }
 
   public loadSchemes(): void {
     this.schemeService.getAllSchemes().subscribe((schemes: any[]) => {
-      console.log(schemes);
       // Map to items in form
       schemes.forEach((scheme) => {
         this.schemeItems.push(scheme);
