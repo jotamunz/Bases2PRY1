@@ -34,6 +34,11 @@ const SchemeSchema = mongoose.Schema({
 	fields: {
 		type: [FieldSchema],
 		required: true
+	},
+	isActive: {
+		type: Boolean,
+		required: true,
+		default: true
 	}
 });
 
