@@ -3,4 +3,5 @@ export interface SchemeField {
   expectType?: string;
   component?: string;
   displayables?: any[];
+  label?: string;
 }

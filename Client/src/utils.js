@@ -1,6 +1,7 @@
 function $initializeComponents() {
   $(".sidenav").sidenav();
   $(".collapsible").collapsible();
+  $("select").formSelect();
 }
 
 function $closeSideNav() {

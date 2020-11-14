@@ -35,15 +35,6 @@ export class EditUserComponent implements OnInit {
   }
 
   onSubmit(): void {
-    // TODO: Ver caso passwords
-    /*
-    if( this.user.name == "" || this.user.password == "" || this.user.username == "" ){
-      this.flashMessagesService.show("Invalid spaces", {
-        cssClass: 'alert danger-alert',
-      })
-    }
-    */
-      //else{
     this.userService.editUser({
       oldUsername : this.user.username,
       newUsername : this.user.username,

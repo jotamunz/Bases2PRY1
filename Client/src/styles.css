@@ -5,6 +5,11 @@
   --dark-color: #333;
 }
 
+.margin-y {
+  margin-top: 0.7rem;
+  margin-bottom: 0.7rem;
+}
+
 /* Button utilities */
 .btn-block {
   width: 100%;
