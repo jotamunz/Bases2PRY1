@@ -40,4 +40,43 @@ export class SchemeService {
       }
     );
   }
+
+  /**
+   * Add new scheme
+   */
+  public postScheme(scheme : Scheme): Observable<any> {
+    return this.httpClient.post<any>('http://localhost:3000/schemes/',scheme, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.authService.getToken()}`,
+      },
+    });
+  }
+
+/**
+   * Delete a scheme
+   */
+  public deleteScheme (schemeName : string) : Observable<any> {
+    return this.httpClient.delete<any>(`http://localhost:3000/schemes/${schemeName}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.authService.getToken()}`,
+      },
+    });
+  }
+
+  /**
+   * Update a scheme
+   */
+  public updateScheme (scheme : any) : Observable<any> {
+    return this.httpClient.patch<any>('http://localhost:3000/schemes/', scheme, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.authService.getToken()}`,
+      },
+    });
+  }
 }
+
+
+
