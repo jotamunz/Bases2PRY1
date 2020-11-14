@@ -12,6 +12,8 @@ import { UserRegistrationComponent } from './components/user-registration/user-r
 import { UsersComponent } from './components/users/users.component';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
 import { AssignSchemeToUserComponent } from './components/assign-scheme-to-user/assign-scheme-to-user.component';
+import { ListAllSchemesComponent } from './components/list-all-schemes/list-all-schemes.component';
+import { EditSchemeComponent } from './components/edit-scheme/edit-scheme.component';
 
 //SERVICES
 import { AuthUserGuard } from './guards/authuser.guard';
@@ -58,6 +60,16 @@ const routes: Routes = [
     component: AssignSchemeToUserComponent,
     canActivate: [AuthAdminGuard],
     pathMatch: 'full',
+  },
+  {
+    path: 'admin/schemes',
+    component: ListAllSchemesComponent,
+    canActivate: [AuthAdminGuard],
+  },
+  {
+    path: 'admin/schemes/:schemeName/edit',
+    component: EditSchemeComponent,
+    canActivate: [AuthAdminGuard],
   },
 ];
 
