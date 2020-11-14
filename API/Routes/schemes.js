@@ -1,6 +1,7 @@
 const express = require('express');
 const verifyToken = require('../Middleware/verifyToken');
 const Scheme = require('../models/Scheme');
+const Form = require('../models/Form');
 
 const router = express.Router();
 
@@ -74,5 +75,39 @@ router.post('/', verifyToken, async (req, res) => {
 		}
 	}
 });
+
+
+/*DELETES*/
+
+// DELETE SCHEME BY NAME
+// I:
+/*
+	name: String,
+*/
+// O: N/A
+// E: 408, 400
+router.delete('/:name', async (req, res) => {
+	try {
+		const scheme = await Scheme.findOne(
+			{ name: req.params.name , isActive: true}
+		);
+		if (scheme == null) {
+			res.status(400).json({ message: 'Specified scheme not found' });
+			return;
+		}
+		const anyForm = await Form.findOne(
+			{schemeId: scheme._id}
+		);
+		if (anyForm != null) {
+			res.status(400).json({ message: 'Specified scheme can´t be deleted because it has submitions' });
+			return;
+		}
+		await Scheme.deleteOne({ _id : scheme._id});
+		res.json({ message: 'Specified scheme deleted' });
+	} catch (error) {
+		res.status(408).json({ message: error });
+	}
+});
+
 
 module.exports = router;
