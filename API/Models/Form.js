@@ -6,7 +6,7 @@ const ResponseSchema = mongoose.Schema(
 			type: String,
 			required: true
 		},
-		input: {
+		value: {
 			type: mongoose.Schema.Types.Mixed,
 			required: true
 		}
