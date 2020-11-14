@@ -1,0 +1,149 @@
+<div class="container">
+  <div class="card">
+    <div class="card-content">
+      <!-- Main form -->
+      <span class="card-title"> Scheme information </span>
+      <form #schemeForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="input-field">
+          <input type="text" name="name" [(ngModel)]="scheme.name" id="name" />
+          <label for="name">Scheme name</label>
+        </div>
+        <button type="submit" class="btn green">
+          <i class="fa fa-plus"></i> Add scheme
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Display all the added scheme fields -->
+  <div class="card" *ngFor="let field of schemeFields; let i = index">
+    <div class="card-content">
+      <p><strong>Name: </strong> {{ field.name }}</p>
+      <p><strong>Type: </strong> {{ field.expectType }}</p>
+      <p><strong>Component: </strong>{{ field.component }}</p>
+      <ul class="collection">
+        <li
+          *ngFor="let displayable of field.displayables"
+          class="collection-item"
+        >
+          {{ displayable }}
+        </li>
+      </ul>
+      <button (click)="removeField(i)" type="button" class="btn red btn-block">
+        <i class="fa fa-times"></i> Delete
+      </button>
+    </div>
+  </div>
+
+  <!-- Add scheme field -->
+  <div class="card">
+    <div class="card-content">
+      <!-- Main form -->
+      <span class="card-title"> Field information </span>
+      <form #schemeForm="ngForm" (ngSubmit)="onFieldSubmit()">
+        <div class="input-field">
+          <input
+            type="text"
+            name="name"
+            [(ngModel)]="currentSchemeField.name"
+            id="name"
+          />
+          <label for="name">Field name</label>
+        </div>
+        <!-- Select component -->
+        <div class="input-field">
+          <select
+            name="component"
+            [(ngModel)]="currentSchemeField.component"
+            id="component"
+            (change)="resetDisplayables()"
+          >
+            <!-- TODO: Revisar esto -->
+            <option value="textbox" selected>Text Box</option>
+            <option value="dropdown">Dropdown menu</option>
+          </select>
+          <label>Component type</label>
+        </div>
+        <!-- Select type -->
+        <!-- TODO: Revisar si el type igual hay que ingresarlo para dropdowns -->
+        <div
+          [ngClass]="{
+            'input-field': true,
+            hide: currentSchemeField.component == 'dropdown'
+          }"
+        >
+          <select
+            name="expectType"
+            [(ngModel)]="currentSchemeField.expectType"
+            id="expectType"
+          >
+            <!-- TODO: Revisar esto -->
+            <option value="text" selected>Text</option>
+            <option value="number">Number</option>
+            <option value="date">Date</option>
+          </select>
+          <label>Input type</label>
+        </div>
+        <!-- Displayables -->
+        <div
+          [ngClass]="{
+            'input-field': true,
+            hide: currentSchemeField.component != 'dropdown'
+          }"
+        >
+          <input
+            type="text"
+            name="currentDisplayable"
+            [(ngModel)]="currentDisplayable"
+            id="currentDisplayable"
+          />
+          <label for="currentDisplayable">Displayable name</label>
+        </div>
+        <ul
+          class="collection"
+          [ngClass]="{
+            hide: currentSchemeField.component != 'dropdown'
+          }"
+        >
+          <li
+            *ngFor="let displayable of currentSchemeField.displayables"
+            class="collection-item"
+          >
+            {{ displayable }}
+          </li>
+        </ul>
+        <button
+          [ngClass]="{
+            hide: currentSchemeField.component != 'dropdown',
+            btn: true,
+            'btn-block': true,
+            black: true
+          }"
+          type="button"
+          (click)="addDisplayableToField()"
+          class="btn btn-block black"
+        >
+          Add displayable
+        </button>
+        <!-- Required -->
+        <!-- <div class="switch">
+              <label>
+                Required
+                <input
+                  type="checkbox"
+                  name="required"
+                  id="required"
+                  [(ngModel)]="currentSchemeField.required"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+                <span class="lever"></span>
+                Optional
+              </label>
+            </div> -->
+        <button type="submit" class="btn green margin-y">
+          <i class="fa fa-plus"></i> Add Field
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
