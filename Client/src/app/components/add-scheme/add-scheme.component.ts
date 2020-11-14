@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FlashMessagesService } from 'angular2-flash-messages';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { SchemeService } from '../../services/scheme.service';
 
 import { Scheme } from '../../models/Scheme';
 import { SchemeField } from '../../models/SchemeField';
 
 @Component({
-  selector: 'app-edit-scheme',
-  templateUrl: './edit-scheme.component.html',
-  styleUrls: ['./edit-scheme.component.css'],
+  selector: 'app-add-scheme',
+  templateUrl: './add-scheme.component.html',
+  styleUrls: ['./add-scheme.component.css'],
 })
-export class EditSchemeComponent implements OnInit {
+export class AddSchemeComponent implements OnInit {
   public scheme: Scheme = {
     name: '',
     fields: [],
@@ -28,27 +28,14 @@ export class EditSchemeComponent implements OnInit {
   constructor(
     private flashMessagesService: FlashMessagesService,
     private router: Router,
-    private schemeService: SchemeService,
-    private activatedRoute: ActivatedRoute
+    private schemeService: SchemeService
   ) {}
 
-  ngOnInit(): void {
-    this.activatedRoute.params.subscribe((params) => {
-      const { schemeName } = params;
-      this.schemeService
-        .getCompleteScheme(schemeName)
-        .subscribe((scheme: Scheme) => {
-          this.scheme.name = scheme.name;
-          this.schemeFields = scheme.fields;
-        });
-    });
-  }
+  ngOnInit(): void {}
 
   public onSubmit(): void {
     this.scheme.fields = this.schemeFields;
-    console.log(this.scheme);
     // TODO: Conectar con el service
-    // TODO: oldname y newname
   }
 
   public addDisplayableToField(): void {

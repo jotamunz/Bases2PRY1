@@ -6,6 +6,7 @@
       <form #schemeForm="ngForm" (ngSubmit)="onSubmit()">
         <div class="input-field">
           <input type="text" name="name" [(ngModel)]="scheme.name" id="name" />
+          <label for="name">Scheme name</label>
         </div>
         <button type="submit" class="btn green">
           <i class="fa fa-plus"></i> Add scheme

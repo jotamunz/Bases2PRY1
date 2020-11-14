@@ -40,6 +40,7 @@ import { AuthAdminGuard } from './guards/authadmin.guard';
 import { AuthUserGuard } from './guards/authuser.guard';
 import { ListAllSchemesComponent } from './components/list-all-schemes/list-all-schemes.component';
 import { EditSchemeComponent } from './components/edit-scheme/edit-scheme.component';
+import { AddSchemeComponent } from './components/add-scheme/add-scheme.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { EditSchemeComponent } from './components/edit-scheme/edit-scheme.compon
     UserRequestDashboardComponent,
     ListAllSchemesComponent,
     EditSchemeComponent,
+    AddSchemeComponent,
   ],
 
   imports: [
