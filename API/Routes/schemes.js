@@ -111,7 +111,7 @@ router.delete('/:name',verifyToken, async (req, res) => {
 
 /*PATCHS*/
 
-// DELETE SCHEME BY NAME
+// UPDATE SCHEME BY NAME
 // I:
 /*
 	name: String, (same as oldName if name wasn´t modified)
@@ -127,7 +127,7 @@ router.delete('/:name',verifyToken, async (req, res) => {
 */
 // O: updated scheme
 // E: 408, 400
-router.patch('/', async (req, res) => {
+router.patch('/',verifyToken, async (req, res) => {
 	try {
 		const scheme = await Scheme.findOne(
 			{ name: req.body.oldName , isActive: true}
