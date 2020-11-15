@@ -24,24 +24,24 @@ router.get('/', verifyToken, async (req, res) => {
 	}
 });
 
-// GET SCHEMES BY USERNAME
+// GET ALL SCHEMES BY USERNAME
 // I: /userUsername
 // O: all active schemes names sorted
 // E: 408, 401, 400
 router.get('/user/:userUsername', verifyToken, async (req, res) => {
 	try {
-		const user = await User.findOne(
+		const userSchemes = await User.findOne(
 			{ username: req.params.userUsername },
 			{ _id: 0, accessibleSchemes: 1 }
 		);
-		if (user == null) {
+		if (userSchemes == null) {
 			res.status(400).json({ message: 'Specified user not found' });
 			return;
 		}
 		let accessibleSchemesNames = [];
-		for (let key in user.accessibleSchemes) {
-			if (user.accessibleSchemes.hasOwnProperty(key)) {
-				schemeId = user.accessibleSchemes[key];
+		for (let key in userSchemes.accessibleSchemes) {
+			if (userSchemes.accessibleSchemes.hasOwnProperty(key)) {
+				schemeId = userSchemes.accessibleSchemes[key];
 				let schemeName = await Scheme.findOne(
 					{ _id: schemeId.schemeId, isActive: true },
 					{ _id: 0, name: 1 }

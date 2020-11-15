@@ -8,22 +8,22 @@ const router = express.Router();
 
 /*GETS*/
 
-// GET PENDNG FORMS BY USERNAME
+// GET ALL PENDNG FORMS BY USERNAME FOR USER
 // I: /userUsername
 // O: all pending forms scheme names and dates sorted
 // E: 408, 401, 400
 router.get('/pending/:userUsername', verifyToken, async (req, res) => {
 	try {
-		const user = await User.findOne(
+		const userId = await User.findOne(
 			{ username: req.params.userUsername },
 			{ _id: 1 }
 		);
-		if (user == null) {
+		if (userId == null) {
 			res.status(400).json({ message: 'Specified user not found' });
 			return;
 		}
 		const forms = await Form.find(
-			{ userId: user._id, status: 0 },
+			{ userId: userId._id, status: 0 },
 			{ _id: 0, schemeId: 1, creationDate: 1 }
 		).sort({ creationDate: 0 });
 		let formsWithNames = [];
@@ -57,22 +57,22 @@ router.get('/pending/:userUsername', verifyToken, async (req, res) => {
 	}
 });
 
-// GET HISTORY FORMS BY USERNAME
+// GET ALL HISTORY FORMS BY USERNAME FOR USER
 // I: /userUsername
 // O: all approved and rejected forms scheme names and dates sorted
 // E: 408, 401, 400
 router.get('/history/:userUsername', verifyToken, async (req, res) => {
 	try {
-		const user = await User.findOne(
+		const userId = await User.findOne(
 			{ username: req.params.userUsername },
 			{ _id: 1 }
 		);
-		if (user == null) {
+		if (userId == null) {
 			res.status(400).json({ message: 'Specified user not found' });
 			return;
 		}
 		const forms = await Form.find(
-			{ userId: user._id, $or: [{ status: 1 }, { status: 2 }] },
+			{ userId: userId._id, $or: [{ status: 1 }, { status: 2 }] },
 			{ _id: 0, schemeId: 1, creationDate: 1 }
 		).sort({ creationDate: 0 });
 		let formsWithNames = [];
@@ -101,6 +101,30 @@ router.get('/history/:userUsername', verifyToken, async (req, res) => {
 				: 0;
 		});
 		res.json(formsWithNames);
+	} catch (error) {
+		res.status(408).json({ message: error });
+	}
+});
+
+// GET FORM BY SCHEME NAME AND DATE
+// I: /userUsername
+/*
+	schemeName: String,
+	date: Date 
+*/
+// O: all form information except routes
+// E: 408, 401, 400
+router.get('/view/:userUsername', verifyToken, async (req, res) => {
+	try {
+		const userId = await User.findOne(
+			{ username: req.params.userUsername },
+			{ _id: 1 }
+		);
+		if (userId == null) {
+			res.status(400).json({ message: 'Specified user not found' });
+			return;
+		}
+		//TODO
 	} catch (error) {
 		res.status(408).json({ message: error });
 	}
