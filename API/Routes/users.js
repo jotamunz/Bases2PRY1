@@ -159,12 +159,18 @@ router.patch('/addSchemes', verifyToken, async (req, res) => {
 		for (let key in req.body.accessibleSchemes) {
 			if (req.body.accessibleSchemes.hasOwnProperty(key)) {
 				schemeName = req.body.accessibleSchemes[key];
-				let scheme = await Scheme.findOne({ name: schemeName.name });
-				if (scheme == null || scheme.isActive == false) {
+				let schemeId = await Scheme.findOne(
+					{
+						name: schemeName.name,
+						isActive: true
+					},
+					{ _id: 1 }
+				);
+				if (schemeId == null) {
 					res.status(400).json({ message: 'Specified scheme not found' });
 					return;
 				}
-				newAccessibleSchemes.push({ schemeId: scheme._id });
+				newAccessibleSchemes.push({ schemeId: schemeId._id });
 			}
 		}
 		user.accessibleSchemes = newAccessibleSchemes;

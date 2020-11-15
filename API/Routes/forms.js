@@ -1,5 +1,6 @@
 const express = require('express');
 const verifyToken = require('../Middleware/verifyToken');
+const validateForm = require('../Middleware/validateForm');
 const Form = require('../models/Form');
 const User = require('../models/User');
 const Scheme = require('../models/Scheme');
@@ -113,28 +114,53 @@ router.get('/history/:userUsername', verifyToken, async (req, res) => {
 	schemeName: String,
 	date: Date 
 */
-// O: all form information except routes ****AND SCHEME
+// O: all form with respective scheme and user information except routes
 // E: 408, 401, 400
 router.get('/', verifyToken, async (req, res) => {
 	try {
-		const userId = await User.findOne(
-			{ username: req.body.userUsername },
-			{ _id: 1 }
-		);
-		if (userId == null) {
+		const user = await User.findOne({ username: req.body.userUsername });
+		if (user == null) {
 			res.status(400).json({ message: 'Specified user not found' });
 			return;
 		}
-		const schemeId = await Scheme.findOne(
-			{ name: req.body.schemeName },
-			{ _id: 1 }
-		);
+		const scheme = await Scheme.findOne({ name: req.body.schemeName });
+		if (scheme == null) {
+			res.status(400).json({ message: 'Specified scheme not found' });
+			return;
+		}
 		const form = await Form.findOne({
-			userId: userId._id,
-			schemeId: schemeId._id,
+			userId: user._id,
+			schemeId: scheme._id,
 			creationDate: req.body.date
 		});
-		//get scheme and attatch
+		if (form == null) {
+			res.status(400).json({ message: 'Specified form not found' });
+			return;
+		}
+		let fieldsWithValue = [];
+		for (let key in form.responses) {
+			if (
+				form.responses.hasOwnProperty(key) &&
+				scheme.fields.hasOwnProperty(key)
+			) {
+				value = form.responses[key];
+				field = scheme.fields[key];
+				fieldsWithValue.push({
+					name: field.name,
+					label: field.label,
+					component: field.component,
+					value: value.value
+				});
+			}
+		}
+		res.json({
+			schemeName: scheme.name,
+			userName: user.name,
+			userUsername: user.username,
+			creationDate: form.creationDate,
+			status: form.status,
+			responses: fieldsWithValue
+		});
 	} catch (error) {
 		res.status(408).json({ message: error });
 	}
@@ -154,10 +180,10 @@ router.get('/', verifyToken, async (req, res) => {
 */
 // O: Saved form creation date
 // E: 408, 401, 400
-router.post('/', verifyToken, async (req, res) => {
+router.post('/', verifyToken, validateForm, async (req, res) => {
 	try {
 		const schemeId = await Scheme.findOne(
-			{ name: req.body.schemeName },
+			{ name: req.body.schemeName, isActive: true },
 			{ _id: 1 }
 		);
 		if (schemeId == null) {
