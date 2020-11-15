@@ -16,13 +16,6 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./user-request-dashboard.component.css'],
 })
 export class UserRequestDashboardComponent implements OnInit {
-  public pendingDocuments: any = [
-    { name: 'Vacations Form', date: Date.now() },
-    { name: 'School Form', date: Date.now() },
-    { name: 'Recommendation Form', date: Date.now() },
-    { name: 'Review Form', date: Date.now() },
-  ];
-
   public schemeItems: any = [];
   public temp: Scheme = null;
 

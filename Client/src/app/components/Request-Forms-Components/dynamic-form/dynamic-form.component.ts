@@ -5,7 +5,7 @@ import { FormGroup } from '@angular/forms';
 import { QuestionBase } from '../../../models/question-base';
 
 // SERVICES
-import { QuestionControlService } from '../../../services/question-control.service';
+import { QuestionControlService } from '../../../services/Form-Request-Services/question-control.service';
 
 @Component({
   selector: 'app-dynamic-form',
