@@ -1,7 +1,7 @@
 export interface Form {
     _id?: string;
     schemeName? : string;
-    Userusername?: string;
+    userUsername?: string;
     responses?:any [];
     
   }

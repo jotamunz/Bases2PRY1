@@ -26,7 +26,7 @@ export class EditSchemeComponent implements OnInit {
     label: '',
   };
   public updateScheme: SchemeUpdate = {
-    name: '',
+    newName: '',
     fields: [],
     oldName: '',
   };
@@ -57,12 +57,12 @@ export class EditSchemeComponent implements OnInit {
 
     this.updateScheme._id = this.scheme._id;
     this.updateScheme.fields = this.scheme.fields;
-    this.updateScheme.name = this.scheme.name;
+    this.updateScheme.newName = this.scheme.name;
     console.log(this.updateScheme);
     this.schemeService.updateScheme(this.updateScheme).subscribe(
       (response) => {
         this.flashMessagesService.show(
-          `${this.updateScheme.name} has been registered`,
+          `${this.updateScheme.newName} has been registered`,
           {
             cssClass: 'alert success-alert',
           }

@@ -27,7 +27,7 @@ export class DynamicFormComponent implements OnInit {
 
   public mongoForm: Form = {
     schemeName: '',
-    Userusername: '',
+    userUsername: '',
     responses: [],
   };
 
@@ -61,7 +61,7 @@ export class DynamicFormComponent implements OnInit {
     this.getFieldValues();
     this.mongoForm.responses = this.fields;
     this.mongoForm.schemeName = this.schemeName;
-    this.mongoForm.Userusername = this.authService.getCurrentUser().name;
+    this.mongoForm.userUsername = this.authService.getCurrentUser().username;
     console.log(this.mongoForm);
 
     if (false) {
