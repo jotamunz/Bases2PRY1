@@ -23,7 +23,8 @@ const FieldSchema = mongoose.Schema(
 		},
 		displayables: {
 			type: mongoose.Schema.Types.Mixed,
-			required: true
+			required: true,
+			default: []
 		}
 	},
 	{ _id: false }
