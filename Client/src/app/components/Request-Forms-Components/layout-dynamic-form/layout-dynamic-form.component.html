@@ -1,7 +1,7 @@
 <html class="backg animation-area">
   <div>
     <div *ngIf="questions.length != 0">
-      <app-dynamic-form [questions]="questions"></app-dynamic-form>
+      <app-dynamic-form [questions]="questions" [schemeName] = "schemeName"></app-dynamic-form>
     </div>
   </div>
 </html>

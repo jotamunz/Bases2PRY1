@@ -20,6 +20,7 @@ export class LayoutDynamicFormComponent implements OnInit {
   //Variables
   questions$: Observable<QuestionBase<any>[]>; //obs de array de fields
   questions: QuestionBase<any>[] = []; // array de fields
+  schemeName : string;
   public schemaFields: Scheme = null;
 
   constructor(
@@ -36,6 +37,7 @@ export class LayoutDynamicFormComponent implements OnInit {
   public loadFormSchema() {
     this.activatedRoute.params.subscribe((params) => {
       const { schemeName } = params;
+      this.schemeName = schemeName;
       this.schemeService
         .getCompleteScheme(schemeName)
         .subscribe((scheme: Scheme) => {
