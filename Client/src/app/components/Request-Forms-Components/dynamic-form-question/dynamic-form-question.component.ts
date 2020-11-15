@@ -17,10 +17,6 @@ export class DynamicFormQuestionComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
-
-  get isValid() {
-    return this.form.controls[this.question.key].valid;
-  }
 }
 
 /*

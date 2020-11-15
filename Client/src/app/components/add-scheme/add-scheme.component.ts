@@ -35,6 +35,7 @@ export class AddSchemeComponent implements OnInit {
   ngOnInit(): void {}
 
   public onSubmit(): void {
+    console.log(this.scheme);
     this.scheme.fields = this.schemeFields;
     // TODO: Conectar con el service
     this.schemeService.postScheme(this.scheme).subscribe(response => {
