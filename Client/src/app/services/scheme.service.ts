@@ -26,6 +26,18 @@ export class SchemeService {
     });
   }
 
+   /**
+   * Get all schemes for a specified user
+   */
+  public getAllSchemesForUser(username : String): Observable<Scheme[]> {
+    return this.httpClient.get<Scheme[]>(`http://localhost:3000/schemes/user/${username}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.authService.getToken()}`,
+      },
+    });
+  }
+
   /**
    * Get single scheme with fields
    */

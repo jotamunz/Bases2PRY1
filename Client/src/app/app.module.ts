@@ -41,6 +41,7 @@ import { AuthUserGuard } from './guards/authuser.guard';
 import { ListAllSchemesComponent } from './components/list-all-schemes/list-all-schemes.component';
 import { EditSchemeComponent } from './components/edit-scheme/edit-scheme.component';
 import { AddSchemeComponent } from './components/add-scheme/add-scheme.component';
+import { AdminRequestDashboardComponent } from './components/admin-request-dashboard/admin-request-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { AddSchemeComponent } from './components/add-scheme/add-scheme.component
     ListAllSchemesComponent,
     EditSchemeComponent,
     AddSchemeComponent,
+    AdminRequestDashboardComponent,
   ],
 
   imports: [
