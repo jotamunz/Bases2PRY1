@@ -34,7 +34,7 @@ export class QuestionService {
       new QuestionBase<string>({
         name: 'brave',
         label: 'Bravery Rating',
-        options: [
+        displayables: [
           { key: 'solid', value: 'Solid' },
           { key: 'great', value: 'Great' },
           { key: 'good', value: 'Good' },

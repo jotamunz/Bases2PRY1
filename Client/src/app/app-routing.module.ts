@@ -16,10 +16,12 @@ import { UsersComponent } from './components/users/users.component';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
 import { UserRegistrationComponent } from './components/user-registration/user-registration.component';
 import { UserRequestDashboardComponent } from './components/Request-Forms-Components/user-request-dashboard/user-request-dashboard.component';
+import { UserUnansweredFormsDashboardComponent } from './components/View-Forms-Components/user-unanswered-forms-dashboard/user-unanswered-forms-dashboard.component';
 
 //SERVICES
 import { AuthUserGuard } from './guards/authuser.guard';
 import { AuthAdminGuard } from './guards/authadmin.guard';
+import { fromEventPattern } from 'rxjs';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
@@ -44,8 +46,13 @@ const routes: Routes = [
     canActivate: [AuthAdminGuard],
   },
   {
-    path: 'user/viewForms/dashboard',
+    path: 'user/viewForms/dashboard/answered',
     component: UserAnsweredFormsDashboardComponent,
+    // Todo: authorization
+  },
+  {
+    path: 'user/viewForms/dashboard/pending',
+    component: UserUnansweredFormsDashboardComponent,
     // Todo: authorization
   },
   {
