@@ -43,6 +43,11 @@ const SchemeSchema = mongoose.Schema({
 		type: Boolean,
 		required: true,
 		default: true
+	},
+	modification: {
+		type: Number,
+		required: true,
+		default: 1
 	}
 });
 
