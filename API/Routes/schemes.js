@@ -102,7 +102,7 @@ router.get('/:name', verifyToken, async (req, res) => {
 */
 // O: Saved scheme name
 // E: 408, 401, 400
-router.post('/', verifyToken, async (req, res) => {
+router.post('/',async (req, res) => {
 	const scheme = new Scheme({
 		name: req.body.name,
 		fields: req.body.fields
