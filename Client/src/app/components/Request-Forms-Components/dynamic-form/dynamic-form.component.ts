@@ -28,7 +28,7 @@ export class DynamicFormComponent implements OnInit {
 
   public mongoForm : Form = {
     schemeName : '',
-    Userusername: '',
+    userUsername: '',
     responses : []
   }
 
