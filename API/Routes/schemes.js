@@ -125,7 +125,7 @@ router.post('/', verifyToken, async (req, res) => {
 // I:
 /*
 	oldName: String,
-	name: String, (same as oldName if name wasn´t modified) *****NEW NAME
+	newName: String, (same as oldName if name wasn´t modified)
 	fields: [
 		name: String,
 		label: String,
@@ -149,7 +149,7 @@ router.patch('/', verifyToken, async (req, res) => {
 		const anyForm = await Form.findOne({ schemeId: oldScheme._id });
 		if (anyForm != null) {
 			const newScheme = new Scheme({
-				name: req.body.name,
+				name: req.body.newName,
 				fields: req.body.fields,
 				modification: oldScheme.modification + 1
 			});
@@ -161,7 +161,7 @@ router.patch('/', verifyToken, async (req, res) => {
 			await newScheme.save();
 			res.json({ name: newScheme.name });
 		} else {
-			oldScheme.name = req.body.name;
+			oldScheme.name = req.body.newName;
 			oldScheme.fields = req.body.fields;
 			await oldScheme.save();
 			res.json({ name: oldScheme.name });

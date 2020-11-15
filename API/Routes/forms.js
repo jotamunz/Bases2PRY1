@@ -106,25 +106,35 @@ router.get('/history/:userUsername', verifyToken, async (req, res) => {
 	}
 });
 
-// GET FORM BY SCHEME NAME AND DATE
-// I: /userUsername
+// GET FORM BY SCHEME NAME, DATE AND USER AUTHOR
+// I:
 /*
+	userUsername: String,
 	schemeName: String,
 	date: Date 
 */
-// O: all form information except routes
+// O: all form information except routes ****AND SCHEME
 // E: 408, 401, 400
-router.get('/view/:userUsername', verifyToken, async (req, res) => {
+router.get('/', verifyToken, async (req, res) => {
 	try {
 		const userId = await User.findOne(
-			{ username: req.params.userUsername },
+			{ username: req.body.userUsername },
 			{ _id: 1 }
 		);
 		if (userId == null) {
 			res.status(400).json({ message: 'Specified user not found' });
 			return;
 		}
-		//TODO
+		const schemeId = await Scheme.findOne(
+			{ name: req.body.schemeName },
+			{ _id: 1 }
+		);
+		const form = await Form.findOne({
+			userId: userId._id,
+			schemeId: schemeId._id,
+			creationDate: req.body.date
+		});
+		//get scheme and attatch
 	} catch (error) {
 		res.status(408).json({ message: error });
 	}
