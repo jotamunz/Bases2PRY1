@@ -41,6 +41,11 @@ import { AuthUserGuard } from './guards/authuser.guard';
 import { ListAllSchemesComponent } from './components/list-all-schemes/list-all-schemes.component';
 import { EditSchemeComponent } from './components/edit-scheme/edit-scheme.component';
 import { AddSchemeComponent } from './components/add-scheme/add-scheme.component';
+import { AdminRequestDashboardComponent } from './components/admin-request-dashboard/admin-request-dashboard.component';
+import { AdminLayoutDynamicFormComponent } from './components/Request-Forms-Components-admin/admin-layout-dynamic-form/admin-layout-dynamic-form.component';
+import { AdminDynamicFormQuestionComponent } from './components/Request-Forms-Components-Admin/admin-dynamic-form-question/admin-dynamic-form-question.component';
+import { UserAnsweredFormsDashboardComponent } from './components/View-Forms-Components/user-answered-forms-dashboard/user-answered-forms-dashboard.component';
+import { UserUnansweredFormsDashboardComponent } from './components/View-Forms-Components/user-unanswered-forms-dashboard/user-unanswered-forms-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +65,11 @@ import { AddSchemeComponent } from './components/add-scheme/add-scheme.component
     ListAllSchemesComponent,
     EditSchemeComponent,
     AddSchemeComponent,
+    AdminRequestDashboardComponent,
+    AdminDynamicFormQuestionComponent,
+    AdminLayoutDynamicFormComponent,
+    UserAnsweredFormsDashboardComponent,
+    UserUnansweredFormsDashboardComponent,
   ],
 
   imports: [

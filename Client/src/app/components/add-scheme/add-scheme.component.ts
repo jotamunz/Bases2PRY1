@@ -22,7 +22,7 @@ export class AddSchemeComponent implements OnInit {
     expectType: 'text',
     component: 'textbox',
     displayables: [],
-    label : ''
+    label: '',
   };
   public currentDisplayable: string = '';
 
@@ -38,17 +38,22 @@ export class AddSchemeComponent implements OnInit {
     console.log(this.scheme);
     this.scheme.fields = this.schemeFields;
     // TODO: Conectar con el service
-    this.schemeService.postScheme(this.scheme).subscribe(response => {
-      this.flashMessagesService.show(`${this.scheme.name} has been registered`, {
-        cssClass: 'alert success-alert',
-      });
-      this.router.navigateByUrl('/admin/schemes');
-    },
-    (err) => {
-      this.flashMessagesService.show(err.error.message, {
-        cssClass: 'alert danger-alert',
-      })
-    })
+    this.schemeService.postScheme(this.scheme).subscribe(
+      (response) => {
+        this.flashMessagesService.show(
+          `${this.scheme.name} has been registered`,
+          {
+            cssClass: 'alert success-alert',
+          }
+        );
+        this.router.navigateByUrl('/admin/schemes');
+      },
+      (err) => {
+        this.flashMessagesService.show(err.error.message, {
+          cssClass: 'alert danger-alert',
+        });
+      }
+    );
   }
 
   public addDisplayableToField(): void {
@@ -80,7 +85,7 @@ export class AddSchemeComponent implements OnInit {
       expectType: 'text',
       component: 'textbox',
       displayables: [],
-      label : ''
+      label: '',
     };
   }
 }
