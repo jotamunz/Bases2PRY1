@@ -13,7 +13,8 @@ export class ListAllSchemesComponent implements OnInit {
 
   constructor(
     private flashMessagesService: FlashMessagesService,
-    private schemeService: SchemeService) {}
+    private schemeService: SchemeService
+  ) {}
 
   ngOnInit(): void {
     // Get all schemes
@@ -23,16 +24,21 @@ export class ListAllSchemesComponent implements OnInit {
   }
 
   public onDeleteClick(schemeName: string) {
-    this.schemeService.deleteScheme(schemeName).subscribe(response => {
-      this.flashMessagesService.show(`${schemeName} has been deleted succesfully`, {
-        cssClass: 'alert success-alert',
-      });
-    },
-    (err) => {
-      this.flashMessagesService.show(err.error.message, {
-        cssClass: 'alert danger-alert',
-      })
-    })
+    this.schemeService.deleteScheme(schemeName).subscribe(
+      (response) => {
+        this.flashMessagesService.show(
+          `${schemeName} has been deleted succesfully`,
+          {
+            cssClass: 'alert success-alert',
+          }
+        );
+      },
+      (err) => {
+        this.flashMessagesService.show(err.error.message, {
+          cssClass: 'alert danger-alert',
+        });
+      }
+    );
     this.removeScheme(schemeName);
   }
 
@@ -44,6 +50,5 @@ export class ListAllSchemesComponent implements OnInit {
       }
     });
     this.schemes = schemesTemp;
-  } 
-  
+  }
 }

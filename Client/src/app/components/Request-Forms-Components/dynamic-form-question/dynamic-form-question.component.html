@@ -17,8 +17,8 @@
       <mat-form-field appearance="fill">
         <mat-label class="color1">{{ question.label }}</mat-label>
         <mat-select [id]="question.name" [formControlName]="question.name">
-          <mat-option *ngFor="let opt of question.options" [value]="opt.key">
-            {{ opt.value }}
+          <mat-option *ngFor="let opt of question.displayables" [value]="opt">
+            {{ opt }}
           </mat-option>
         </mat-select>
       </mat-form-field>

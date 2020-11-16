@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { QuestionBase } from '../models/question-base';
+import { QuestionBase } from '../../models/question-base';
 
 import { of } from 'rxjs';
 
-import { Scheme } from '../models/Scheme';
+import { Scheme } from '../../models/Scheme';
 import { Router, ActivatedRoute } from '@angular/router';
-import { SchemeService } from './scheme.service';
-import { AuthService } from './auth.service';
+import { SchemeService } from '../scheme.service';
+import { AuthService } from '../auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -34,7 +34,7 @@ export class QuestionService {
       new QuestionBase<string>({
         name: 'brave',
         label: 'Bravery Rating',
-        options: [
+        displayables: [
           { key: 'solid', value: 'Solid' },
           { key: 'great', value: 'Great' },
           { key: 'good', value: 'Good' },

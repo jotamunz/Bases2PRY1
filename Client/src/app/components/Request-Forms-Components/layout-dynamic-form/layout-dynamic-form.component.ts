@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { UserService } from '../../../services/user.service';
 import { SchemeService } from '../../../services/scheme.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { QuestionService } from '../../../services/question.service';
+import { QuestionService } from '../../../services/Form-Request-Services/question.service';
 import { QuestionBase } from '../../../models/question-base';
 
 //MODELS
@@ -20,7 +20,7 @@ export class LayoutDynamicFormComponent implements OnInit {
   //Variables
   questions$: Observable<QuestionBase<any>[]>; //obs de array de fields
   questions: QuestionBase<any>[] = []; // array de fields
-  schemeName : string;
+  schemeName: string;
   public schemaFields: Scheme = null;
 
   constructor(
@@ -42,9 +42,11 @@ export class LayoutDynamicFormComponent implements OnInit {
         .getCompleteScheme(schemeName)
         .subscribe((scheme: Scheme) => {
           this.schemaFields = scheme;
+          console.log(scheme);
 
           this.schemaFields.fields.forEach((question) => {
             this.questions.push(new QuestionBase<any>(question));
+            console.log(question);
           });
         });
     });
