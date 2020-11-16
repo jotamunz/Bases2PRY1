@@ -31,4 +31,21 @@ export class FormService {
     );
   }
 
+
+  /**
+   * Registers a new Form
+   * @param user User data to register
+   */
+  public getFormBySchemeUser(userUsername: string,schemeName: string,date: string): Observable<any> {
+    return this.httpClient.get<any>(
+      `http://localhost:3000/forms/${userUsername}/${schemeName}/${date}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.authService.getToken()}`,
+        },
+      }
+    );
+  }
+
 }
