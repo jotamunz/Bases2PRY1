@@ -16,10 +16,7 @@ module.exports = async function validateForm(req, res, next) {
 		) {
 			value = req.body.responses[key];
 			field = scheme.fields[key];
-			console.log(value);
-			console.log(field);
 		}
 	}
-	//TODO
-	//next();
+	next();
 };
