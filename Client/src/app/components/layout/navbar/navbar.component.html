@@ -28,6 +28,10 @@
   <li *ngIf="this.isUserAuthenticated() && !this.isAdmin()">
     <a routerLink="/user/dashboard/"><i class="fa fa-home"></i>My Inbox</a>
   </li>
+  <!-- Admin link -->
+  <li *ngIf="this.isUserAuthenticated() && this.isAdmin()">
+    <a routerLink="/admin/dashboard/"><i class="fa fa-cog"></i>Dashboard</a>
+  </li>
   <!-- ADMIN LINKS -->
   <!-- User management -->
   <li *ngIf="this.isUserAuthenticated() && this.isAdmin()" class="no-padding">
@@ -108,7 +112,8 @@
             </li>
             <li *ngIf="this.isAdmin()">
               <a routerLink="admin/pendingReviewDashboard"
-                ><i class="fa fa-check-square-o"></i> Pending for review forms</a
+                ><i class="fa fa-check-square-o"></i> Pending for review
+                forms</a
               >
             </li>
             <li *ngIf="this.isAdmin()">
