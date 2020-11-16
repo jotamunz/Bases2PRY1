@@ -52,7 +52,7 @@ const SchemeSchema = mongoose.Schema({
 	},
 	previousVersionId: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Schemes',
+		ref: 'Schemes'
 	}
 });
 

@@ -7,7 +7,7 @@ const router = express.Router();
 
 /*GETS*/
 // Gets all approval routes
-router.get('/',verifyToken, async (req, res) => {
+router.get('/', verifyToken, async (req, res) => {
 	try {
 		const approvalRoute = await ApprovalRoute.find();
 		res.json(approvalRoute);
@@ -17,7 +17,7 @@ router.get('/',verifyToken, async (req, res) => {
 });
 
 // Gets approval route by Id
-router.get('/:approvalRouteId',verifyToken,async (req, res) => {
+router.get('/:approvalRouteId', verifyToken, async (req, res) => {
 	try {
 		const approvalRoute = await ApprovalRoute.findById(
 			req.params.approvalRouteId
@@ -27,8 +27,6 @@ router.get('/:approvalRouteId',verifyToken,async (req, res) => {
 		res.status(408).json({ message: error });
 	}
 });
-
-
 
 /*POSTS*/
 //Creates a new approval route
