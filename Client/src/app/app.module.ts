@@ -44,6 +44,8 @@ import { AddSchemeComponent } from './components/add-scheme/add-scheme.component
 import { AdminRequestDashboardComponent } from './components/admin-request-dashboard/admin-request-dashboard.component';
 import { AdminLayoutDynamicFormComponent } from './components/Request-Forms-Components-admin/admin-layout-dynamic-form/admin-layout-dynamic-form.component';
 import { AdminDynamicFormQuestionComponent } from './components/Request-Forms-Components-Admin/admin-dynamic-form-question/admin-dynamic-form-question.component';
+import { UserAnsweredFormsDashboardComponent } from './components/View-Forms-Components/user-answered-forms-dashboard/user-answered-forms-dashboard.component';
+import { UserUnansweredFormsDashboardComponent } from './components/View-Forms-Components/user-unanswered-forms-dashboard/user-unanswered-forms-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +68,8 @@ import { AdminDynamicFormQuestionComponent } from './components/Request-Forms-Co
     AdminRequestDashboardComponent,
     AdminDynamicFormQuestionComponent,
     AdminLayoutDynamicFormComponent,
+    UserAnsweredFormsDashboardComponent,
+    UserUnansweredFormsDashboardComponent,
   ],
 
   imports: [
