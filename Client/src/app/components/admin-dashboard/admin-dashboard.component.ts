@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+import { FormService } from '../../services/form.service'
+
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -6,14 +9,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin-dashboard.component.css']
 })
 export class AdminDashboardComponent implements OnInit {
-  public pendingDocuments: any = [
-    { name: 'Vacations', date: Date.now() },
-    { name: 'New position', date: Date.now() },
-    { name: 'Recommendation', date: Date.now() },
-    { name: 'Infrastrcuture review', date: Date.now() },
-  ];
+  public pendingDocuments: any = [];
 
-  constructor() {}
+  constructor(
+    private authService : AuthService,
+    private formService : FormService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadPendingForms();
+    console.log(this.pendingDocuments)
+  }
+
+  public loadPendingForms(): void {
+    let username : String = this.authService.getCurrentUser().username;
+    this.formService.getPendingFormForUser(username).subscribe((schemes: any[]) => {
+      // Map to items in form
+      schemes.forEach((scheme) => {
+        this.pendingDocuments.push(scheme);
+      });
+    });
+  }
 }

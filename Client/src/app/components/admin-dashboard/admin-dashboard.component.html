@@ -4,8 +4,8 @@
     <!-- Pending documents -->
     <div class="card" *ngFor="let document of pendingDocuments">
       <div class="card-content">
-        <span class="card-title">{{ document.name }}</span>
-        <p><strong>Date submitted: </strong> {{ document.date | date }}</p>
+        <span class="card-title">{{ document.schemeName }}</span>
+        <p><strong>Date submitted: </strong> {{ document.creationDate | date }}</p>
         <a href="#" class="btn grey btn-block darken-2">Read more</a>
       </div>
     </div>
