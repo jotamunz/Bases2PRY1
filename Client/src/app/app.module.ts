@@ -46,6 +46,10 @@ import { AdminLayoutDynamicFormComponent } from './components/Request-Forms-Comp
 import { AdminDynamicFormQuestionComponent } from './components/Request-Forms-Components-Admin/admin-dynamic-form-question/admin-dynamic-form-question.component';
 import { UserAnsweredFormsDashboardComponent } from './components/View-Forms-Components/user-answered-forms-dashboard/user-answered-forms-dashboard.component';
 import { UserUnansweredFormsDashboardComponent } from './components/View-Forms-Components/user-unanswered-forms-dashboard/user-unanswered-forms-dashboard.component';
+import { UserFormHistoryDashboardComponent } from './components/user-form-history-dashboard/user-form-history-dashboard.component';
+import { AdminFormHistoryDashboardComponent } from './components/admin-form-history-dashboard/admin-form-history-dashboard.component';
+import { AdminPendingFormReviewDashboardComponent } from './components/admin-pending-form-review-dashboard/admin-pending-form-review-dashboard.component';
+import { AdminHistoryFormReviewDashboardComponent } from './components/admin-history-form-review-dashboard/admin-history-form-review-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +74,10 @@ import { UserUnansweredFormsDashboardComponent } from './components/View-Forms-C
     AdminLayoutDynamicFormComponent,
     UserAnsweredFormsDashboardComponent,
     UserUnansweredFormsDashboardComponent,
+    UserFormHistoryDashboardComponent,
+    AdminFormHistoryDashboardComponent,
+    AdminPendingFormReviewDashboardComponent,
+    AdminHistoryFormReviewDashboardComponent,
   ],
 
   imports: [
