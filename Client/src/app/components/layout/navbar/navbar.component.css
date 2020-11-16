@@ -1,0 +1,24 @@
+.main-navbar {
+  background-color: var(--dark-primary-color);
+}
+
+.collapsible-body li a {
+  background-color: var(--dark-color);
+  color: var(--light-color);
+}
+
+.sidenav {
+  background-color: var(--dark-color);
+}
+
+.sidenav li a {
+  color: var(--light-color);
+}
+
+.sidenav li a i {
+  color: var(--light-color);
+}
+
+li a.close-sidenav:hover {
+  cursor: pointer;
+}
