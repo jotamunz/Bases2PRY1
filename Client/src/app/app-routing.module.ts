@@ -16,6 +16,8 @@ import { ListAllSchemesComponent } from './components/list-all-schemes/list-all-
 import { EditSchemeComponent } from './components/edit-scheme/edit-scheme.component';
 import { AddSchemeComponent } from './components/add-scheme/add-scheme.component';
 import { AdminRequestDashboardComponent } from './components/admin-request-dashboard/admin-request-dashboard.component';
+import { AdminLayoutDynamicFormComponent } from './components/Request-Forms-Components-admin/admin-layout-dynamic-form/admin-layout-dynamic-form.component';
+
 
 //SERVICES
 import { AuthUserGuard } from './guards/authuser.guard';
@@ -36,6 +38,12 @@ const routes: Routes = [
   {
     path: 'user/form/dashboard/:schemeName/fill',
     component: LayoutDynamicFormComponent,
+    canActivate: [AuthUserGuard],
+  },
+  {
+    path: 'admin/form/dashboard/:schemeName/fill',
+    component: AdminLayoutDynamicFormComponent,
+    canActivate: [AuthAdminGuard],
   },
   {
     path: 'user/form/dashboard',

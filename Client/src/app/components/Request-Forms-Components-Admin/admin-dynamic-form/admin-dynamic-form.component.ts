@@ -15,11 +15,11 @@ import { AuthService } from '../../../services/auth.service';
 import{ FormService } from '../../../services/form.service';
 
 @Component({
-  selector: 'app-dynamic-form',
-  templateUrl: './dynamic-form.component.html',
-  styleUrls: ['./dynamic-form.component.css'],
+  selector: 'app-admin-dynamic-form',
+  templateUrl: './admin-dynamic-form.component.html',
+  styleUrls: ['./admin-dynamic-form.component.css']
 })
-export class DynamicFormComponent implements OnInit {
+export class AdminDynamicFormComponent implements OnInit {
   @Input() questions: QuestionBase<string>[];
   @Input() schemeName : string;
   form: FormGroup;
@@ -65,19 +65,26 @@ export class DynamicFormComponent implements OnInit {
     this.mongoForm.userUsername = this.authService.getCurrentUser().username;
     console.log(this.mongoForm)
 
-    this.formService.registerNewForm(this.mongoForm).subscribe(
-      (res) => {
-        this.flashMessagesService.show(`The form has been sent successfully`, {
-          cssClass: 'alert success-alert',
-        });
-        this.router.navigateByUrl('/user/form/dashboard');
-      },
-      (err) => {
-        this.flashMessagesService.show(err.error.message, {
-          cssClass: 'alert danger-alert',
-        })
-      }
-    );
-    
+    if(false){
+      this.flashMessagesService.show("Invalid spaces", {
+        cssClass: 'alert danger-alert',
+      })
+    }
+
+    else {  
+      this.formService.registerNewForm(this.mongoForm).subscribe(
+        (res) => {
+          this.flashMessagesService.show(`The form has been sent successfully`, {
+            cssClass: 'alert success-alert',
+          });
+          this.router.navigateByUrl('/user/form/dashboard');
+        },
+        (err) => {
+          this.flashMessagesService.show(err.error.message, {
+            cssClass: 'alert danger-alert',
+          })
+        }
+      );
+    }
   }
 }
