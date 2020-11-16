@@ -50,15 +50,11 @@ router.get('/user/:userUsername', verifyToken, async (req, res) => {
 					res.status(400).json({ message: 'Specified scheme not found' });
 					return;
 				}
-				accessibleSchemesNames.push({ schemeName: schemeName.name });
+				accessibleSchemesNames.push({ name: schemeName.name });
 			}
 		}
 		accessibleSchemesNames.sort(function (a, b) {
-			return a.schemeName < b.schemeName
-				? -1
-				: a.schemeName > b.schemeName
-				? 1
-				: 0;
+			return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
 		});
 		res.json(accessibleSchemesNames);
 	} catch (error) {
