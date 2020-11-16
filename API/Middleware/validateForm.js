@@ -1,4 +1,5 @@
 const Scheme = require('../models/Scheme');
+const DateTime = require('luxon');
 
 module.exports = async function validateForm(req, res, next) {
 	const scheme = await Scheme.findOne(
@@ -16,8 +17,23 @@ module.exports = async function validateForm(req, res, next) {
 		) {
 			value = req.body.responses[key];
 			field = scheme.fields[key];
-			console.log(value);
-			console.log(field);
+			switch (field.expectType) {
+				case 'number':
+					if (isNaN(value.value)) {
+						res
+							.status(400)
+							.json({ message: 'Incorrect type: expected number' });
+						return;
+					}
+					break;
+				case 'text':
+					break;
+				case 'date':
+					const date = DateTime.fromFormat(value.value, 'DD/MM/YYYY').toISO();
+					console.log(date);
+					break;
+				default:
+			}
 		}
 	}
 	//TODO
