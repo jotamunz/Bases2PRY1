@@ -1,5 +1,7 @@
 const Scheme = require('../models/Scheme');
-const DateTime = require('luxon');
+const dayjs = require('dayjs');
+const customParseFormat = require('dayjs/plugin/customParseFormat');
+dayjs.extend(customParseFormat);
 
 module.exports = async function validateForm(req, res, next) {
 	const scheme = await Scheme.findOne(
@@ -29,13 +31,18 @@ module.exports = async function validateForm(req, res, next) {
 				case 'text':
 					break;
 				case 'date':
-					const date = DateTime.fromFormat(value.value, 'DD/MM/YYYY').toISO();
-					console.log(date);
+					const isValid =
+						dayjs(value.value, 'DD/MM/YYYY', true).format('DD/MM/YYYY') ===
+						value.value;
+					if (!isValid) {
+						res.status(400).json({ message: 'Incorrect type: expected date' });
+						return;
+					}
 					break;
 				default:
+					res.status(500).json({ message: 'Incorrect scheme format' });
 			}
 		}
 	}
-	//TODO
-	//next();
+	next();
 };
