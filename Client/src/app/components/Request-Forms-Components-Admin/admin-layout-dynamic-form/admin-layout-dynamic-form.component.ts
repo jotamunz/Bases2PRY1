@@ -12,15 +12,15 @@ import { QuestionBase } from '../../../models/question-base';
 import { Scheme } from '../../../models/Scheme';
 
 @Component({
-  selector: 'app-layout-dynamic-form',
-  templateUrl: './layout-dynamic-form.component.html',
-  styleUrls: ['./layout-dynamic-form.component.css'],
+  selector: 'app-admin-layout-dynamic-form',
+  templateUrl: './admin-layout-dynamic-form.component.html',
+  styleUrls: ['./admin-layout-dynamic-form.component.css'],
 })
-export class LayoutDynamicFormComponent implements OnInit {
+export class AdminLayoutDynamicFormComponent implements OnInit {
   //Variables
   questions$: Observable<QuestionBase<any>[]>; //obs de array de fields
   questions: QuestionBase<any>[] = []; // array de fields
-  schemeName: string;
+  schemeName : string;
   public schemaFields: Scheme = null;
 
   constructor(
@@ -42,11 +42,9 @@ export class LayoutDynamicFormComponent implements OnInit {
         .getCompleteScheme(schemeName)
         .subscribe((scheme: Scheme) => {
           this.schemaFields = scheme;
-          console.log(scheme);
 
           this.schemaFields.fields.forEach((question) => {
             this.questions.push(new QuestionBase<any>(question));
-            console.log(question);
           });
         });
     });

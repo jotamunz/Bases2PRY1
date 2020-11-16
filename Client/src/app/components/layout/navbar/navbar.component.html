@@ -26,7 +26,7 @@
 <ul class="sidenav" id="mobile-sidenav">
   <!-- USER LINKS -->
   <li *ngIf="this.isUserAuthenticated() && !this.isAdmin()">
-    <a routerLink="/user/dashboard/"><i class="fa fa-cog"></i>My Inbox</a>
+    <a routerLink="/user/dashboard/"><i class="fa fa-home"></i>My Inbox</a>
   </li>
   <!-- ADMIN LINKS -->
   <!-- User management -->
@@ -70,6 +70,45 @@
             <li>
               <a routerLink="/admin/schemes/add"
                 ><i class="fa fa-plus"></i> Add a new scheme</a
+              >
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </li>
+  <!-- Form Management -->
+  <li *ngIf="this.isUserAuthenticated()" class="no-padding">
+    <ul class="collapsible collapsible-accordion">
+      <li>
+        <a class="collapsible-header"
+          >Forms<i class="material-icons">arrow_drop_down</i></a
+        >
+        <div class="collapsible-body">
+          <ul>
+            <li>
+              <a routerLink="/admin/users"
+                ><i class="fa fa-list-alt"></i> Form history</a
+              >
+            </li>
+            <li *ngIf="this.isAdmin()">
+              <a routerLink="/admin/form/dashboard"
+                ><i class="fa fa-plus"></i> Register new form</a
+              >
+            </li>
+            <li *ngIf="!this.isAdmin()">
+              <a routerLink="/user/form/dashboard"
+                ><i class="fa fa-plus"></i> Register new form</a
+              >
+            </li>
+            <li *ngIf="this.isAdmin()">
+              <a routerLink="/admin/users"
+                ><i class="fa fa-check-square-o"></i> Pending for review forms</a
+              >
+            </li>
+            <li *ngIf="this.isAdmin()">
+              <a routerLink="/admin/users"
+                ><i class="fa fa-check-square-o"></i> History approved forms</a
               >
             </li>
           </ul>
