@@ -1,0 +1,12 @@
+<div class="container">
+    <h1><i class="fa fa-envelope"></i> My Form History</h1>
+    <p>Here are your history of past documents </p>
+    <!-- Pending documents -->
+    <div class="card" *ngFor="let document of historyDocuments">
+      <div class="card-content">
+        <span class="card-title">{{ document.schemeName }}</span>
+        <p><strong>Date submitted: </strong> {{ document.creationDate | date }}</p>
+        <a href="#" class="btn grey btn-block darken-2">Read more</a>
+      </div>
+    </div>
+  </div>
