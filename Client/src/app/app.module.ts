@@ -44,7 +44,6 @@ import { AddSchemeComponent } from './components/add-scheme/add-scheme.component
 import { AdminRequestDashboardComponent } from './components/admin-request-dashboard/admin-request-dashboard.component';
 import { AdminLayoutDynamicFormComponent } from './components/Request-Forms-Components-admin/admin-layout-dynamic-form/admin-layout-dynamic-form.component';
 import { AdminDynamicFormQuestionComponent } from './components/Request-Forms-Components-Admin/admin-dynamic-form-question/admin-dynamic-form-question.component';
-import { AdminDynamicFormComponent } from './components/Request-Forms-Components-Admin/admin-dynamic-form/admin-dynamic-form.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +65,6 @@ import { AdminDynamicFormComponent } from './components/Request-Forms-Components
     AddSchemeComponent,
     AdminRequestDashboardComponent,
     AdminDynamicFormQuestionComponent,
-    AdminDynamicFormComponent,
     AdminLayoutDynamicFormComponent,
   ],
 
