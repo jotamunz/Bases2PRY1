@@ -49,6 +49,10 @@ const SchemeSchema = mongoose.Schema({
 		type: Number,
 		required: true,
 		default: 1
+	},
+	previousVersionId: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Schemes'
 	}
 });
 

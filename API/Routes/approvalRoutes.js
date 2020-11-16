@@ -7,7 +7,7 @@ const router = express.Router();
 
 /*GETS*/
 // Gets all approval routes
-router.get('/',verifyToken, async (req, res) => {
+router.get('/', verifyToken, async (req, res) => {
 	try {
 		const approvalRoute = await ApprovalRoute.find();
 		res.json(approvalRoute);
@@ -17,7 +17,7 @@ router.get('/',verifyToken, async (req, res) => {
 });
 
 // Gets approval route by Id
-router.get('/:approvalRouteId',verifyToken,async (req, res) => {
+router.get('/:approvalRouteId', verifyToken, async (req, res) => {
 	try {
 		const approvalRoute = await ApprovalRoute.findById(
 			req.params.approvalRouteId
@@ -30,7 +30,7 @@ router.get('/:approvalRouteId',verifyToken,async (req, res) => {
 
 /*POSTS*/
 //Creates a new approval route
-router.post('/',verifyToken, async (req, res) => {
+router.post('/', verifyToken, async (req, res) => {
 	for (var i = 0; i < req.body.authors.length; i++) {
 		req.body.authors[i].userId = new mongoose.Types.ObjectId(
 			req.body.authors[i].userId
