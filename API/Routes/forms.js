@@ -108,63 +108,62 @@ router.get('/history/:userUsername', verifyToken, async (req, res) => {
 });
 
 // GET FORM BY SCHEME NAME, DATE AND USER AUTHOR
-// I:
-/*
-	userUsername: String,
-	schemeName: String,
-	date: Date 
-*/
+// I: /userUsername/schemeName/date
 // O: all form with respective scheme and user information except routes
 // E: 408, 401, 400
-router.get('/', verifyToken, async (req, res) => {
-	try {
-		const user = await User.findOne({ username: req.body.userUsername });
-		if (user == null) {
-			res.status(400).json({ message: 'Specified user not found' });
-			return;
-		}
-		const scheme = await Scheme.findOne({ name: req.body.schemeName });
-		if (scheme == null) {
-			res.status(400).json({ message: 'Specified scheme not found' });
-			return;
-		}
-		const form = await Form.findOne({
-			userId: user._id,
-			schemeId: scheme._id,
-			creationDate: req.body.date
-		});
-		if (form == null) {
-			res.status(400).json({ message: 'Specified form not found' });
-			return;
-		}
-		let fieldsWithValue = [];
-		for (let key in form.responses) {
-			if (
-				form.responses.hasOwnProperty(key) &&
-				scheme.fields.hasOwnProperty(key)
-			) {
-				value = form.responses[key];
-				field = scheme.fields[key];
-				fieldsWithValue.push({
-					name: field.name,
-					label: field.label,
-					component: field.component,
-					value: value.value
-				});
+router.get(
+	'/:userUsername/:schemeName/:date',
+	verifyToken,
+	async (req, res) => {
+		try {
+			const user = await User.findOne({ username: req.params.userUsername });
+			if (user == null) {
+				res.status(400).json({ message: 'Specified user not found' });
+				return;
 			}
+			const scheme = await Scheme.findOne({ name: req.params.schemeName });
+			if (scheme == null) {
+				res.status(400).json({ message: 'Specified scheme not found' });
+				return;
+			}
+			const form = await Form.findOne({
+				userId: user._id,
+				schemeId: scheme._id,
+				creationDate: req.params.date
+			});
+			if (form == null) {
+				res.status(400).json({ message: 'Specified form not found' });
+				return;
+			}
+			let fieldsWithValue = [];
+			for (let key in form.responses) {
+				if (
+					form.responses.hasOwnProperty(key) &&
+					scheme.fields.hasOwnProperty(key)
+				) {
+					value = form.responses[key];
+					field = scheme.fields[key];
+					fieldsWithValue.push({
+						name: field.name,
+						label: field.label,
+						component: field.component,
+						value: value.value
+					});
+				}
+			}
+			res.json({
+				schemeName: scheme.name,
+				userName: user.name,
+				userUsername: user.username,
+				creationDate: form.creationDate,
+				status: form.status,
+				responses: fieldsWithValue
+			});
+		} catch (error) {
+			res.status(408).json({ message: error });
 		}
-		res.json({
-			schemeName: scheme.name,
-			userName: user.name,
-			userUsername: user.username,
-			creationDate: form.creationDate,
-			status: form.status,
-			responses: fieldsWithValue
-		});
-	} catch (error) {
-		res.status(408).json({ message: error });
 	}
-});
+);
 
 /*POSTS*/
 
