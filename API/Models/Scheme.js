@@ -23,7 +23,8 @@ const FieldSchema = mongoose.Schema(
 		},
 		displayables: {
 			type: mongoose.Schema.Types.Mixed,
-			required: true
+			required: true,
+			default: []
 		}
 	},
 	{ _id: false }
@@ -43,6 +44,11 @@ const SchemeSchema = mongoose.Schema({
 		type: Boolean,
 		required: true,
 		default: true
+	},
+	modification: {
+		type: Number,
+		required: true,
+		default: 1
 	}
 });
 

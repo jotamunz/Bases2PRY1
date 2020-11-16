@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin-dashboard.component.css']
 })
 export class AdminDashboardComponent implements OnInit {
+  public pendingDocuments: any = [
+    { name: 'Vacations', date: Date.now() },
+    { name: 'New position', date: Date.now() },
+    { name: 'Recommendation', date: Date.now() },
+    { name: 'Infrastrcuture review', date: Date.now() },
+  ];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

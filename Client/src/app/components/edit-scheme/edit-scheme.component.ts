@@ -23,12 +23,12 @@ export class EditSchemeComponent implements OnInit {
     expectType: 'text',
     component: 'textbox',
     displayables: [],
-    label : ''
+    label: '',
   };
   public updateScheme: SchemeUpdate = {
-    name: '',
+    newName: '',
     fields: [],
-    oldName : ''
+    oldName: '',
   };
   public currentDisplayable: string = '';
 
@@ -47,7 +47,7 @@ export class EditSchemeComponent implements OnInit {
         .subscribe((scheme: Scheme) => {
           this.scheme.name = scheme.name;
           this.schemeFields = scheme.fields;
-          this.updateScheme.oldName = scheme.name
+          this.updateScheme.oldName = scheme.name;
         });
     });
   }
@@ -57,19 +57,24 @@ export class EditSchemeComponent implements OnInit {
 
     this.updateScheme._id = this.scheme._id;
     this.updateScheme.fields = this.scheme.fields;
-    this.updateScheme.name = this.scheme.name;
+    this.updateScheme.newName = this.scheme.name;
     console.log(this.updateScheme);
-    this.schemeService.updateScheme(this.updateScheme).subscribe(response => {
-      this.flashMessagesService.show(`${this.updateScheme.name} has been registered`, {
-        cssClass: 'alert success-alert',
-      });
-      this.router.navigateByUrl('/admin/schemes');
-    },
-    (err) => {
-      this.flashMessagesService.show(err.error.message, {
-        cssClass: 'alert danger-alert',
-      })
-    })
+    this.schemeService.updateScheme(this.updateScheme).subscribe(
+      (response) => {
+        this.flashMessagesService.show(
+          `${this.updateScheme.newName} has been registered`,
+          {
+            cssClass: 'alert success-alert',
+          }
+        );
+        this.router.navigateByUrl('/admin/schemes');
+      },
+      (err) => {
+        this.flashMessagesService.show(err.error.message, {
+          cssClass: 'alert danger-alert',
+        });
+      }
+    );
   }
 
   public addDisplayableToField(): void {
@@ -101,7 +106,7 @@ export class EditSchemeComponent implements OnInit {
       expectType: 'text',
       component: 'textbox',
       displayables: [],
-      label : ''
+      label: '',
     };
   }
 }

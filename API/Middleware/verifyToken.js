@@ -8,13 +8,13 @@ module.exports = function verifyToken(req, res, next) {
 		const bearerToken = bearer[1];
 		jwt.verify(bearerToken, process.env.KEY, (error, authData) => {
 			if (error) {
-				res.sendStatus(401);
+				res.status(401).json({ message: 'Unauthorized' });
 			} else {
 				req.authData = authData;
 				next();
 			}
 		});
 	} else {
-		res.sendStatus(401);
+		res.status(401).json({ message: 'Unauthorized' });
 	}
 };

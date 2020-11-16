@@ -4,21 +4,19 @@ import { FormGroup } from '@angular/forms';
 import { QuestionBase } from '../../../models/question-base';
 
 @Component({
-  selector: 'app-dynamic-form-question',
-  templateUrl: './dynamic-form-question.component.html',
-  styleUrls: ['./dynamic-form-question.component.css'],
+  selector: 'app-admin-dynamic-form-question',
+  templateUrl: './admin-dynamic-form-question.component.html',
+  styleUrls: ['./admin-dynamic-form-question.component.css'],
 })
 
 // Renders the question values of the Obj question
-export class DynamicFormQuestionComponent implements OnInit {
+export class AdminDynamicFormQuestionComponent implements OnInit {
   @Input() question: QuestionBase<string>;
   @Input() form: FormGroup;
 
   constructor() {}
 
-  ngOnInit(): void {
-    console.log(this.question.displayables);
-  }
+  ngOnInit(): void {}
 }
 
 /*

@@ -1,23 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 
 //SERVICES
-import { UserService } from '../../../services/user.service';
-import { SchemeService } from '../../../services/scheme.service';
+import { UserService } from '../../services/user.service';
+import { SchemeService } from '../../services/scheme.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService } from '../../../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 
 //MODELS
-import { User } from '../../../models/User';
-import { Scheme } from '../../../models/Scheme';
+import { User } from '../../models/User';
+import { Scheme } from '../../models/Scheme';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-user-request-dashboard',
-  templateUrl: './user-request-dashboard.component.html',
-  styleUrls: ['./user-request-dashboard.component.css'],
+  selector: 'app-admin-request-dashboard',
+  templateUrl: './admin-request-dashboard.component.html',
+  styleUrls: ['./admin-request-dashboard.component.css'],
 })
-export class UserRequestDashboardComponent implements OnInit {
+export class AdminRequestDashboardComponent implements OnInit {
   public schemeItems: any = [];
   public temp: Scheme = null;
 
@@ -31,7 +31,6 @@ export class UserRequestDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadSchemes();
-
   }
 
   public onSubmit(): void {
@@ -40,7 +39,7 @@ export class UserRequestDashboardComponent implements OnInit {
 
   public loadSchemes(): void {
     let username : String = this.authService.getCurrentUser().username;
-    this.schemeService.getAllSchemesForUser(username).subscribe((schemes: any[]) => {
+    this.schemeService.getAllSchemes().subscribe((schemes: any[]) => {
       // Map to items in form
       schemes.forEach((scheme) => {
         this.schemeItems.push(scheme);
