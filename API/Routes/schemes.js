@@ -147,7 +147,8 @@ router.patch('/', verifyToken, async (req, res) => {
 			const newScheme = new Scheme({
 				name: req.body.newName,
 				fields: req.body.fields,
-				modification: oldScheme.modification + 1
+				modification: oldScheme.modification + 1,
+				previousVersionId: oldScheme._id
 			});
 			oldScheme.isActive = false;
 			oldScheme.name = oldScheme.name.concat(
