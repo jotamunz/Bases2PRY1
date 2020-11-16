@@ -1,15 +1,1 @@
-.progress-bar {
-  width: 100%;
-  min-height: 1.5rem;
-  background-color: #f3f3f3;
-  border-radius: 10px;
-}
 
-.progress-bar .progress {
-  min-height: 1.5rem;
-  padding-left: 0.3rem;
-  width: 0;
-  background-color: var(--dark-primary-color);
-  color: var(--light-color);
-  border-radius: 10px;
-}
