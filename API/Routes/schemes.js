@@ -98,7 +98,7 @@ router.get('/:name', verifyToken, async (req, res) => {
 */
 // O: Saved scheme name
 // E: 408, 401, 400
-router.post('/',async (req, res) => {
+router.post('/', verifyToken,async (req, res) => {
 	const scheme = new Scheme({
 		name: req.body.name,
 		fields: req.body.fields
@@ -147,7 +147,8 @@ router.patch('/', verifyToken, async (req, res) => {
 			const newScheme = new Scheme({
 				name: req.body.newName,
 				fields: req.body.fields,
-				modification: oldScheme.modification + 1
+				modification: oldScheme.modification + 1,
+				previousVersionId: oldScheme._id
 			});
 			oldScheme.isActive = false;
 			oldScheme.name = oldScheme.name.concat(
