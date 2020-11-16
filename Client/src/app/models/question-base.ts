@@ -5,7 +5,7 @@ export class QuestionBase<T> {
   required: boolean;
   component: string;
   type: string;
-  options: { key: string; value: string }[];
+  displayables: { value: string }[];
 
   constructor(
     options: {
@@ -16,7 +16,7 @@ export class QuestionBase<T> {
       order?: number;
       component?: string;
       type?: string;
-      options?: { key: string; value: string }[];
+      displayables?: { key: string; value: string }[];
     } = {}
   ) {
     this.value = options.value;
@@ -25,7 +25,7 @@ export class QuestionBase<T> {
     this.required = !!options.required;
     this.component = options.component || '';
     this.type = options.type || '';
-    this.options = options.options || [];
+    this.displayables = options.displayables || [];
   }
 }
 

@@ -51,11 +51,9 @@ export class AssignSchemeToUserComponent implements OnInit {
               checked: false,
               name: scheme.name,
             };
-            
           });
-          console.log(this.schemeItems)
+          console.log(this.schemeItems);
         });
-        
       });
     });
   }
@@ -76,23 +74,23 @@ export class AssignSchemeToUserComponent implements OnInit {
     return isInUser;
   }
 
-  private getSelectedSchemes() : any {
-    let selectedSchemes : any[] = [] 
-    this.schemeItems.forEach(scheme => {
-      if(scheme.checked){
-        selectedSchemes.push({name : scheme.name})
+  private getSelectedSchemes(): any {
+    let selectedSchemes: any[] = [];
+    this.schemeItems.forEach((scheme) => {
+      if (scheme.checked) {
+        selectedSchemes.push({ name: scheme.name });
       }
     });
-    return {username : this.user.username, accessibleSchemes: selectedSchemes}
+    return { username: this.user.username, accessibleSchemes: selectedSchemes };
   }
 
   public onSubmit(): void {
     // TODO: Submit form
-    let selectedSchemes : any =  this.getSelectedSchemes();  
+    let selectedSchemes: any = this.getSelectedSchemes();
     console.log(selectedSchemes);
 
     this.userService.editUserSchemas(selectedSchemes).subscribe(
-      response => {
+      (response) => {
         this.flashMessagesService.show(`${this.user.name} has been updated`, {
           cssClass: 'alert success-alert',
         });
@@ -101,9 +99,8 @@ export class AssignSchemeToUserComponent implements OnInit {
       (err) => {
         this.flashMessagesService.show(err.error.message, {
           cssClass: 'alert danger-alert',
-        })
+        });
       }
     );
-    
   }
 }

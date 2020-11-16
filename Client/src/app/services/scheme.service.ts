@@ -26,6 +26,18 @@ export class SchemeService {
     });
   }
 
+   /**
+   * Get all schemes for a specified user
+   */
+  public getAllSchemesForUser(username : String): Observable<Scheme[]> {
+    return this.httpClient.get<Scheme[]>(`http://localhost:3000/schemes/user/${username}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.authService.getToken()}`,
+      },
+    });
+  }
+
   /**
    * Get single scheme with fields
    */
@@ -44,20 +56,8 @@ export class SchemeService {
   /**
    * Add new scheme
    */
-  public postScheme(scheme : Scheme): Observable<any> {
-    return this.httpClient.post<any>('http://localhost:3000/schemes/',scheme, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.authService.getToken()}`,
-      },
-    });
-  }
-
-/**
-   * Delete a scheme
-   */
-  public deleteScheme (schemeName : string) : Observable<any> {
-    return this.httpClient.delete<any>(`http://localhost:3000/schemes/${schemeName}`, {
+  public postScheme(scheme: Scheme): Observable<any> {
+    return this.httpClient.post<any>('http://localhost:3000/schemes/', scheme, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${this.authService.getToken()}`,
@@ -66,17 +66,33 @@ export class SchemeService {
   }
 
   /**
+   * Delete a scheme
+   */
+  public deleteScheme(schemeName: string): Observable<any> {
+    return this.httpClient.delete<any>(
+      `http://localhost:3000/schemes/${schemeName}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.authService.getToken()}`,
+        },
+      }
+    );
+  }
+
+  /**
    * Update a scheme
    */
-  public updateScheme (scheme : any) : Observable<any> {
-    return this.httpClient.patch<any>('http://localhost:3000/schemes/', scheme, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.authService.getToken()}`,
-      },
-    });
+  public updateScheme(scheme: any): Observable<any> {
+    return this.httpClient.patch<any>(
+      'http://localhost:3000/schemes/',
+      scheme,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.authService.getToken()}`,
+        },
+      }
+    );
   }
 }
-
-
-
