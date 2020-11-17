@@ -35,25 +35,31 @@ export class EditUserComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.userService.editUser({
-      oldUsername : this.user.username,
-      newUsername : this.user.username,
-      name : this.user.name,
-      password : this.user.password,
-      isAdmin : this.user.isAdmin}).subscribe(response =>{
-
-        this.flashMessagesService.show(`${this.user.username} has been modified succesfully`, {
-          cssClass: 'alert success-alert',
-        });
-        this.router.navigateByUrl('/admin/users');
-      },
-
-      (err) => {
-        console.log(err.error.message)
-        this.flashMessagesService.show(err.error.message.message, {
-          cssClass: 'alert danger-alert',
-        })
+    this.userService
+      .editUser({
+        oldUsername: this.user.username,
+        newUsername: this.user.username,
+        name: this.user.name,
+        password: this.user.password,
+        isAdmin: this.user.isAdmin,
       })
-    //}
+      .subscribe(
+        (response) => {
+          this.flashMessagesService.show(
+            `${this.user.username} has been modified succesfully`,
+            {
+              cssClass: 'alert success-alert',
+            }
+          );
+          this.router.navigateByUrl('/admin/users');
+        },
+
+        (err) => {
+          console.log(err.error.message);
+          this.flashMessagesService.show(err.error.message.message, {
+            cssClass: 'alert danger-alert',
+          });
+        }
+      );
   }
 }
