@@ -14,12 +14,14 @@ import { EditUserComponent } from './components/edit-user/edit-user.component';
 import { LayoutDynamicFormComponent } from './components/Request-Forms-Components/layout-dynamic-form/layout-dynamic-form.component';
 import { ListAllSchemesComponent } from './components/list-all-schemes/list-all-schemes.component';
 import { LoginComponent } from './components/login/login.component';
-import { UserAnsweredFormsDashboardComponent } from './components/View-Forms-Components/user-answered-forms-dashboard/user-answered-forms-dashboard.component';
+import { UserAnsweredFormsDashboardComponent } from './components/View-Forms-Components/History/user-answered-forms-dashboard/user-answered-forms-dashboard.component';
 import { UsersComponent } from './components/users/users.component';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
 import { UserRegistrationComponent } from './components/user-registration/user-registration.component';
 import { UserRequestDashboardComponent } from './components/Request-Forms-Components/user-request-dashboard/user-request-dashboard.component';
-import { UserUnansweredFormsDashboardComponent } from './components/View-Forms-Components/user-unanswered-forms-dashboard/user-unanswered-forms-dashboard.component';
+import { UserUnansweredFormsDashboardComponent } from './components/View-Forms-Components/Pending/user-unanswered-forms-dashboard/user-unanswered-forms-dashboard.component';
+import { DynamicFormLayoutComponent } from './components/View-Forms-Components/History/dynamic-form-layout/dynamic-form-layout.component';
+import { DynamicFormLayoutPendingComponent } from './components/View-Forms-Components/Pending/dynamic-form-layout-pending/dynamic-form-layout-pending.component';
 
 //SERVICES
 import { AuthUserGuard } from './guards/authuser.guard';
@@ -66,6 +68,18 @@ const routes: Routes = [
   {
     path: 'user/viewForms/dashboard/pending',
     component: UserUnansweredFormsDashboardComponent,
+    // Todo: authorization
+  },
+  {
+    path:
+      'user/viewForms/dashboard/answered/view/:username/:schemaName/:createDate',
+    component: DynamicFormLayoutPendingComponent,
+    // Todo: authorization
+  },
+  {
+    path:
+      'user/viewForms/dashboard/pending/view/:username/:schemaName/:createDate',
+    component: DynamicFormLayoutPendingComponent,
     // Todo: authorization
   },
   {
