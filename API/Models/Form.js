@@ -28,8 +28,7 @@ const ApproverSchema = mongoose.Schema(
 		},
 		approvalDate: {
 			type: Date,
-			required: false,
-			default: Date.now
+			required: false
 		}
 	},
 	{ _id: false }
