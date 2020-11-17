@@ -42,6 +42,10 @@ export class ListAllSchemesComponent implements OnInit {
     this.removeScheme(schemeName);
   }
 
+  /**
+   * Removes a scheme
+   * @param schemeName The name of the scheme to remove
+   */
   public removeScheme(schemeName: string): void {
     let schemesTemp = [];
     this.schemes.forEach((scheme) => {

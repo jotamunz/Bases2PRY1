@@ -58,14 +58,12 @@
             id="component"
             (change)="resetDisplayables()"
           >
-            <!-- TODO: Revisar esto -->
             <option value="textbox" selected>Text Box</option>
             <option value="dropdown">Dropdown menu</option>
           </select>
           <label>Component type</label>
         </div>
         <!-- Select type -->
-        <!-- TODO: Revisar si el type igual hay que ingresarlo para dropdowns -->
         <div
           [ngClass]="{
             'input-field': true,
@@ -77,7 +75,6 @@
             [(ngModel)]="currentSchemeField.expectType"
             id="expectType"
           >
-            <!-- TODO: Revisar esto -->
             <option value="text" selected>Text</option>
             <option value="number">Number</option>
             <option value="date">Date</option>
