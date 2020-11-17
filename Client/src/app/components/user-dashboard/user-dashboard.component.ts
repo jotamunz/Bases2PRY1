@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FormService } from '../../services/form.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
+
 
 @Component({
   selector: 'app-user-dashboard',
@@ -9,10 +11,12 @@ import { FormService } from '../../services/form.service';
 })
 export class UserDashboardComponent implements OnInit {
   public pendingDocuments: any = [];
+  public username: String = this.authService.getCurrentUser().username;
 
   constructor(
     private authService : AuthService,
-    private formService : FormService
+    private formService : FormService,
+    private flashMessagesService : FlashMessagesService
   ) {}
 
   ngOnInit(): void {
@@ -21,9 +25,8 @@ export class UserDashboardComponent implements OnInit {
   }
 
   public loadPendingForms(): void {
-    let username: String = this.authService.getCurrentUser().username;
     this.formService
-      .getPendingFormForUser(username)
+      .getPendingFormForUser(this.username)
       .subscribe((schemes: any[]) => {
         console.log('Current schemes', schemes);
 
@@ -134,4 +137,34 @@ export class UserDashboardComponent implements OnInit {
 
     return (currentTotalRejections / requiredRejections) * 100;
   }
+
+  public onDeleteClick(schemeName: String, date : String) {
+    this.formService.deleteForm(this.username,schemeName,date).subscribe(
+      (response) => {
+        this.flashMessagesService.show(
+          `The form has been deleted succesfully`,
+          {
+            cssClass: 'alert success-alert',
+          }
+        );
+      },
+      (err) => {
+        this.flashMessagesService.show(err.error.message, {
+          cssClass: 'alert danger-alert',
+        });
+      }
+    );
+    this.removeForm(schemeName,date);
+  }
+
+  public removeForm(schemeName: String, date : String): void {
+    let formTemp = [];
+    this.pendingDocuments.forEach((form) => {
+      if ((form.schemeName != schemeName) && (form.creationDate != date)) {
+        formTemp.push(form);
+      }
+    });
+    this.pendingDocuments = formTemp;
+  }
+  
 }

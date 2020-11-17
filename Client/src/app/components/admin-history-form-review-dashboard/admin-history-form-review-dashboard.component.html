@@ -1,12 +1,44 @@
 <div class="container">
-    <h1><i class="fa fa-envelope"></i> My Form History</h1>
-    <p>Here are your history past reviewed documents </p>
-    <!-- Pending documents -->
-    <div class="card" *ngFor="let document of historyDocuments">
-      <div class="card-content">
-        <span class="card-title">{{ document.schemeName }}</span>
-        <p><strong>Date submitted: </strong> {{ document.creationDate | date }}</p>
-        <a href="#" class="btn grey btn-block darken-2">Read more</a>
-      </div>
+  <h1><i class="fa fa-envelope"></i> My Form History</h1>
+  <p>Here are your history past reviewed documents</p>
+  <!-- Pending documents -->
+  <div class="card" *ngFor="let document of historyDocuments">
+    <div class="card-content">
+      <span class="card-title">{{ document.schemeName }}</span>
+      <p>
+        <strong>Date submitted: </strong> {{ document.creationDate | date }}
+      </p>
+      <p>
+        <strong>Form Author: </strong> {{ document.authorName}}
+      </p>
+      <p>
+        <strong>Document status: </strong>
+        <span
+          [ngClass]="{
+            'yellow-text': document.status == 0,
+            'green-text': document.status == 1,
+            'red-text': document.status == 2
+          }"
+          >{{ document.statusName }}</span
+        >
+      </p>
+      <p>
+        <strong>Approver Decision: </strong>
+        <span
+          [ngClass]="{
+            'yellow-text': document.decision == 0,
+            'green-text': document.decision == 1,
+            'red-text': document.decision == 2
+          }"
+          >{{ getStatusName(document.decision) }}</span
+        >
+      </p>
+      <a routerLink = "/admin/viewForms/dashboard/answered/view/{{document.authorUsername}}/{{ document.schemeName }}/{{document.creationDate}}" class="btn grey btn-block darken-2"
+        ><i class="fa fa-book"></i> Form info</a
+      >
+      <a href="#" class="btn grey btn-block darken-2"
+        ><i class="fa fa-road"></i> Route info</a
+      >
     </div>
   </div>
+</div>

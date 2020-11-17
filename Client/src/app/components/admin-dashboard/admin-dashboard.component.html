@@ -28,7 +28,10 @@
           {{ document.rejectionProgress }}
         </div>
       </div>
-      <a href="#" class="btn grey btn-block darken-2">Read more</a>
+      <a routerLink = "/admin/viewForms/dashboard/answered/view/{{this.authService.getCurrentUser().username}}/{{ document.schemeName }}/{{document.creationDate}}" class="btn grey btn-block darken-2"><i class="fa fa-book"></i> Form info</a>      
+      <button (click)="onDeleteClick(document.schemeName,document.creationDate)" class="btn red btn-block">
+        <i class="fa fa-times-circle"></i> Delete
+      </button>
     </div>
   </div>
 </div>
