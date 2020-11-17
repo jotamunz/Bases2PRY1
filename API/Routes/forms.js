@@ -156,7 +156,7 @@ router.get('/history/:userUsername', verifyToken, async (req, res) => {
 
 // GET ALL PENDNG FORMS BY USERNAME FOR ADMIN
 // I: /userUsername
-// O: all pending forms scheme names, dates, status, user author and progress sorted
+// O: all pending forms scheme names, dates, status, user author, decision and progress sorted
 // E: 408, 401, 400
 router.get('/pending/admin/:userUsername', verifyToken, async (req, res) => {
 	try {
@@ -200,7 +200,6 @@ router.get('/pending/admin/:userUsername', verifyToken, async (req, res) => {
 					return;
 				}
 				let progress = [];
-				let decision;
 				for (let key2 in form.routes) {
 					if (form.routes.hasOwnProperty(key2)) {
 						appRoute = form.routes[key2];
@@ -218,14 +217,6 @@ router.get('/pending/admin/:userUsername', verifyToken, async (req, res) => {
 							requiredApprovals: appRouteLimits.requiredApprovals,
 							requiredRejections: appRouteLimits.requiredRejections
 						});
-						for (let key3 in appRoute.approvers) {
-							if (appRoute.approvers.hasOwnProperty(key3)) {
-								approver = appRoute.approvers[key3];
-								if (approver.userId.toString() === userId._id.toString()) {
-									decision = approver.decision;
-								}
-							}
-						}
 					}
 				}
 				formsWithNames.push({
@@ -235,7 +226,7 @@ router.get('/pending/admin/:userUsername', verifyToken, async (req, res) => {
 					progress: progress,
 					authorUsername: userAuthor.username,
 					authorName: userAuthor.name,
-					decision: decision
+					decision: 0
 				});
 			}
 		}
@@ -254,7 +245,7 @@ router.get('/pending/admin/:userUsername', verifyToken, async (req, res) => {
 
 // GET ALL HISTORY FORMS BY USERNAME FOR ADMIN
 // I: /userUsername
-// O: all approved and rejected forms scheme names, dates, status, user author and progress sorted
+// O: all approved and rejected forms scheme names, dates, status, user author, decision and progress sorted
 // E: 408, 401, 400
 router.get('/history/admin/:userUsername', verifyToken, async (req, res) => {
 	try {
