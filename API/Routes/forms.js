@@ -315,6 +315,7 @@ router.get('/history/admin/:userUsername', verifyToken, async (req, res) => {
 				}
 				let progress = [];
 				let decision;
+				let decisionFound = false;
 				for (let key2 in form.routes) {
 					if (form.routes.hasOwnProperty(key2)) {
 						appRoute = form.routes[key2];
@@ -332,11 +333,15 @@ router.get('/history/admin/:userUsername', verifyToken, async (req, res) => {
 							requiredApprovals: appRouteLimits.requiredApprovals,
 							requiredRejections: appRouteLimits.requiredRejections
 						});
-						for (let key3 in appRoute.approvers) {
-							if (appRoute.approvers.hasOwnProperty(key3)) {
-								approver = appRoute.approvers[key3];
-								if (approver.userId.equals(userId._id)) {
-									decision = approver.decision;
+						if (!decisionFound) {
+							for (let key3 in appRoute.approvers) {
+								if (appRoute.approvers.hasOwnProperty(key3)) {
+									approver = appRoute.approvers[key3];
+									if (approver.userId.equals(userId._id)) {
+										decision = approver.decision;
+										decisionFound = true;
+										break;
+									}
 								}
 							}
 						}
@@ -596,23 +601,32 @@ router.patch('/', async (req, res) => {
 		if (form.status != 0) {
 			let statusMessage;
 			if (form.status == 1) {
-				statusMessage = { message: 'This form has already been approved'  };
-			}else{
+				statusMessage = { message: 'This form has already been approved' };
+			} else {
 				statusMessage = { message: 'This form has already been rejected' };
 			}
 			res.status(400).json(statusMessage);
 			return;
 		}
 		let approverFound = false;
-		for (let i = 0; i < form.routes.length; i++) {
-			let route = form.routes[i];
-			for (let j = 0; j < route.approvers.length; j++) {
-				let approver = route.approvers[j];
-				if (approver.userId.equals(approverId._id)) {
-					approver.decision = req.body.decision;
-					approver.approvalDate = Date.now;
-					approverFound = true;
+		for (let key in form.routes) {
+			if (form.routes.hasOwnProperty(key)) {
+				appRoute = form.routes[key];
+				for (let key2 in appRoute.approvers) {
+					if (appRoute.approvers.hasOwnProperty(key2)) {
+						approver = appRoute.approvers[key2];
+						if (approver.userId.equals(approverId._id)) {
+							console.log(approver);
+							approver.decision = req.body.decision;
+							approver.approvalDate = Date();
+							approverFound = true;
+							break;
+						}
+					}
 				}
+			}
+			if (approverFound) {
+				break;
 			}
 		}
 		if (!approverFound) {
@@ -621,6 +635,7 @@ router.patch('/', async (req, res) => {
 			});
 			return;
 		}
+		console.log('sucess');
 		const savedForm = await form.save();
 		res.json({ date: savedForm.creationDate });
 	} catch (error) {
