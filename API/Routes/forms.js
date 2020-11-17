@@ -563,7 +563,7 @@ router.post('/', verifyToken, validateForm, async (req, res) => {
 */
 // O: Modified form creation date
 // E: 408, 401, 400
-router.patch('/', async (req, res) => {
+router.patch('/', verifyToken, async (req, res) => {
 	try {
 		const schemeId = await Scheme.findOne(
 			{ name: req.body.schemeName, isActive: true },
