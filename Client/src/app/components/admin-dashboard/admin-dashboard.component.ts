@@ -3,7 +3,6 @@ import { AuthService } from '../../services/auth.service';
 import { FormService } from '../../services/form.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 
-
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
@@ -15,8 +14,7 @@ export class AdminDashboardComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private formService: FormService,
-    private flashMessagesService : FlashMessagesService
-
+    private flashMessagesService: FlashMessagesService
   ) {}
 
   ngOnInit(): void {
@@ -28,8 +26,6 @@ export class AdminDashboardComponent implements OnInit {
     this.formService
       .getPendingFormForUser(username)
       .subscribe((schemes: any[]) => {
-        console.log('Current schemes', schemes);
-
         // Map to items in form
         schemes.forEach((scheme) => {
           const { progress } = scheme;
@@ -71,8 +67,6 @@ export class AdminDashboardComponent implements OnInit {
           // Add to pending documents
           this.pendingDocuments.push(scheme);
         });
-
-        console.log(this.pendingDocuments);
       });
   }
 
@@ -137,7 +131,7 @@ export class AdminDashboardComponent implements OnInit {
 
     return (currentTotalRejections / requiredRejections) * 100;
   }
-/*
+  /*
   public onDeleteClick(schemeName: string) {
     this.schemeService.deleteScheme(schemeName).subscribe(
       (response) => {
