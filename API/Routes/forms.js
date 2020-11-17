@@ -558,7 +558,7 @@ router.post('/', verifyToken, validateForm, async (req, res) => {
 */
 // O: Modified form creation date
 // E: 408, 401, 400
-router.patch('/', verifyToken, async (req, res) => {
+router.patch('/', async (req, res) => {
 	try {
 		const schemeId = await Scheme.findOne(
 			{ name: req.body.schemeName, isActive: true },
@@ -591,6 +591,16 @@ router.patch('/', verifyToken, async (req, res) => {
 		});
 		if (form == null) {
 			res.status(400).json({ message: 'Specified form not found' });
+			return;
+		}
+		if (form.status != 0) {
+			let statusMessage;
+			if (form.status == 1) {
+				statusMessage = { message: 'This form has already been approved'  };
+			}else{
+				statusMessage = { message: 'This form has already been rejected' };
+			}
+			res.status(400).json(statusMessage);
 			return;
 		}
 		let approverFound = false;
