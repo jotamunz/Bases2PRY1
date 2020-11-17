@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FormService } from '../../services/form.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
+
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -12,7 +14,9 @@ export class AdminDashboardComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private formService: FormService
+    private formService: FormService,
+    private flashMessagesService : FlashMessagesService
+
   ) {}
 
   ngOnInit(): void {
@@ -133,4 +137,34 @@ export class AdminDashboardComponent implements OnInit {
 
     return (currentTotalRejections / requiredRejections) * 100;
   }
+/*
+  public onDeleteClick(schemeName: string) {
+    this.schemeService.deleteScheme(schemeName).subscribe(
+      (response) => {
+        this.flashMessagesService.show(
+          `The form has been deleted succesfully`,
+          {
+            cssClass: 'alert success-alert',
+          }
+        );
+      },
+      (err) => {
+        this.flashMessagesService.show(err.error.message, {
+          cssClass: 'alert danger-alert',
+        });
+      }
+    );
+    this.removeScheme(schemeName);
+  }
+
+  public removeScheme(schemeName: string): void {
+    let schemesTemp = [];
+    this.schemes.forEach((scheme) => {
+      if (scheme.name != schemeName) {
+        schemesTemp.push(scheme);
+      }
+    });
+    this.schemes = schemesTemp;
+  }
+  */
 }
