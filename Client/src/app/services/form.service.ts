@@ -118,7 +118,23 @@ export class FormService {
    */
   public deleteForm(userUsername: String,schemeName : String, date : String): Observable<any> {
     return this.httpClient.delete<any>(
-      `http://localhost:3000/forms//${userUsername}/${schemeName}/${date}`,
+      `http://localhost:3000/forms/${userUsername}/${schemeName}/${date}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.authService.getToken()}`,
+        },
+      }
+    );
+  }
+
+  /**
+   * DELETE FORM BY SCHEME NAME, DATE AND USER AUTHOR
+   * @param user User data to register
+   */
+  public getRouteInformation(userUsername: String,schemeName : String, date : String): Observable<any> {
+    return this.httpClient.get<any>(
+      `http://localhost:3000/forms/progress/${userUsername}/${schemeName}/${date}`,
       {
         headers: {
           'Content-Type': 'application/json',

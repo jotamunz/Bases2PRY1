@@ -8,8 +8,9 @@
         <p><strong>Date submitted: </strong> {{ document.creationDate | date }}</p>
         <p><strong>Form Author: </strong> {{ document.authorUsername }}</p>
         <a routerLink = "/admin/viewForms/dashboard/answered/view/{{document.authorUsername}}/{{ document.schemeName }}/{{document.creationDate}}" class="btn grey btn-block darken-2"
-        ><i class="fa fa-book"></i> Form info</a
-      >
+        ><i class="fa fa-book"></i> Form info</a>
+        <a routerLink = "/admin/form/routeInfoDashboard/{{document.authorUsername}}/{{ document.schemeName }}/{{document.creationDate}}" class="btn grey btn-block darken-2"
+        ><i class="fa fa-road"></i> Route info</a>
       </div>
     </div>
   </div>

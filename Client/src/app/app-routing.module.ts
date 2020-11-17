@@ -26,6 +26,7 @@ import { AdminFormHistoryDashboardComponent } from './components/admin-form-hist
 import { UserFormHistoryDashboardComponent } from './components/user-form-history-dashboard/user-form-history-dashboard.component';
 import { AdminHistoryFormReviewDashboardComponent } from './components/admin-history-form-review-dashboard/admin-history-form-review-dashboard.component';
 import { AdminPendingFormReviewDashboardComponent } from './components/admin-pending-form-review-dashboard/admin-pending-form-review-dashboard.component';
+import { RouteInfoDashboardComponent } from './components/route-info-dashboard/route-info-dashboard.component';
 
 //SERVICES
 import { AuthUserGuard } from './guards/authuser.guard';
@@ -37,6 +38,16 @@ const routes: Routes = [
   {
     path: 'user/dashboard',
     component: UserDashboardComponent,
+    canActivate: [AuthUserGuard],
+  },
+  {
+    path: 'admin/form/routeInfoDashboard/:username/:schemeName/:date',
+    component: RouteInfoDashboardComponent,
+    canActivate: [AuthAdminGuard],
+  },
+  {
+    path: 'user/form/routeInfoDashboard/:username/:schemeName/:date',
+    component: RouteInfoDashboardComponent,
     canActivate: [AuthUserGuard],
   },
   {
