@@ -335,7 +335,7 @@ router.get('/history/admin/:userUsername', verifyToken, async (req, res) => {
 						for (let key3 in appRoute.approvers) {
 							if (appRoute.approvers.hasOwnProperty(key3)) {
 								approver = appRoute.approvers[key3];
-								if (approver.userId.toString() === userId._id.toString()) {
+								if (approver.userId.equals(userId._id)) {
 									decision = approver.decision;
 								}
 							}
