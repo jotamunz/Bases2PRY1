@@ -22,7 +22,7 @@ export class AdminHistoryFormReviewDashboardComponent implements OnInit {
 
   public loadHistoryForms(): void {
     let username : String = this.authService.getCurrentUser().username;
-    this.formService.getHistoryFormForUser(username).subscribe((schemes: any[]) => {
+    this.formService.getHistoryFormReview(username).subscribe((schemes: any[]) => {
       // Map to items in form
       schemes.forEach((scheme) => {
         this.historyDocuments.push(scheme);
