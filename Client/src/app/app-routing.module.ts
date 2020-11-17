@@ -22,6 +22,10 @@ import { UserRequestDashboardComponent } from './components/Request-Forms-Compon
 import { UserUnansweredFormsDashboardComponent } from './components/View-Forms-Components/Pending/user-unanswered-forms-dashboard/user-unanswered-forms-dashboard.component';
 import { DynamicFormLayoutComponent } from './components/View-Forms-Components/History/dynamic-form-layout/dynamic-form-layout.component';
 import { DynamicFormLayoutPendingComponent } from './components/View-Forms-Components/Pending/dynamic-form-layout-pending/dynamic-form-layout-pending.component';
+import { AdminFormHistoryDashboardComponent } from './components/admin-form-history-dashboard/admin-form-history-dashboard.component';
+import { UserFormHistoryDashboardComponent } from './components/user-form-history-dashboard/user-form-history-dashboard.component';
+import { AdminHistoryFormReviewDashboardComponent } from './components/admin-history-form-review-dashboard/admin-history-form-review-dashboard.component';
+import { AdminPendingFormReviewDashboardComponent } from './components/admin-pending-form-review-dashboard/admin-pending-form-review-dashboard.component';
 
 //SERVICES
 import { AuthUserGuard } from './guards/authuser.guard';
@@ -39,6 +43,26 @@ const routes: Routes = [
     path: 'admin/dashboard',
     component: AdminDashboardComponent,
     canActivate: [AuthAdminGuard],
+  },
+  {
+    path: 'admin/pendingReviewDashboard',
+    component: AdminPendingFormReviewDashboardComponent,
+    canActivate: [AuthAdminGuard],
+  },
+  {
+    path: 'admin/historyReviewedDashboard',
+    component: AdminHistoryFormReviewDashboardComponent,
+    canActivate: [AuthAdminGuard],
+  },
+  {
+    path: 'admin/historyDashboard',
+    component: AdminFormHistoryDashboardComponent,
+    canActivate: [AuthAdminGuard],
+  },
+  {
+    path: 'user/historyDashboard',
+    component: UserFormHistoryDashboardComponent,
+    canActivate: [AuthUserGuard],
   },
   {
     path: 'user/form/dashboard/:schemeName/fill',

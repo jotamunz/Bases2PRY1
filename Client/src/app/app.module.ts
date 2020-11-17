@@ -50,6 +50,10 @@ import { DynamicFormLayoutComponent } from './components/View-Forms-Components/H
 import { DynamicFormLayoutPendingComponent } from './components/View-Forms-Components/Pending/dynamic-form-layout-pending/dynamic-form-layout-pending.component';
 import { DynamicFormPendingComponent } from './components/View-Forms-Components/Pending/dynamic-form-pending/dynamic-form-pending.component';
 import { DynamicFormPendingQuestionComponent } from './components/View-Forms-Components/Pending/dynamic-form-pending-question/dynamic-form-pending-question.component';
+import { UserFormHistoryDashboardComponent } from './components/user-form-history-dashboard/user-form-history-dashboard.component';
+import { AdminFormHistoryDashboardComponent } from './components/admin-form-history-dashboard/admin-form-history-dashboard.component';
+import { AdminPendingFormReviewDashboardComponent } from './components/admin-pending-form-review-dashboard/admin-pending-form-review-dashboard.component';
+import { AdminHistoryFormReviewDashboardComponent } from './components/admin-history-form-review-dashboard/admin-history-form-review-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +82,10 @@ import { DynamicFormPendingQuestionComponent } from './components/View-Forms-Com
     DynamicFormLayoutPendingComponent,
     DynamicFormPendingComponent,
     DynamicFormPendingQuestionComponent,
+    UserFormHistoryDashboardComponent,
+    AdminFormHistoryDashboardComponent,
+    AdminPendingFormReviewDashboardComponent,
+    AdminHistoryFormReviewDashboardComponent,
   ],
 
   imports: [
