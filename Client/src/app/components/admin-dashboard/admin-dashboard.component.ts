@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FormService } from '../../services/form.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -9,23 +10,22 @@ import { FormService } from '../../services/form.service';
 })
 export class AdminDashboardComponent implements OnInit {
   public pendingDocuments: any = [];
+  public username: String = this.authService.getCurrentUser().username;
 
   constructor(
     private authService: AuthService,
-    private formService: FormService
+    private formService: FormService,
+    private flashMessagesService: FlashMessagesService
   ) {}
 
   ngOnInit(): void {
     this.loadPendingForms();
   }
 
-  public loadPendingForms(): void {
-    let username: String = this.authService.getCurrentUser().username;
+  public loadPendingForms(): void { 
     this.formService
-      .getPendingFormForUser(username)
+      .getPendingFormForUser(this.username)
       .subscribe((schemes: any[]) => {
-        console.log('Current schemes', schemes);
-
         // Map to items in form
         schemes.forEach((scheme) => {
           const { progress } = scheme;
@@ -67,8 +67,6 @@ export class AdminDashboardComponent implements OnInit {
           // Add to pending documents
           this.pendingDocuments.push(scheme);
         });
-
-        console.log(this.pendingDocuments);
       });
   }
 
@@ -133,4 +131,34 @@ export class AdminDashboardComponent implements OnInit {
 
     return (currentTotalRejections / requiredRejections) * 100;
   }
+  
+  public onDeleteClick(schemeName: String, date : String) {
+    this.formService.deleteForm(this.username,schemeName,date).subscribe(
+      (response) => {
+        this.flashMessagesService.show(
+          `The form has been deleted succesfully`,
+          {
+            cssClass: 'alert success-alert',
+          }
+        );
+      },
+      (err) => {
+        this.flashMessagesService.show(err.error.message, {
+          cssClass: 'alert danger-alert',
+        });
+      }
+    );
+    this.removeForm(schemeName,date);
+  }
+
+  public removeForm(schemeName: String, date : String): void {
+    let formTemp = [];
+    this.pendingDocuments.forEach((form) => {
+      if ((form.schemeName != schemeName) && (form.creationDate != date)) {
+        formTemp.push(form);
+      }
+    });
+    this.pendingDocuments = formTemp;
+  }
+  
 }

@@ -1,0 +1,10 @@
+<html class="backg animation-area">
+  <div>
+    <div *ngIf="questions.length != 0">
+      <app-dynamic-form-pending
+        [questions]="questions"
+        [schemeName]="schemeName"
+      ></app-dynamic-form-pending>
+    </div>
+  </div>
+</html>

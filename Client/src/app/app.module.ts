@@ -44,8 +44,12 @@ import { AddSchemeComponent } from './components/add-scheme/add-scheme.component
 import { AdminRequestDashboardComponent } from './components/admin-request-dashboard/admin-request-dashboard.component';
 import { AdminLayoutDynamicFormComponent } from './components/Request-Forms-Components-admin/admin-layout-dynamic-form/admin-layout-dynamic-form.component';
 import { AdminDynamicFormQuestionComponent } from './components/Request-Forms-Components-Admin/admin-dynamic-form-question/admin-dynamic-form-question.component';
-import { UserAnsweredFormsDashboardComponent } from './components/View-Forms-Components/user-answered-forms-dashboard/user-answered-forms-dashboard.component';
-import { UserUnansweredFormsDashboardComponent } from './components/View-Forms-Components/user-unanswered-forms-dashboard/user-unanswered-forms-dashboard.component';
+import { UserAnsweredFormsDashboardComponent } from './components/View-Forms-Components/History/user-answered-forms-dashboard/user-answered-forms-dashboard.component';
+import { UserUnansweredFormsDashboardComponent } from './components/View-Forms-Components/Pending/user-unanswered-forms-dashboard/user-unanswered-forms-dashboard.component';
+import { DynamicFormLayoutComponent } from './components/View-Forms-Components/History/dynamic-form-layout/dynamic-form-layout.component';
+import { DynamicFormLayoutPendingComponent } from './components/View-Forms-Components/Pending/dynamic-form-layout-pending/dynamic-form-layout-pending.component';
+import { DynamicFormPendingComponent } from './components/View-Forms-Components/Pending/dynamic-form-pending/dynamic-form-pending.component';
+import { DynamicFormPendingQuestionComponent } from './components/View-Forms-Components/Pending/dynamic-form-pending-question/dynamic-form-pending-question.component';
 import { UserFormHistoryDashboardComponent } from './components/user-form-history-dashboard/user-form-history-dashboard.component';
 import { AdminFormHistoryDashboardComponent } from './components/admin-form-history-dashboard/admin-form-history-dashboard.component';
 import { AdminPendingFormReviewDashboardComponent } from './components/admin-pending-form-review-dashboard/admin-pending-form-review-dashboard.component';
@@ -74,6 +78,10 @@ import { AdminHistoryFormReviewDashboardComponent } from './components/admin-his
     AdminLayoutDynamicFormComponent,
     UserAnsweredFormsDashboardComponent,
     UserUnansweredFormsDashboardComponent,
+    DynamicFormLayoutComponent,
+    DynamicFormLayoutPendingComponent,
+    DynamicFormPendingComponent,
+    DynamicFormPendingQuestionComponent,
     UserFormHistoryDashboardComponent,
     AdminFormHistoryDashboardComponent,
     AdminPendingFormReviewDashboardComponent,

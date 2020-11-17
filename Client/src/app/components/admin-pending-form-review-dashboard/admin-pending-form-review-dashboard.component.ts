@@ -23,7 +23,7 @@ export class AdminPendingFormReviewDashboardComponent implements OnInit {
 
   public loadPendingReviewForms(): void {
     let username : String = this.authService.getCurrentUser().username;
-    this.formService.getHistoryFormForUser(username).subscribe((schemes: any[]) => {
+    this.formService.getPendingFormForReview(username).subscribe((schemes: any[]) => {
       // Map to items in form
       schemes.forEach((scheme) => {
         this.pendingDocuments.push(scheme);

@@ -3,20 +3,20 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 //SERVICES
-import { UserService } from '../../../services/user.service';
-import { AuthService } from '../../../services/auth.service';
-import { GetUserFormsService } from '../../../services/Form-View-Services/get-user-forms.service';
+import { UserService } from '../../../../services/user.service';
+import { AuthService } from '../../../../services/auth.service';
+import { GetUserFormsService } from '../../../../services/Form-View-Services/get-user-forms.service';
 
 //MODELS
-import { User } from '../../../models/User';
-import { FormView } from '../../../models/FormsView';
+import { User } from '../../../../models/User';
+import { FormView } from '../../../../models/FormsView';
 
 @Component({
-  selector: 'app-user-unanswered-forms-dashboard',
-  templateUrl: './user-unanswered-forms-dashboard.component.html',
-  styleUrls: ['./user-unanswered-forms-dashboard.component.css'],
+  selector: 'app-user-answered-forms-dashboard',
+  templateUrl: './user-answered-forms-dashboard.component.html',
+  styleUrls: ['./user-answered-forms-dashboard.component.css'],
 })
-export class UserUnansweredFormsDashboardComponent implements OnInit {
+export class UserAnsweredFormsDashboardComponent implements OnInit {
   user: User = null;
   public formItems: FormView[] = [];
 
@@ -29,12 +29,15 @@ export class UserUnansweredFormsDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.authService.getCurrentUser();
+    console.log('Username');
+    console.log(this.user.username);
+    console.log('Username');
     this.loadForms(this.user.username);
   }
 
   public loadForms(username: string): void {
     this.getUserFormsService
-      .getPendingForms(username)
+      .getHistoryForms(username)
       .subscribe((forms: any[]) => {
         forms.forEach((form) => {
           this.formItems.push(form);
