@@ -19,7 +19,7 @@
           >{{ document.statusName }}</span
         >
       </p>
-      <a href="#" class="btn grey btn-block darken-2"
+      <a routerLink = "/admin/viewForms/dashboard/answered/view/{{this.authService.getCurrentUser().username}}/{{ document.schemeName }}/{{document.creationDate}}" class="btn grey btn-block darken-2"
         ><i class="fa fa-book"></i> Form info</a
       >
       <a href="#" class="btn grey btn-block darken-2"

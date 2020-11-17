@@ -98,7 +98,13 @@ const routes: Routes = [
     path:
       'user/viewForms/dashboard/answered/view/:username/:schemaName/:createDate',
     component: DynamicFormLayoutPendingComponent,
-    // Todo: authorization
+    canActivate : [AuthUserGuard]
+  },
+  {
+    path:
+      'admin/viewForms/dashboard/answered/view/:username/:schemaName/:createDate',
+    component: DynamicFormLayoutPendingComponent,
+    canActivate : [AuthAdminGuard]
   },
   {
     path:
