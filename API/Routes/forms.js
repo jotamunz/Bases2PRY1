@@ -210,4 +210,71 @@ router.post('/', verifyToken, validateForm, async (req, res) => {
 	}
 });
 
+
+/*PATCHS*/
+// INPUTS DECISION ON FORM
+// I:
+/*
+	approverUsername: String,
+	formAuthorUsername: String,
+	formDate: String (MUST BE AN ISODate STRING)
+	decision: number
+
+*/
+// O: 
+// E: 408, 400
+router.patch('/decision', async (req, res) => {
+	try {
+		const approverId = await User.findOne(
+			{ username: req.body.approverUsername },
+			{ _id: 1 }
+		);
+		if (approverId == null) {
+			res.status(400).json({ message: 'Approver user not found' });
+			return;
+		}
+		const formAuthorId = await User.findOne(
+			{ username: req.body.formAuthorUsername },
+			{ _id: 1 }
+		);
+		if (formAuthorId == null) {
+			res.status(400).json({ message: 'Form author usernot found' });
+			return;
+		}
+		const form = await Form.findOne(
+			{
+				userId: formAuthorId._id,
+				creationDate: (new Date (req.body.formDate))
+			}
+		);
+		if (form == null) {
+			res.status(400).json({ message: 'Specified form not found' });
+			return;
+		}
+		let approverFound = false;
+		for (let i = 0; i < form.routes.length; i++) {
+			let route = (form.routes)[i];
+			for (let j = 0; j < route.approvers.length; j++) {
+				let approver = (route.approvers)[j];
+				if (approver.userId.equals(approverId._id)) {
+					approver.decision = req.body.decision;
+					approver.approvalDate = Date();
+					approverFound = true;
+				}
+			} 
+		}
+		if (!approverFound) {
+			res.status(400).json({ message: 'You do not have permission to approve or reject this form' })
+			return;
+		}
+		result = await form.save();
+		res.json("Succesfull approval/rejection");
+	} catch (error) {
+		res.status(408).json({ message: error });
+	}
+});
+
+
+
+
 module.exports = router;
