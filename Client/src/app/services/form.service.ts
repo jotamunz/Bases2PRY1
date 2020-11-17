@@ -80,4 +80,36 @@ export class FormService {
     );
   }
 
+  /**
+   * GET ALL PENDNG FORMS BY USERNAME FOR ADMIN
+   * @param user User data to register
+   */
+  public getPendingFormForReview(userUsername: String): Observable<any> {
+    return this.httpClient.get<any>(
+      `http://localhost:3000/forms/pending/admin/${userUsername}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.authService.getToken()}`,
+        },
+      }
+    );
+  }
+
+  /**
+   * GET ALL HISTORY FORMS BY USERNAME FOR ADMIN
+   * @param user User data to register
+   */
+  public getHistoryFormReview(userUsername: String): Observable<any> {
+    return this.httpClient.get<any>(
+      `http://localhost:3000/forms/history/admin/${userUsername}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.authService.getToken()}`,
+        },
+      }
+    );
+  }
+
 }
