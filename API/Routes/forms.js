@@ -474,34 +474,43 @@ router.post('/', verifyToken, validateForm, async (req, res) => {
 // I:
 /*
 	approverUsername: String,
-	formAuthorUsername: String,
-	formDate: String (MUST BE AN ISODate STRING)
+	authorUsername: String,
+	schemeName: String,
+	date: ISODate,
 	decision: number
-
 */
-// O:
+// O: Modified form creation date
 // E: 408, 401, 400
 router.patch('/', verifyToken, async (req, res) => {
 	try {
+		const schemeId = await Scheme.findOne(
+			{ name: req.body.schemeName, isActive: true },
+			{ _id: 1 }
+		);
+		if (schemeId == null) {
+			res.status(400).json({ message: 'Specified scheme not found' });
+			return;
+		}
 		const approverId = await User.findOne(
 			{ username: req.body.approverUsername },
 			{ _id: 1 }
 		);
 		if (approverId == null) {
-			res.status(400).json({ message: 'Approver user not found' });
+			res.status(400).json({ message: 'Specified approver user not found' });
 			return;
 		}
-		const formAuthorId = await User.findOne(
-			{ username: req.body.formAuthorUsername },
+		const authorId = await User.findOne(
+			{ username: req.body.authorUsername },
 			{ _id: 1 }
 		);
-		if (formAuthorId == null) {
-			res.status(400).json({ message: 'Form author usernot found' });
+		if (authorId == null) {
+			res.status(400).json({ message: 'Specified author user not found' });
 			return;
 		}
 		const form = await Form.findOne({
-			userId: formAuthorId._id,
-			creationDate: new Date(req.body.formDate)
+			userId: authorId._id,
+			schemeId: schemeId._id,
+			creationDate: req.body.date
 		});
 		if (form == null) {
 			res.status(400).json({ message: 'Specified form not found' });
@@ -525,8 +534,8 @@ router.patch('/', verifyToken, async (req, res) => {
 			});
 			return;
 		}
-		result = await form.save();
-		res.json('Succesfull approval/rejection');
+		const savedForm = await form.save();
+		res.json({ date: savedForm.creationDate });
 	} catch (error) {
 		res.status(408).json({ message: error });
 	}
