@@ -44,16 +44,18 @@ import { AddSchemeComponent } from './components/add-scheme/add-scheme.component
 import { AdminRequestDashboardComponent } from './components/admin-request-dashboard/admin-request-dashboard.component';
 import { AdminLayoutDynamicFormComponent } from './components/Request-Forms-Components-admin/admin-layout-dynamic-form/admin-layout-dynamic-form.component';
 import { AdminDynamicFormQuestionComponent } from './components/Request-Forms-Components-Admin/admin-dynamic-form-question/admin-dynamic-form-question.component';
-import { UserAnsweredFormsDashboardComponent } from './components/View-Forms-Components/History/user-answered-forms-dashboard/user-answered-forms-dashboard.component';
-import { UserUnansweredFormsDashboardComponent } from './components/View-Forms-Components/Pending/user-unanswered-forms-dashboard/user-unanswered-forms-dashboard.component';
-import { DynamicFormLayoutComponent } from './components/View-Forms-Components/History/dynamic-form-layout/dynamic-form-layout.component';
-import { DynamicFormLayoutPendingComponent } from './components/View-Forms-Components/Pending/dynamic-form-layout-pending/dynamic-form-layout-pending.component';
-import { DynamicFormPendingComponent } from './components/View-Forms-Components/Pending/dynamic-form-pending/dynamic-form-pending.component';
-import { DynamicFormPendingQuestionComponent } from './components/View-Forms-Components/Pending/dynamic-form-pending-question/dynamic-form-pending-question.component';
+import { UserUnansweredFormsDashboardComponent } from './components/View-Forms-Components/User/user-unanswered-forms-dashboard/user-unanswered-forms-dashboard.component';
+import { DynamicFormLayoutPendingComponent } from './components/View-Forms-Components/User/dynamic-form-layout-pending/dynamic-form-layout-pending.component';
+import { DynamicFormPendingComponent } from './components/View-Forms-Components/User/dynamic-form-pending/dynamic-form-pending.component';
+import { DynamicFormPendingQuestionComponent } from './components/View-Forms-Components/User/dynamic-form-pending-question/dynamic-form-pending-question.component';
 import { UserFormHistoryDashboardComponent } from './components/user-form-history-dashboard/user-form-history-dashboard.component';
 import { AdminFormHistoryDashboardComponent } from './components/admin-form-history-dashboard/admin-form-history-dashboard.component';
 import { AdminPendingFormReviewDashboardComponent } from './components/admin-pending-form-review-dashboard/admin-pending-form-review-dashboard.component';
 import { AdminHistoryFormReviewDashboardComponent } from './components/admin-history-form-review-dashboard/admin-history-form-review-dashboard.component';
+import { DynamicFormAdminQuestionComponent } from './components/View-Forms-Components/Admin/dynamic-form-admin-question/dynamic-form-admin-question.component';
+import { DynamicFormAdminComponent } from './components/View-Forms-Components/Admin/dynamic-form-admin/dynamic-form-admin.component';
+import { DynamicFormLayoutAdminComponent } from './components/View-Forms-Components/Admin/dynamic-form-layout-admin/dynamic-form-layout-admin.component';
+import { AdminUnansweredFormsDashboardComponent } from './components/View-Forms-Components/Admin/admin-unanswered-forms-dashboard/admin-unanswered-forms-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -76,9 +78,7 @@ import { AdminHistoryFormReviewDashboardComponent } from './components/admin-his
     AdminRequestDashboardComponent,
     AdminDynamicFormQuestionComponent,
     AdminLayoutDynamicFormComponent,
-    UserAnsweredFormsDashboardComponent,
     UserUnansweredFormsDashboardComponent,
-    DynamicFormLayoutComponent,
     DynamicFormLayoutPendingComponent,
     DynamicFormPendingComponent,
     DynamicFormPendingQuestionComponent,
@@ -86,6 +86,10 @@ import { AdminHistoryFormReviewDashboardComponent } from './components/admin-his
     AdminFormHistoryDashboardComponent,
     AdminPendingFormReviewDashboardComponent,
     AdminHistoryFormReviewDashboardComponent,
+    DynamicFormAdminQuestionComponent,
+    DynamicFormAdminComponent,
+    DynamicFormLayoutAdminComponent,
+    AdminUnansweredFormsDashboardComponent,
   ],
 
   imports: [
