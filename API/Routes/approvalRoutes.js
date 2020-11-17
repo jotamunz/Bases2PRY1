@@ -29,7 +29,19 @@ router.get('/:approvalRouteId', verifyToken, async (req, res) => {
 });
 
 /*POSTS*/
-//Creates a new approval route
+
+// CREATE NEW APPROVAL ROUTE
+// I:
+/*
+	name: String,
+	schemeName: String,
+	authors: [ username: String ],
+	approvers: [ username: String ],
+	requiredApprovals: Number,
+	requiredRejections: Number
+*/
+// O: Saved approval route name
+// E: 408, 401, 400
 router.post('/', verifyToken, async (req, res) => {
 	for (var i = 0; i < req.body.authors.length; i++) {
 		req.body.authors[i].userId = new mongoose.Types.ObjectId(
