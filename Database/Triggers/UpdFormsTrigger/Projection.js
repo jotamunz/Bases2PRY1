@@ -1,0 +1,1 @@
+{"updateDescription.updatedFields":{"$numberInt":"1"},"operationType":{"$numberInt":"1"},"documentKey":{"$numberInt":"1"}}
