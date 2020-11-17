@@ -20,6 +20,12 @@ import { UserDashboardComponent } from './components/user-dashboard/user-dashboa
 import { UserRegistrationComponent } from './components/user-registration/user-registration.component';
 import { UserRequestDashboardComponent } from './components/Request-Forms-Components/user-request-dashboard/user-request-dashboard.component';
 import { UserUnansweredFormsDashboardComponent } from './components/View-Forms-Components/user-unanswered-forms-dashboard/user-unanswered-forms-dashboard.component';
+import { AdminFormHistoryDashboardComponent } from './components/admin-form-history-dashboard/admin-form-history-dashboard.component';
+import { UserFormHistoryDashboardComponent } from './components/user-form-history-dashboard/user-form-history-dashboard.component';
+import { AdminHistoryFormReviewDashboardComponent } from './components/admin-history-form-review-dashboard/admin-history-form-review-dashboard.component';
+import { AdminPendingFormReviewDashboardComponent } from './components/admin-pending-form-review-dashboard/admin-pending-form-review-dashboard.component'
+
+
 
 //SERVICES
 import { AuthUserGuard } from './guards/authuser.guard';
@@ -37,6 +43,26 @@ const routes: Routes = [
     path: 'admin/dashboard',
     component: AdminDashboardComponent,
     canActivate: [AuthAdminGuard],
+  },
+  {
+    path: 'admin/pendingReviewDashboard',
+    component: AdminPendingFormReviewDashboardComponent,
+    canActivate: [AuthAdminGuard],
+  },
+  {
+    path: 'admin/historyReviewedDashboard',
+    component: AdminHistoryFormReviewDashboardComponent,
+    canActivate: [AuthAdminGuard],
+  },
+  {
+    path: 'admin/historyDashboard',
+    component: AdminFormHistoryDashboardComponent,
+    canActivate: [AuthAdminGuard],
+  },
+  {
+    path: 'user/historyDashboard',
+    component: UserFormHistoryDashboardComponent,
+    canActivate: [AuthUserGuard],
   },
   {
     path: 'user/form/dashboard/:schemeName/fill',
