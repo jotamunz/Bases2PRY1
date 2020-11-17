@@ -156,7 +156,7 @@ router.get('/history/:userUsername', verifyToken, async (req, res) => {
 
 // GET ALL PENDNG FORMS BY USERNAME FOR ADMIN
 // I: /userUsername
-// O: all pending forms scheme names, dates, status, user author and progress sorted
+// O: all pending forms scheme names, dates, status, user author, decision and progress sorted
 // E: 408, 401, 400
 router.get('/pending/admin/:userUsername', verifyToken, async (req, res) => {
 	try {
@@ -225,7 +225,8 @@ router.get('/pending/admin/:userUsername', verifyToken, async (req, res) => {
 					status: form.status,
 					progress: progress,
 					authorUsername: userAuthor.username,
-					authorName: userAuthor.name
+					authorName: userAuthor.name,
+					decision: 0
 				});
 			}
 		}
@@ -244,7 +245,7 @@ router.get('/pending/admin/:userUsername', verifyToken, async (req, res) => {
 
 // GET ALL HISTORY FORMS BY USERNAME FOR ADMIN
 // I: /userUsername
-// O: all approved and rejected forms scheme names, dates, status, user author and progress sorted
+// O: all approved and rejected forms scheme names, dates, status, user author, decision and progress sorted
 // E: 408, 401, 400
 router.get('/history/admin/:userUsername', verifyToken, async (req, res) => {
 	try {
@@ -313,6 +314,7 @@ router.get('/history/admin/:userUsername', verifyToken, async (req, res) => {
 					return;
 				}
 				let progress = [];
+				let decision;
 				for (let key2 in form.routes) {
 					if (form.routes.hasOwnProperty(key2)) {
 						appRoute = form.routes[key2];
@@ -330,6 +332,14 @@ router.get('/history/admin/:userUsername', verifyToken, async (req, res) => {
 							requiredApprovals: appRouteLimits.requiredApprovals,
 							requiredRejections: appRouteLimits.requiredRejections
 						});
+						for (let key3 in appRoute.approvers) {
+							if (appRoute.approvers.hasOwnProperty(key3)) {
+								approver = appRoute.approvers[key3];
+								if (approver.userId.toString() === userId._id.toString()) {
+									decision = approver.decision;
+								}
+							}
+						}
 					}
 				}
 				formsWithNames.push({
@@ -338,7 +348,8 @@ router.get('/history/admin/:userUsername', verifyToken, async (req, res) => {
 					status: form.status,
 					progress: progress,
 					authorUsername: userAuthor.username,
-					authorName: userAuthor.name
+					authorName: userAuthor.name,
+					decision: decision
 				});
 			}
 		}
@@ -457,7 +468,6 @@ router.post('/', verifyToken, validateForm, async (req, res) => {
 	}
 });
 
-
 /*PATCHS*/
 // INPUTS DECISION ON FORM
 // I:
@@ -468,7 +478,7 @@ router.post('/', verifyToken, validateForm, async (req, res) => {
 	decision: number
 
 */
-// O: 
+// O:
 // E: 408, 400
 router.patch('/decision', async (req, res) => {
 	try {
@@ -488,40 +498,37 @@ router.patch('/decision', async (req, res) => {
 			res.status(400).json({ message: 'Form author usernot found' });
 			return;
 		}
-		const form = await Form.findOne(
-			{
-				userId: formAuthorId._id,
-				creationDate: (new Date (req.body.formDate))
-			}
-		);
+		const form = await Form.findOne({
+			userId: formAuthorId._id,
+			creationDate: new Date(req.body.formDate)
+		});
 		if (form == null) {
 			res.status(400).json({ message: 'Specified form not found' });
 			return;
 		}
 		let approverFound = false;
 		for (let i = 0; i < form.routes.length; i++) {
-			let route = (form.routes)[i];
+			let route = form.routes[i];
 			for (let j = 0; j < route.approvers.length; j++) {
-				let approver = (route.approvers)[j];
+				let approver = route.approvers[j];
 				if (approver.userId.equals(approverId._id)) {
 					approver.decision = req.body.decision;
 					approver.approvalDate = Date();
 					approverFound = true;
 				}
-			} 
+			}
 		}
 		if (!approverFound) {
-			res.status(400).json({ message: 'You do not have permission to approve or reject this form' })
+			res.status(400).json({
+				message: 'You do not have permission to approve or reject this form'
+			});
 			return;
 		}
 		result = await form.save();
-		res.json("Succesfull approval/rejection");
+		res.json('Succesfull approval/rejection');
 	} catch (error) {
 		res.status(408).json({ message: error });
 	}
 });
-
-
-
 
 module.exports = router;
