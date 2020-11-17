@@ -29,7 +29,9 @@
         </div>
       </div>
       <a href="#" class="btn grey btn-block darken-2">Read more</a>
-      <button (click)="onDeleteClick(scheme.name)" class="btn red btn-block"><i class="fa fa-times-circle"></i> Delete</button>
+      <button (click)="onDeleteClick(document.schemeName,document.creationDate)" class="btn red btn-block">
+        <i class="fa fa-times-circle"></i> Delete
+      </button>
     </div>
   </div>
 </div>

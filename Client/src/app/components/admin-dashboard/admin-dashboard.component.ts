@@ -10,6 +10,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 })
 export class AdminDashboardComponent implements OnInit {
   public pendingDocuments: any = [];
+  public username: String = this.authService.getCurrentUser().username;
 
   constructor(
     private authService: AuthService,
@@ -21,10 +22,9 @@ export class AdminDashboardComponent implements OnInit {
     this.loadPendingForms();
   }
 
-  public loadPendingForms(): void {
-    let username: String = this.authService.getCurrentUser().username;
+  public loadPendingForms(): void { 
     this.formService
-      .getPendingFormForUser(username)
+      .getPendingFormForUser(this.username)
       .subscribe((schemes: any[]) => {
         // Map to items in form
         schemes.forEach((scheme) => {
@@ -131,9 +131,9 @@ export class AdminDashboardComponent implements OnInit {
 
     return (currentTotalRejections / requiredRejections) * 100;
   }
-  /*
-  public onDeleteClick(schemeName: string) {
-    this.schemeService.deleteScheme(schemeName).subscribe(
+  
+  public onDeleteClick(schemeName: String, date : String) {
+    this.formService.deleteForm(this.username,schemeName,date).subscribe(
       (response) => {
         this.flashMessagesService.show(
           `The form has been deleted succesfully`,
@@ -148,17 +148,17 @@ export class AdminDashboardComponent implements OnInit {
         });
       }
     );
-    this.removeScheme(schemeName);
+    this.removeForm(schemeName,date);
   }
 
-  public removeScheme(schemeName: string): void {
-    let schemesTemp = [];
-    this.schemes.forEach((scheme) => {
-      if (scheme.name != schemeName) {
-        schemesTemp.push(scheme);
+  public removeForm(schemeName: String, date : String): void {
+    let formTemp = [];
+    this.pendingDocuments.forEach((form) => {
+      if ((form.schemeName != schemeName) && (form.creationDate != date)) {
+        formTemp.push(form);
       }
     });
-    this.schemes = schemesTemp;
+    this.pendingDocuments = formTemp;
   }
-  */
+  
 }
