@@ -468,8 +468,9 @@ router.post('/', verifyToken, validateForm, async (req, res) => {
 	}
 });
 
-/*PATCHS*/
-// INPUTS DECISION ON FORM
+/*PATCHES*/
+
+// INPUT A DECISION INTO A FORM
 // I:
 /*
 	approverUsername: String,
@@ -479,8 +480,8 @@ router.post('/', verifyToken, validateForm, async (req, res) => {
 
 */
 // O:
-// E: 408, 400
-router.patch('/decision', async (req, res) => {
+// E: 408, 401, 400
+router.patch('/', verifyToken, async (req, res) => {
 	try {
 		const approverId = await User.findOne(
 			{ username: req.body.approverUsername },
@@ -530,5 +531,43 @@ router.patch('/decision', async (req, res) => {
 		res.status(408).json({ message: error });
 	}
 });
+
+/*DELETES*/
+
+// DELETE FORM BY SCHEME NAME, DATE AND USER AUTHOR
+// I: /userUsername/schemeName/date
+// O: Deleted form creation date
+// E: 408, 401, 400
+router.delete(
+	'/:userUsername/:schemeName/:date',
+	verifyToken,
+	async (req, res) => {
+		try {
+			const user = await User.findOne({ username: req.params.userUsername });
+			if (user == null) {
+				res.status(400).json({ message: 'Specified user not found' });
+				return;
+			}
+			const scheme = await Scheme.findOne({ name: req.params.schemeName });
+			if (scheme == null) {
+				res.status(400).json({ message: 'Specified scheme not found' });
+				return;
+			}
+			const form = await Form.findOne({
+				userId: user._id,
+				schemeId: scheme._id,
+				creationDate: req.params.date
+			});
+			if (form == null) {
+				res.status(400).json({ message: 'Specified form not found' });
+				return;
+			}
+			await Form.deleteOne({ _id: form._id });
+			res.json({ date: form.creationDate });
+		} catch (error) {
+			res.status(408).json({ message: error });
+		}
+	}
+);
 
 module.exports = router;
