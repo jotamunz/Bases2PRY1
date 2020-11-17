@@ -31,4 +31,53 @@ export class FormService {
     );
   }
 
+
+  /**
+   * Get a Specific Form for a User
+   * @param user User data to register
+   */
+  public getFormBySchemeUser(userUsername: String,schemeName: String,date: String): Observable<any> {
+    return this.httpClient.get<any>(
+      `http://localhost:3000/forms/${userUsername}/${schemeName}/${date}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.authService.getToken()}`,
+        },
+      }
+    );
+  }
+
+   /**
+   * Get Pending Forms for User 
+   * @param user User data to register
+   */
+  public getPendingFormForUser(userUsername: String): Observable<any> {
+    return this.httpClient.get<any>(
+      `http://localhost:3000/forms/pending/${userUsername}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.authService.getToken()}`,
+        },
+      }
+    );
+  }
+
+   /**
+   * Get History of Forms for User 
+   * @param user User data to register
+   */
+  public getHistoryFormForUser(userUsername: String): Observable<any> {
+    return this.httpClient.get<any>(
+      `http://localhost:3000/forms/history/${userUsername}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.authService.getToken()}`,
+        },
+      }
+    );
+  }
+
 }
