@@ -7,6 +7,7 @@ export interface RouteInfo {
     {
       approverName?: string;
       decision?: number;
+      decisionName?: string;
       approvalDate?: string;
     }
   ];

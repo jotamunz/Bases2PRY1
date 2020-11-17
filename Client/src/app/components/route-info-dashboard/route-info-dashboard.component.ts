@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormService } from '../../services/form.service';
 
-import { User } from '../../models/User';
 import { RouteInfo } from '../../models/RouteInfo';
 
 @Component({
@@ -11,8 +10,7 @@ import { RouteInfo } from '../../models/RouteInfo';
   styleUrls: ['./route-info-dashboard.component.css'],
 })
 export class RouteInfoDashboardComponent implements OnInit {
-  public users: User[];
-  public routeProgress: any[];
+  public routeProgress: RouteInfo[] = [];
 
   constructor(
     private formService: FormService,
@@ -30,6 +28,13 @@ export class RouteInfoDashboardComponent implements OnInit {
           // Check for decision
           for (let i = 0; i < response.length; i++) {
             for (let j = 0; j < response[i].decisions.length; j++) {
+              // Add decision name
+              response[i].decisions[j].decisionName = this.getDecisionName(
+                response[i].decisions[j].decision
+              );
+              // Format names
+              response[i].decisions[j].approverName =
+                response[i].decisions[j].approverName;
               // Add approval date if no decision
               if (response[i].decisions[j].decision == 0) {
                 response[i].decisions[j].approvalDate = 'Not defined...';
@@ -37,13 +42,29 @@ export class RouteInfoDashboardComponent implements OnInit {
                 // Format date
                 response[i].decisions[j].approvalDate = new Date(
                   response[i].decisions[j].approvalDate
-                ).toLocaleString();
+                )
+                  .toLocaleString()
+                  .slice(0, 10);
               }
             }
           }
-
-          console.log(response);
+          this.routeProgress = response;
         });
     });
+  }
+
+  /**
+   * Returns the name of the status
+   * @param statusNumber The number of the status
+   */
+  private getDecisionName(statusNumber: number): string {
+    switch (statusNumber) {
+      case 0:
+        return 'Pending';
+      case 1:
+        return 'Approved';
+      default:
+        return 'Rejected';
+    }
   }
 }
