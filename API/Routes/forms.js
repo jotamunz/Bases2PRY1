@@ -5,8 +5,6 @@ const Form = require('../models/Form');
 const User = require('../models/User');
 const Scheme = require('../models/Scheme');
 const ApprovalRoute = require('../models/ApprovalRoute');
-const { Router } = require('express');
-const { route } = require('./approvalRoutes');
 
 const router = express.Router();
 
@@ -616,7 +614,6 @@ router.patch('/', verifyToken, async (req, res) => {
 					if (appRoute.approvers.hasOwnProperty(key2)) {
 						approver = appRoute.approvers[key2];
 						if (approver.userId.equals(approverId._id)) {
-							console.log(approver);
 							approver.decision = req.body.decision;
 							approver.approvalDate = Date();
 							approverFound = true;
@@ -635,7 +632,6 @@ router.patch('/', verifyToken, async (req, res) => {
 			});
 			return;
 		}
-		console.log('sucess');
 		const savedForm = await form.save();
 		res.json({ date: savedForm.creationDate });
 	} catch (error) {
