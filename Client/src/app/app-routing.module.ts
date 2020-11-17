@@ -30,6 +30,7 @@ import { DynamicFormLayoutAdminComponent } from './components/View-Forms-Compone
 import { AuthUserGuard } from './guards/authuser.guard';
 import { AuthAdminGuard } from './guards/authadmin.guard';
 import { fromEventPattern } from 'rxjs';
+import { DynamicFormAdminComponent } from './components/View-Forms-Components/Admin/dynamic-form-admin/dynamic-form-admin.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
@@ -37,6 +38,12 @@ const routes: Routes = [
     path: 'user/dashboard',
     component: UserDashboardComponent,
     canActivate: [AuthUserGuard],
+  },
+  {
+    path:
+      'admin/viewForms/pendingDashboard/answered/view/:username/:schemeName/:createDate',
+    component: DynamicFormAdminComponent,
+    canActivate: [AuthAdminGuard],
   },
   {
     path: 'admin/form/routeInfoDashboard/:username/:schemeName/:date',
