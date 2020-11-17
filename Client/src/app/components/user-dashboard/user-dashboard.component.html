@@ -5,7 +5,29 @@
   <div class="card" *ngFor="let document of pendingDocuments">
     <div class="card-content">
       <span class="card-title">{{ document.schemeName }}</span>
-      <p><strong>Date submitted: </strong> {{ document.creationDate | date }}</p>
+      <p>
+        <strong>Date submitted: </strong> {{ document.creationDate | date }}
+      </p>
+      <!-- Approval progress -->
+      <p><strong>Approval progress: </strong></p>
+      <div class="progress-bar">
+        <div
+          class="progress-approvals"
+          [ngStyle]="{ width: document.approvalProgress }"
+        >
+          {{ document.approvalProgress }}
+        </div>
+      </div>
+      <!-- Rejection progress -->
+      <p><strong>Rejection progress: </strong></p>
+      <div class="progress-bar">
+        <div
+          class="progress-rejections"
+          [ngStyle]="{ width: document.rejectionProgress }"
+        >
+          {{ document.rejectionProgress }}
+        </div>
+      </div>
       <a href="#" class="btn grey btn-block darken-2">Read more</a>
     </div>
   </div>
