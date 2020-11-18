@@ -23,14 +23,16 @@ import { AdminFormHistoryDashboardComponent } from './components/admin-form-hist
 import { UserFormHistoryDashboardComponent } from './components/user-form-history-dashboard/user-form-history-dashboard.component';
 import { AdminHistoryFormReviewDashboardComponent } from './components/admin-history-form-review-dashboard/admin-history-form-review-dashboard.component';
 import { AdminPendingFormReviewDashboardComponent } from './components/admin-pending-form-review-dashboard/admin-pending-form-review-dashboard.component';
-import { RouteInfoDashboardComponent } from './components/route-info-dashboard/route-info-dashboard.component';
+import { RouteInfoDashboardComponent } from './components/Routes-Components/route-info-dashboard/route-info-dashboard.component';
 import { DynamicFormLayoutAdminComponent } from './components/View-Forms-Components/Admin/dynamic-form-layout-admin/dynamic-form-layout-admin.component';
+import { RouteReviewComponent } from './components/Routes-Components/route-review/route-review.component';
 
 //SERVICES
 import { AuthUserGuard } from './guards/authuser.guard';
 import { AuthAdminGuard } from './guards/authadmin.guard';
 import { fromEventPattern } from 'rxjs';
 import { DynamicFormAdminComponent } from './components/View-Forms-Components/Admin/dynamic-form-admin/dynamic-form-admin.component';
+import { cpuUsage } from 'process';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
@@ -40,9 +42,14 @@ const routes: Routes = [
     canActivate: [AuthUserGuard],
   },
   {
+    path: 'admin/routePreview', // on prrogress
+    component: RouteReviewComponent,
+    canActivate: [AuthAdminGuard],
+  },
+  {
     path:
       'admin/viewForms/pendingDashboard/answered/view/:username/:schemeName/:createDate',
-    component: DynamicFormAdminComponent,
+    component: DynamicFormLayoutAdminComponent,
     canActivate: [AuthAdminGuard],
   },
   {

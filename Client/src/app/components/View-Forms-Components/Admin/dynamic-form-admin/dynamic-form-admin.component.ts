@@ -1,13 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Router,ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 
 // MODELS
 import { QuestionBase } from '../../../../models/question-base';
 import { Form } from '../../../../models/Form';
 import { UpdateForm } from '../../../../models/UpdateForm';
-
 
 // SERVICES
 import { QuestionControlService } from '../../../../services/Form-Request-Services/question-control.service';
@@ -34,13 +33,13 @@ export class DynamicFormAdminComponent implements OnInit {
     responses: [],
   };
 
-  public updateForm : UpdateForm = {
-    approverUsername : "",
-    authorUsername : "",
-    date : "",
-    decision : "",
-    schemeName : ""
-  }
+  public updateForm: UpdateForm = {
+    approverUsername: '',
+    authorUsername: '',
+    date: '',
+    decision: '',
+    schemeName: '',
+  };
 
   constructor(
     private authService: AuthService,
@@ -48,7 +47,7 @@ export class DynamicFormAdminComponent implements OnInit {
     private router: Router,
     private formService: FormService,
     private qcs: QuestionControlService,
-    private activatedRoute : ActivatedRoute
+    private activatedRoute: ActivatedRoute
   ) {}
 
   getFieldValues() {
@@ -65,28 +64,29 @@ export class DynamicFormAdminComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('QUESTIONS');
+    console.log(this.questions);
+    console.log('QUESTIONS');
     this.form = this.qcs.toFormGroup(this.questions);
   }
 
-  public loadUpdateForm(decision : string): void{
+  public loadUpdateForm(decision: string): void {
     this.updateForm.approverUsername = this.authService.getCurrentUser().username;
-    this.activatedRoute.params.subscribe(response =>{
+    this.activatedRoute.params.subscribe((response) => {
       this.updateForm.authorUsername = response.username;
       this.updateForm.date = response.createDate;
       this.updateForm.schemeName = response.schemeName;
-    })
+    });
     this.updateForm.decision = decision;
-    
-
   }
 
   // Todo: approve in MongoDB
   onApprove() {
-    this.loadUpdateForm("1");
+    this.loadUpdateForm('1');
 
     this.formService.updateDecision(this.updateForm).subscribe(
       (res) => {
-        this.flashMessagesService.show("Form has been accepted", {
+        this.flashMessagesService.show('Form has been accepted', {
           cssClass: 'alert success-alert',
         });
         this.router.navigateByUrl('/admin/pendingReviewDashboard');
@@ -101,11 +101,11 @@ export class DynamicFormAdminComponent implements OnInit {
 
   // Todo: approve in MongoDB
   onReject() {
-    this.loadUpdateForm("2");
+    this.loadUpdateForm('2');
 
     this.formService.updateDecision(this.updateForm).subscribe(
       (res) => {
-        this.flashMessagesService.show("Form has been rejected", {
+        this.flashMessagesService.show('Form has been rejected', {
           cssClass: 'alert success-alert',
         });
         this.router.navigateByUrl('/admin/pendingReviewDashboard');
