@@ -19,17 +19,22 @@ export class AdminHistoryFormReviewDashboardComponent implements OnInit {
     this.loadHistoryForms();
   }
 
+  /**
+   * Loads the history for the forms
+   */
   public loadHistoryForms(): void {
     let username: String = this.authService.getCurrentUser().username;
+    // Get form history by username
     this.formService
       .getHistoryFormReview(username)
-      .subscribe((schemes: any[]) => {
+      .subscribe((forms: any[]) => {
         // Map to items in form
-        schemes.forEach((scheme) => {
+        forms.forEach((form) => {
           // Assign form status text
-          scheme.statusName = this.getStatusName(scheme.status);
-          scheme.decisionName = this.getStatusName(scheme.decision);
-          this.historyDocuments.push(scheme);
+          form.statusName = this.getStatusName(form.status);
+          form.decisionName = this.getStatusName(form.decision);
+          // Add to history array
+          this.historyDocuments.push(form);
         });
       });
   }
