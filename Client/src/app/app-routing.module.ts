@@ -42,7 +42,7 @@ const routes: Routes = [
   {
     path:
       'admin/viewForms/pendingDashboard/answered/view/:username/:schemeName/:createDate',
-    component: DynamicFormAdminComponent,
+    component: DynamicFormLayoutAdminComponent,
     canActivate: [AuthAdminGuard],
   },
   {
@@ -109,7 +109,7 @@ const routes: Routes = [
   {
     path:
       'admin/viewForms/dashboard/answered/view/:username/:schemaName/:createDate',
-    component: DynamicFormLayoutAdminComponent,
+    component: DynamicFormLayoutPendingComponent,
     canActivate: [AuthAdminGuard],
   },
   {
