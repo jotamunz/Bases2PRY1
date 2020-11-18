@@ -132,9 +132,17 @@ router.post('/', verifyToken, async (req, res) => {
 			res.status(400).json({ message: 'Specified scheme not found' });
 			return;
 		}
+		const approverAmount = req.body.approvers.length;
+		const authorAmount = req.body.authors.length;
+		if (approverAmount == 0 || authorAmount == 0) {
+			res.status(400).json({
+				message: 'Invalid amount of authors or approvers'
+			});
+			return;
+		}
 		if (
-			req.body.requiredApprovals > req.body.approvers.length ||
-			req.body.requiredRejections > req.body.approvers.length
+			req.body.requiredApprovals > approverAmount ||
+			req.body.requiredRejections > approverAmount
 		) {
 			res.status(400).json({
 				message: 'Invalid amount of required approvals or rejections'
