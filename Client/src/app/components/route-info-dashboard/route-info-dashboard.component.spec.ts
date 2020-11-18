@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DynamicFormLayoutComponent } from './dynamic-form-layout.component';
+import { RouteInfoDashboardComponent } from './route-info-dashboard.component';
 
-describe('DynamicFormLayoutComponent', () => {
-  let component: DynamicFormLayoutComponent;
-  let fixture: ComponentFixture<DynamicFormLayoutComponent>;
+describe('RouteInfoDashboardComponent', () => {
+  let component: RouteInfoDashboardComponent;
+  let fixture: ComponentFixture<RouteInfoDashboardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DynamicFormLayoutComponent ]
+      declarations: [ RouteInfoDashboardComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DynamicFormLayoutComponent);
+    fixture = TestBed.createComponent(RouteInfoDashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

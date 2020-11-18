@@ -5,8 +5,6 @@ const Form = require('../models/Form');
 const User = require('../models/User');
 const Scheme = require('../models/Scheme');
 const ApprovalRoute = require('../models/ApprovalRoute');
-const { Router } = require('express');
-const { route } = require('./approvalRoutes');
 
 const router = express.Router();
 
@@ -45,20 +43,21 @@ router.get('/pending/:userUsername', verifyToken, async (req, res) => {
 				let progress = [];
 				for (let key2 in form.routes) {
 					if (form.routes.hasOwnProperty(key2)) {
-						appRoute = form.routes[key2];
-						let appRouteLimits = await ApprovalRoute.findOne(
-							{ _id: appRoute.approvalRouteId },
-							{ _id: 0, requiredApprovals: 1, requiredRejections: 1 }
+						appRouteProgress = form.routes[key2];
+						let appRoute = await ApprovalRoute.findOne(
+							{ _id: appRouteProgress.approvalRouteId },
+							{ _id: 0, name: 1, requiredApprovals: 1, requiredRejections: 1 }
 						);
-						if (appRouteLimits == null) {
+						if (appRoute == null) {
 							res.status(400).json({ message: 'Specified route not found' });
 							return;
 						}
 						progress.push({
-							currentApprovals: appRoute.currentApprovals,
-							currentRejections: appRoute.currentRejections,
-							requiredApprovals: appRouteLimits.requiredApprovals,
-							requiredRejections: appRouteLimits.requiredRejections
+							name: appRoute.name,
+							currentApprovals: appRouteProgress.currentApprovals,
+							currentRejections: appRouteProgress.currentRejections,
+							requiredApprovals: appRoute.requiredApprovals,
+							requiredRejections: appRoute.requiredRejections
 						});
 					}
 				}
@@ -116,20 +115,21 @@ router.get('/history/:userUsername', verifyToken, async (req, res) => {
 				let progress = [];
 				for (let key2 in form.routes) {
 					if (form.routes.hasOwnProperty(key2)) {
-						appRoute = form.routes[key2];
-						let appRouteLimits = await ApprovalRoute.findOne(
-							{ _id: appRoute.approvalRouteId },
-							{ _id: 0, requiredApprovals: 1, requiredRejections: 1 }
+						appRouteProgress = form.routes[key2];
+						let appRoute = await ApprovalRoute.findOne(
+							{ _id: appRouteProgress.approvalRouteId },
+							{ _id: 0, name: 1, requiredApprovals: 1, requiredRejections: 1 }
 						);
-						if (appRouteLimits == null) {
+						if (appRoute == null) {
 							res.status(400).json({ message: 'Specified route not found' });
 							return;
 						}
 						progress.push({
-							currentApprovals: appRoute.currentApprovals,
-							currentRejections: appRoute.currentRejections,
-							requiredApprovals: appRouteLimits.requiredApprovals,
-							requiredRejections: appRouteLimits.requiredRejections
+							name: appRoute.name,
+							currentApprovals: appRouteProgress.currentApprovals,
+							currentRejections: appRouteProgress.currentRejections,
+							requiredApprovals: appRoute.requiredApprovals,
+							requiredRejections: appRoute.requiredRejections
 						});
 					}
 				}
@@ -202,20 +202,21 @@ router.get('/pending/admin/:userUsername', verifyToken, async (req, res) => {
 				let progress = [];
 				for (let key2 in form.routes) {
 					if (form.routes.hasOwnProperty(key2)) {
-						appRoute = form.routes[key2];
-						let appRouteLimits = await ApprovalRoute.findOne(
-							{ _id: appRoute.approvalRouteId },
-							{ _id: 0, requiredApprovals: 1, requiredRejections: 1 }
+						appRouteProgress = form.routes[key2];
+						let appRoute = await ApprovalRoute.findOne(
+							{ _id: appRouteProgress.approvalRouteId },
+							{ _id: 0, name: 1, requiredApprovals: 1, requiredRejections: 1 }
 						);
-						if (appRouteLimits == null) {
+						if (appRoute == null) {
 							res.status(400).json({ message: 'Specified route not found' });
 							return;
 						}
 						progress.push({
-							currentApprovals: appRoute.currentApprovals,
-							currentRejections: appRoute.currentRejections,
-							requiredApprovals: appRouteLimits.requiredApprovals,
-							requiredRejections: appRouteLimits.requiredRejections
+							name: appRoute.name,
+							currentApprovals: appRouteProgress.currentApprovals,
+							currentRejections: appRouteProgress.currentRejections,
+							requiredApprovals: appRoute.requiredApprovals,
+							requiredRejections: appRoute.requiredRejections
 						});
 					}
 				}
@@ -315,28 +316,39 @@ router.get('/history/admin/:userUsername', verifyToken, async (req, res) => {
 				}
 				let progress = [];
 				let decision;
+				let decisionFound = false;
 				for (let key2 in form.routes) {
 					if (form.routes.hasOwnProperty(key2)) {
-						appRoute = form.routes[key2];
-						let appRouteLimits = await ApprovalRoute.findOne(
-							{ _id: appRoute.approvalRouteId },
-							{ _id: 0, requiredApprovals: 1, requiredRejections: 1 }
+						appRouteProgress = form.routes[key2];
+						let appRoute = await ApprovalRoute.findOne(
+							{ _id: appRouteProgress.approvalRouteId },
+							{
+								_id: 0,
+								name: 1,
+								requiredApprovals: 1,
+								requiredRejections: 1
+							}
 						);
-						if (appRouteLimits == null) {
+						if (appRoute == null) {
 							res.status(400).json({ message: 'Specified route not found' });
 							return;
 						}
 						progress.push({
-							currentApprovals: appRoute.currentApprovals,
-							currentRejections: appRoute.currentRejections,
-							requiredApprovals: appRouteLimits.requiredApprovals,
-							requiredRejections: appRouteLimits.requiredRejections
+							name: appRoute.name,
+							currentApprovals: appRouteProgress.currentApprovals,
+							currentRejections: appRouteProgress.currentRejections,
+							requiredApprovals: appRoute.requiredApprovals,
+							requiredRejections: appRoute.requiredRejections
 						});
-						for (let key3 in appRoute.approvers) {
-							if (appRoute.approvers.hasOwnProperty(key3)) {
-								approver = appRoute.approvers[key3];
-								if (approver.userId.equals(userId._id)) {
-									decision = approver.decision;
+						if (!decisionFound) {
+							for (let key3 in appRouteProgress.approvers) {
+								if (appRouteProgress.approvers.hasOwnProperty(key3)) {
+									approver = appRouteProgress.approvers[key3];
+									if (approver.userId.equals(userId._id)) {
+										decision = approver.decision;
+										decisionFound = true;
+										break;
+									}
 								}
 							}
 						}
@@ -455,19 +467,19 @@ router.get(
 			let progress = [];
 			for (let key in form.routes) {
 				if (form.routes.hasOwnProperty(key)) {
-					appRoute = form.routes[key];
-					let appRouteLimits = await ApprovalRoute.findOne(
-						{ _id: appRoute.approvalRouteId },
+					appRouteProgress = form.routes[key];
+					let appRoute = await ApprovalRoute.findOne(
+						{ _id: appRouteProgress.approvalRouteId },
 						{ _id: 0, requiredApprovals: 1, requiredRejections: 1 }
 					);
-					if (appRouteLimits == null) {
+					if (appRoute == null) {
 						res.status(400).json({ message: 'Specified route not found' });
 						return;
 					}
 					let decisions = [];
-					for (let key2 in appRoute.approvers) {
-						if (appRoute.approvers.hasOwnProperty(key2)) {
-							approver = appRoute.approvers[key2];
+					for (let key2 in appRouteProgress.approvers) {
+						if (appRouteProgress.approvers.hasOwnProperty(key2)) {
+							approver = appRouteProgress.approvers[key2];
 							let approverName = await User.findOne(
 								{ _id: approver.userId },
 								{ _id: 0, name: 1 }
@@ -486,10 +498,11 @@ router.get(
 						}
 					}
 					progress.push({
-						currentApprovals: appRoute.currentApprovals,
-						currentRejections: appRoute.currentRejections,
-						requiredApprovals: appRouteLimits.requiredApprovals,
-						requiredRejections: appRouteLimits.requiredRejections,
+						name: appRoute.name,
+						currentApprovals: appRouteProgress.currentApprovals,
+						currentRejections: appRouteProgress.currentRejections,
+						requiredApprovals: appRoute.requiredApprovals,
+						requiredRejections: appRoute.requiredRejections,
 						decisions: decisions
 					});
 				}
@@ -558,7 +571,7 @@ router.post('/', verifyToken, validateForm, async (req, res) => {
 */
 // O: Modified form creation date
 // E: 408, 401, 400
-router.patch('/', async (req, res) => {
+router.patch('/', verifyToken, async (req, res) => {
 	try {
 		const schemeId = await Scheme.findOne(
 			{ name: req.body.schemeName, isActive: true },
@@ -596,23 +609,31 @@ router.patch('/', async (req, res) => {
 		if (form.status != 0) {
 			let statusMessage;
 			if (form.status == 1) {
-				statusMessage = { message: 'This form has already been approved'  };
-			}else{
+				statusMessage = { message: 'This form has already been approved' };
+			} else {
 				statusMessage = { message: 'This form has already been rejected' };
 			}
 			res.status(400).json(statusMessage);
 			return;
 		}
 		let approverFound = false;
-		for (let i = 0; i < form.routes.length; i++) {
-			let route = form.routes[i];
-			for (let j = 0; j < route.approvers.length; j++) {
-				let approver = route.approvers[j];
-				if (approver.userId.equals(approverId._id)) {
-					approver.decision = req.body.decision;
-					approver.approvalDate = Date.now;
-					approverFound = true;
+		for (let key in form.routes) {
+			if (form.routes.hasOwnProperty(key)) {
+				appRoute = form.routes[key];
+				for (let key2 in appRoute.approvers) {
+					if (appRoute.approvers.hasOwnProperty(key2)) {
+						approver = appRoute.approvers[key2];
+						if (approver.userId.equals(approverId._id)) {
+							approver.decision = req.body.decision;
+							approver.approvalDate = Date();
+							approverFound = true;
+							break;
+						}
+					}
 				}
+			}
+			if (approverFound) {
+				break;
 			}
 		}
 		if (!approverFound) {

@@ -10,13 +10,13 @@ const router = express.Router();
 
 // GET ALL SCHEMES
 // I: -
-// O: all active schemes names sorted
+// O: all schemes names sorted except for modified versions
 // E: 408, 401
 router.get('/', verifyToken, async (req, res) => {
 	try {
 		const scheme = await Scheme.find(
-			{ isActive: true },
-			{ _id: 0, name: 1 }
+			{ name: { $not: /\[/i } },
+			{ _id: 0, name: 1, isActive: 1 }
 		).sort({ name: 1 });
 		res.json(scheme);
 	} catch (error) {
@@ -69,7 +69,7 @@ router.get('/user/:userUsername', verifyToken, async (req, res) => {
 router.get('/:name', verifyToken, async (req, res) => {
 	try {
 		const scheme = await Scheme.findOne(
-			{ name: req.params.name, isActive: true },
+			{ name: req.params.name },
 			{ _id: 0, isActive: 0, modification: 0 }
 		);
 		if (scheme == null) {
@@ -99,11 +99,15 @@ router.get('/:name', verifyToken, async (req, res) => {
 // O: Saved scheme name
 // E: 408, 401, 400
 router.post('/', verifyToken, async (req, res) => {
-	const scheme = new Scheme({
-		name: req.body.name,
-		fields: req.body.fields
-	});
 	try {
+		if (req.body.name.includes('[') || req.body.name.includes(']')) {
+			res.status(400).json({ message: 'Invalid character []' });
+			return;
+		}
+		const scheme = new Scheme({
+			name: req.body.name,
+			fields: req.body.fields
+		});
 		const savedScheme = await scheme.save();
 		res.json({ name: savedScheme.name });
 	} catch (error) {
@@ -135,8 +139,7 @@ router.post('/', verifyToken, async (req, res) => {
 router.patch('/', verifyToken, async (req, res) => {
 	try {
 		const oldScheme = await Scheme.findOne({
-			name: req.body.oldName,
-			isActive: true
+			$and: [{ name: req.body.oldName }, { name: { $not: /\[/i } }]
 		});
 		if (oldScheme == null) {
 			res.status(400).json({ message: 'Specified scheme not found' });
@@ -152,7 +155,7 @@ router.patch('/', verifyToken, async (req, res) => {
 			});
 			oldScheme.isActive = false;
 			oldScheme.name = oldScheme.name.concat(
-				' (mod ' + oldScheme.modification.toString() + ')'
+				' [mod ' + oldScheme.modification.toString() + ']'
 			);
 			await oldScheme.save();
 			await newScheme.save();
@@ -169,6 +172,29 @@ router.patch('/', verifyToken, async (req, res) => {
 		} else {
 			res.status(408).json({ message: error });
 		}
+	}
+});
+
+// TOGGLE ACTIVATE SCHEME BY NAME
+// I: /name
+// O: Modified active value
+// E: 408, 401, 400
+router.patch('/toggle/:name', verifyToken, async (req, res) => {
+	try {
+		const scheme = await Scheme.findOne({ name: req.params.name });
+		if (scheme == null) {
+			res.status(400).json({ message: 'Specified scheme not found' });
+			return;
+		}
+		if (scheme.isActive) {
+			scheme.isActive = false;
+		} else {
+			scheme.isActive = true;
+		}
+		await scheme.Save();
+		res.json({ isActive: scheme.isActive });
+	} catch (error) {
+		res.status(408).json({ message: error });
 	}
 });
 

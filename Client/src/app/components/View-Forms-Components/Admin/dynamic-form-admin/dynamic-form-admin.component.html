@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--Code by Divinector - divinectorweb.com-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>animated background with pure css and html</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="dynamic-form-admin.component.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="banner-text"></div>
+    <div class="animation-area">
+      <ul class="box-area">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <div fxLayoutAlign="center center" fxFlexFill>
+        <mat-card class="color elementWidth" fxFlex="25">
+          <mat-toolbar class="mat-card greenCard">Form Request</mat-toolbar>
+          <br />
+
+          <div fxLayoutAlign="center center" fxFlexFill>
+            <div>
+              <form [formGroup]="form">
+                <div *ngFor="let question of questions" class="form-row">
+                  <app-dynamic-form-admin-question
+                    [question]="question"
+                    [form]="form"
+                  ></app-dynamic-form-admin-question>
+                </div>
+                <button
+                  type="submit"
+                  class="waves-effect waves-light btn buttonSize"
+                  (click)="onApprove()"
+                >
+                  Approve
+                </button>
+                <button
+                  type="submit"
+                  class="waves-effect waves-light btn buttonSize"
+                  (click)="onReject()"
+                >
+                  Reject
+                </button>
+              </form>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </body>
+</html>
