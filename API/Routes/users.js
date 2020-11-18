@@ -29,6 +29,26 @@ router.get('/', verifyToken, async (req, res) => {
 	}
 });
 
+// GET ALL USERS THAT ARE ADMIN
+// I: -
+// O: admin users name and username sorted
+// E: 408, 401
+router.get('/admin', verifyToken, async (req, res) => {
+	try {
+		const users = await User.find(
+			{ isAdmin: true },
+			{
+				_id: 0,
+				name: 1,
+				username: 1
+			}
+		).sort({ name: 1 });
+		res.json(users);
+	} catch (error) {
+		res.status(408).json({ message: error });
+	}
+});
+
 // GET USER BY USERNAME
 // I: /username
 // O: all user information, with accessible schemes object ID translated to scheme name
