@@ -95,4 +95,19 @@ export class SchemeService {
       }
     );
   }
+
+  /**
+   * Toggle a Route
+   */
+  public toggleScheme(schemeName : String): Observable<any> {
+    return this.httpClient.patch<any>(
+      `http://localhost:3000/schemes/toggle/${schemeName}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.authService.getToken()}`,
+        },
+      }
+    );
+  }
 }

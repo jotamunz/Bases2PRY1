@@ -81,4 +81,19 @@ export class UserService {
       }
     );
   }
+
+  /**
+   * Add a new Route
+   */
+  public getAdmins(): Observable<User[]> {
+    return this.httpClient.get<User[]>(
+      'http://localhost:3000/users/admin',
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.authService.getToken()}`,
+        },
+      }
+    );
+  }
 }

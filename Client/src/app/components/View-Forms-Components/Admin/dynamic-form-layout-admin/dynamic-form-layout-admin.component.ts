@@ -1,4 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ɵCompiler_compileModuleSync__POST_R3__,
+} from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 //SERVICES
@@ -30,18 +35,26 @@ export class DynamicFormLayoutAdminComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log('QUESTIONS 1');
+    console.log(this.questions);
+    console.log('QUESTIONS 1');
     this.loadFormSchema();
+    console.log('QUESTIONS 1');
+    console.log(this.questions);
+    console.log('QUESTIONS ...');
   }
 
   public loadFormSchema() {
     this.activatedRoute.params.subscribe((params) => {
       const schemaInfo = params;
       this.schemaInfo = schemaInfo;
+      console.log('servi bien 1');
+      console.log(schemaInfo.schemeName);
       console.log(schemaInfo);
       this.formService
         .getFormBySchemeUser(
           schemaInfo.username,
-          schemaInfo.schemaName,
+          schemaInfo.schemeName,
           schemaInfo.createDate
         )
         .subscribe((scheme: any) => {
@@ -50,6 +63,7 @@ export class DynamicFormLayoutAdminComponent implements OnInit {
             console.log(this.questions);
           });
         });
+      console.log('servi bien');
     });
   }
 }
