@@ -43,13 +43,66 @@ router.get('/', verifyToken, async (req, res) => {
 	}
 });
 
-// Gets approval route by Id
-router.get('/:approvalRouteId', verifyToken, async (req, res) => {
+// GET APPROVAL ROUTE BY NAME
+// I: /name
+// O: all approval route information
+// E: 408, 401, 400
+router.get('/:name', verifyToken, async (req, res) => {
 	try {
-		const approvalRoute = await ApprovalRoute.findById(
-			req.params.approvalRouteId
+		const approvalRoute = await ApprovalRoute.findOne(
+			{ name: req.params.name },
+			{ _id: 0, isActive: 0 }
 		);
-		res.json(approvalRoute);
+		if (approvalRoute == null) {
+			res.status(400).json({ message: 'Specified approval route not found' });
+			return;
+		}
+		const schemeName = await Scheme.findOne(
+			{ _id: approvalRoute.schemeId },
+			{ _id: 0, name: 1 }
+		);
+		if (schemeName == null) {
+			res.status(400).json({ message: 'Specified scheme not found' });
+			return;
+		}
+		let authorNames = [];
+		for (let key in approvalRoute.authors) {
+			if (approvalRoute.authors.hasOwnProperty(key)) {
+				authorId = approvalRoute.authors[key];
+				let authorName = await User.findOne(
+					{ _id: authorId.userId },
+					{ _id: 0, name: 1 }
+				);
+				if (authorName == null) {
+					res.status(400).json({ message: 'Specified author not found' });
+					return;
+				}
+				authorNames.push({ name: authorName.name });
+			}
+		}
+		let approverNames = [];
+		for (let key in approvalRoute.approvers) {
+			if (approvalRoute.approvers.hasOwnProperty(key)) {
+				approverId = approvalRoute.approvers[key];
+				let approverName = await User.findOne(
+					{ _id: approverId.userId },
+					{ _id: 0, name: 1 }
+				);
+				if (approverName == null) {
+					res.status(400).json({ message: 'Specified approver not found' });
+					return;
+				}
+				approverNames.push({ name: approverName.name });
+			}
+		}
+		res.json({
+			name: approvalRoute.name,
+			schemeName: schemeName.name,
+			authors: authorNames,
+			approvers: approverNames,
+			requiredApprovals: approvalRoute.requiredApprovals,
+			requiredRejections: approvalRoute.requiredRejections
+		});
 	} catch (error) {
 		res.status(408).json({ message: error });
 	}
