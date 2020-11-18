@@ -22,6 +22,8 @@
       <a routerLink = "/user/viewForms/dashboard/answered/view/{{this.authService.getCurrentUser().username}}/{{ document.schemeName }}/{{document.creationDate}}" class="btn grey btn-block darken-2"
         ><i class="fa fa-book"></i> Form info</a
       >
+      <a routerLink = "/user/form/routeInfoDashboard/{{this.authService.getCurrentUser().username}}/{{ document.schemeName }}/{{document.creationDate}}" class="btn grey btn-block darken-2"
+        ><i class="fa fa-road"></i> Route info</a>
     </div>
   </div>
 </div>
