@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">
+        <i class="fa fa-road"></i> Add a new route
+      </span>
+      <form #approvalRouteForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="input-field">
+          <input
+            type="text"
+            name="name"
+            [(ngModel)]="newRoute.name"
+            id="name"
+          />
+          <label for="name">Route name</label>
+        </div>
+
+        <button type="submit" class="btn btn-block green">
+          <i class="fa fa-plus"></i> Add approval route
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
