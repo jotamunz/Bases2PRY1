@@ -9,14 +9,14 @@
           [formControlName]="question.name"
           [id]="question.name"
           [type]="question.type"
-          disabled
+          readonly
         />
       </mat-form-field>
     </div>
 
     <div *ngSwitchCase="'dropdown'">
       <mat-form-field appearance="fill">
-        <mat-label class="color1">{{ question.label }}</mat-label>
+        <mat-label class="color1">{{ question.value }}</mat-label>
         <mat-select [id]="question.name" [formControlName]="question.name">
           <mat-option *ngFor="let opt of question.displayables" [value]="opt">
             {{ opt }}

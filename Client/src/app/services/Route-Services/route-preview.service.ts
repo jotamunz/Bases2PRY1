@@ -42,12 +42,13 @@ export class RoutePreviewService {
     );
   }
 
-   /**
+  /**
    * Add a new Route
    */
-  public postRoute(route : any): Observable<any> {
+  public postRoute(route: any): Observable<any> {
     return this.httpClient.post<any>(
-      'http://localhost:3000/approvalRoutes/', route,
+      'http://localhost:3000/approvalRoutes/',
+      route,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -57,10 +58,10 @@ export class RoutePreviewService {
     );
   }
 
-   /**
+  /**
    * Delete a Route
    */
-  public deleteRoute(routeName : String): Observable<any> {
+  public deleteRoute(routeName: String): Observable<any> {
     return this.httpClient.delete<any>(
       `http://localhost:3000/approvalRoutes/${routeName}`,
       {
@@ -75,9 +76,9 @@ export class RoutePreviewService {
   /**
    * Toggle a Route
    */
-  public toggleRoute(routeName : String): Observable<any> {
+  public toggleRoute(routeName: String): Observable<any> {
     return this.httpClient.patch<any>(
-      `http://localhost:3000/approvalRoutes/toggle/${routeName}`,
+      `http://localhost:3000/approvalRoutes/toggle/${routeName}`,{},
       {
         headers: {
           'Content-Type': 'application/json',
@@ -87,10 +88,10 @@ export class RoutePreviewService {
     );
   }
 
-   /**
+  /**
    * Get a Route
    */
-  public getSpesRoute(routeName : String): Observable<any> {
+  public getSpesRoute(routeName: String): Observable<any> {
     return this.httpClient.get<any>(
       `http://localhost:3000/approvalRoutes/${routeName}`,
       {

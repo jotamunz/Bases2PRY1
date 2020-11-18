@@ -43,8 +43,37 @@ export class RouteReviewComponent implements OnInit {
    * Removes a scheme
    * @param routeName to remove
    */
-  public onDeleteClick() {
-    // Todo delete on service
-    console.log('I delete you son');
+  public onDeleteClick(name: string) {
+    
+    this.routePreviewService.deleteRoute(name).subscribe((res) =>{
+      this.flashMessagesService.show(name+'deleted successfully', {
+        cssClass: 'alert success-alert',
+      });
+      
+    },(error) => {
+      this.flashMessagesService.show(error.error.message, {
+        cssClass: 'alert danger-alert',
+      });
+    }
+  );
+  }
+
+  /**
+   * Removes a scheme
+   * @param routeName to patch (update)
+   */
+
+  public onToggle(name: string) {
+    this.routePreviewService.toggleRoute(name).subscribe((res) =>{
+      this.flashMessagesService.show('Route status toggled successfully', {
+        cssClass: 'alert success-alert',
+      });
+      
+    },(error) => {
+      this.flashMessagesService.show(error.error.message, {
+        cssClass: 'alert danger-alert',
+      });
+    }
+  );
   }
 }

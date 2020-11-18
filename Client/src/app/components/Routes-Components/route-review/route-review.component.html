@@ -17,6 +17,7 @@
             type="checkbox"
             [(ngModel)]="routePreview.isActive"
             [ngModelOptions]="{ standalone: true }"
+            (click)="onToggle(routePreview.name)"
           />
           <span class="lever"></span>
           Active
@@ -24,10 +25,10 @@
       </div>
       <!-- View Button -->
       <a class="btn gray btn-block">
-        <i class="fa fa-pencil"></i> View Route
+        <i class="fa fa-book"></i> View Route
       </a>
       <!-- Delete Button -->
-      <button (click)="onDeleteClick()" class="btn red btn-block">
+      <button (click)="onDeleteClick(routePreview.name)" class="btn red btn-block">
         <i class="fa fa-times-circle"></i> Delete Route
       </button>
     </div>
