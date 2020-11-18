@@ -1,9 +1,32 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { AuthService } from './../auth.service';
+import { Observable } from 'rxjs';
+
+import { Scheme } from '../../models/Scheme';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RoutePreviewService {
+  constructor(
+    private httpClient: HttpClient,
+    private authService: AuthService
+  ) {}
 
-  constructor() { }
+  /**
+   * Get all schemes
+   */
+  public getAllSchemes(): Observable<Scheme[]> {
+    return this.httpClient.get<Scheme[]>('http://localhost:3000/schemes/', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.authService.getToken()}`,
+      },
+    });
+  }
+
+  /**
+   * Get all routes previews
+   */
 }
