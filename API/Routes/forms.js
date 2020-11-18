@@ -322,7 +322,12 @@ router.get('/history/admin/:userUsername', verifyToken, async (req, res) => {
 						appRouteProgress = form.routes[key2];
 						let appRoute = await ApprovalRoute.findOne(
 							{ _id: appRouteProgress.approvalRouteId },
-							{ _id: 0, name: 1, requiredApprovals: 1, requiredRejections: 1 }
+							{
+								_id: 0,
+								name: 1,
+								requiredApprovals: 1,
+								requiredRejections: 1
+							}
 						);
 						if (appRoute == null) {
 							res.status(400).json({ message: 'Specified route not found' });
@@ -336,9 +341,9 @@ router.get('/history/admin/:userUsername', verifyToken, async (req, res) => {
 							requiredRejections: appRoute.requiredRejections
 						});
 						if (!decisionFound) {
-							for (let key3 in appRoute.approvers) {
-								if (appRoute.approvers.hasOwnProperty(key3)) {
-									approver = appRoute.approvers[key3];
+							for (let key3 in appRouteProgress.approvers) {
+								if (appRouteProgress.approvers.hasOwnProperty(key3)) {
+									approver = appRouteProgress.approvers[key3];
 									if (approver.userId.equals(userId._id)) {
 										decision = approver.decision;
 										decisionFound = true;
