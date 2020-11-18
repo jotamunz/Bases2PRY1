@@ -8,7 +8,7 @@
       <p>
         <strong>Date submitted: </strong> {{ document.creationDate | date }}
       </p>
-      <p><strong>Form Author: </strong> {{ document.authorName }}</p>
+      <p><strong>Form author: </strong> {{ document.authorName }}</p>
       <!-- Document status info -->
       <p>
         <strong>Document status: </strong>
@@ -23,7 +23,7 @@
       </p>
       <!-- Approver decision info -->
       <p>
-        <strong>Approver Decision: </strong>
+        <strong>Approver decision: </strong>
         <span
           [ngClass]="{
             'yellow-text': document.decision == 0,
