@@ -7,11 +7,37 @@ const User = require('../models/User');
 const router = express.Router();
 
 /*GETS*/
-// Gets all approval routes
+
+// GET ALL APPROVAL ROUTES
+// I: -
+// O: all approval routes names, status and sheme names
+// E: 408, 401, 400
 router.get('/', verifyToken, async (req, res) => {
 	try {
-		const approvalRoute = await ApprovalRoute.find();
-		res.json(approvalRoute);
+		const approvalRoute = await ApprovalRoute.find(
+			{},
+			{ _id: 0, name: 1, isActive: 1, schemeId: 1 }
+		);
+		let approvalRoutesWithSchemeNames = [];
+		for (let key in approvalRoute) {
+			if (approvalRoute.hasOwnProperty(key)) {
+				appRoute = approvalRoute[key];
+				let schemeName = await Scheme.findOne(
+					{ _id: appRoute.schemeId },
+					{ _id: 0, name: 1 }
+				);
+				if (schemeName == null) {
+					res.status(400).json({ message: 'Specified scheme not found' });
+					return;
+				}
+				approvalRoutesWithSchemeNames.push({
+					name: appRoute.name,
+					isActive: appRoute.isActive,
+					schemeName: schemeName.name
+				});
+			}
+		}
+		res.json(approvalRoutesWithSchemeNames);
 	} catch (error) {
 		res.status(408).json({ message: error });
 	}
