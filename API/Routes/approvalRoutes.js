@@ -3,6 +3,8 @@ const verifyToken = require('../Middleware/verifyToken');
 const ApprovalRoute = require('../models/ApprovalRoute');
 const Scheme = require('../models/Scheme');
 const User = require('../models/User');
+const Form = require('../models/Form');
+
 
 const router = express.Router();
 
@@ -198,4 +200,61 @@ router.post('/', verifyToken, async (req, res) => {
 	}
 });
 
+
+/*PATCHS*/
+
+// TOGGLE ACTIVATE APPROVAL ROUTE BY NAME
+// I: /name
+// O: Modified active value
+// E: 408, 401, 400
+router.patch('/toggle/:name', async (req, res) => {
+	try {
+		const approvalRoute = await ApprovalRoute.findOne({ name: req.params.name });
+		if (approvalRoute == null) {
+			res.status(400).json({ message: 'Specified approval route not found' });
+			return;
+		}
+		if (approvalRoute.isActive) {
+			approvalRoute.isActive = false;
+		} else {
+			approvalRoute.isActive = true;
+		}
+		await approvalRoute.save();
+		res.json({ isActive: approvalRoute.isActive });
+	} catch (error) {
+		res.status(408).json({ message: error });
+	}
+});
+
+/*DELETES*/
+
+// DELETE APPROVAL ROUTE BY NAME
+// I: /name
+// O: Deleted approval route name
+// E: 408, 401, 400
+router.delete('/:name', verifyToken, async (req, res) => {
+	try {
+		const approvalRoute = await ApprovalRoute.findOne({ name: req.params.name });
+		if (approvalRoute == null) {
+			res.status(400).json({ message: 'Specified approval route not found' });
+			return;
+		}
+		const anyForm = await Form.findOne({ routes: { $elemMatch: { approvalRouteId: approvalRoute._id} } });
+		if (anyForm != null) {
+			res.status(400).json({
+				message: 'Specified approval route can´t be deleted because it has already been applied to one or more form submitions'
+			});
+			return;
+		}
+		await ApprovalRoute.deleteOne({ _id: approvalRoute._id });
+		res.json({ name: approvalRoute.name });
+	} catch (error) {
+		res.status(408).json({ message: error });
+	}
+});
+
+
+
+
 module.exports = router;
+

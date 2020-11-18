@@ -191,7 +191,7 @@ router.patch('/toggle/:name', verifyToken, async (req, res) => {
 		} else {
 			scheme.isActive = true;
 		}
-		await scheme.Save();
+		await scheme.save();
 		res.json({ isActive: scheme.isActive });
 	} catch (error) {
 		res.status(408).json({ message: error });
