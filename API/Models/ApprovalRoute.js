@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+const beautifyUnique = require('mongoose-beautiful-unique-validation');
+
+mongoose.set('useCreateIndex', true);
 
 const UserSchema = mongoose.Schema(
 	{
@@ -12,10 +15,20 @@ const UserSchema = mongoose.Schema(
 );
 
 const ApprovalRouteSchema = mongoose.Schema({
+	name: {
+		type: String,
+		required: true,
+		unique: true
+	},
 	schemeId: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Schemes',
 		required: true
+	},
+	isActive: {
+		type: Boolean,
+		required: true,
+		default: true
 	},
 	authors: {
 		type: [UserSchema],
@@ -35,5 +48,6 @@ const ApprovalRouteSchema = mongoose.Schema({
 	}
 });
 
-//name and schema to use
+ApprovalRouteSchema.plugin(beautifyUnique);
+
 module.exports = mongoose.model('ApprovalRoutes', ApprovalRouteSchema);
