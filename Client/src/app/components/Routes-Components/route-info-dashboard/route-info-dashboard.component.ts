@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormService } from '../../services/form.service';
+import { FormService } from '../../../services/form.service';
 
-import { RouteInfo } from '../../models/RouteInfo';
+import { RouteInfo } from '../../../models/RouteInfo';
 
 @Component({
   selector: 'app-route-info-dashboard',

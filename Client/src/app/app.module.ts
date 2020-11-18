@@ -52,11 +52,12 @@ import { UserFormHistoryDashboardComponent } from './components/user-form-histor
 import { AdminFormHistoryDashboardComponent } from './components/admin-form-history-dashboard/admin-form-history-dashboard.component';
 import { AdminPendingFormReviewDashboardComponent } from './components/admin-pending-form-review-dashboard/admin-pending-form-review-dashboard.component';
 import { AdminHistoryFormReviewDashboardComponent } from './components/admin-history-form-review-dashboard/admin-history-form-review-dashboard.component';
-import { RouteInfoDashboardComponent } from './components/route-info-dashboard/route-info-dashboard.component';
+import { RouteInfoDashboardComponent } from './components/Routes-Components/route-info-dashboard/route-info-dashboard.component';
 import { DynamicFormAdminQuestionComponent } from './components/View-Forms-Components/Admin/dynamic-form-admin-question/dynamic-form-admin-question.component';
 import { DynamicFormAdminComponent } from './components/View-Forms-Components/Admin/dynamic-form-admin/dynamic-form-admin.component';
 import { DynamicFormLayoutAdminComponent } from './components/View-Forms-Components/Admin/dynamic-form-layout-admin/dynamic-form-layout-admin.component';
 import { AdminUnansweredFormsDashboardComponent } from './components/View-Forms-Components/Admin/admin-unanswered-forms-dashboard/admin-unanswered-forms-dashboard.component';
+import { RouteReviewComponent } from './components/Routes-Components/route-review/route-review.component';
 
 @NgModule({
   declarations: [
@@ -92,6 +93,7 @@ import { AdminUnansweredFormsDashboardComponent } from './components/View-Forms-
     DynamicFormAdminComponent,
     DynamicFormLayoutAdminComponent,
     AdminUnansweredFormsDashboardComponent,
+    RouteReviewComponent,
   ],
 
   imports: [
