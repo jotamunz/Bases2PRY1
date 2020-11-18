@@ -31,6 +31,12 @@ export class RouteReviewComponent implements OnInit {
       this.schemes = schemes;
     });
     // Todo: Get all routePreviews
+    this.routePreviewService
+      .getAllRoutesPreview()
+      .subscribe((routePreview: RoutePreview[]) => {
+        this.routePreviews = routePreview;
+        console.log(routePreview);
+      });
   }
 
   /**

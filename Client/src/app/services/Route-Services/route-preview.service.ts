@@ -4,6 +4,7 @@ import { AuthService } from './../auth.service';
 import { Observable } from 'rxjs';
 
 import { Scheme } from '../../models/Scheme';
+import { RoutePreview } from '../../models/Routes-Models/RoutePreview';
 
 @Injectable({
   providedIn: 'root',
@@ -29,4 +30,15 @@ export class RoutePreviewService {
   /**
    * Get all routes previews
    */
+  public getAllRoutesPreview(): Observable<RoutePreview[]> {
+    return this.httpClient.get<Scheme[]>(
+      'http://localhost:3000/approvalRoutes/',
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.authService.getToken()}`,
+        },
+      }
+    );
+  }
 }
