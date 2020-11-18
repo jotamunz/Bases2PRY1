@@ -17,7 +17,6 @@ export class AdminHistoryFormReviewDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadHistoryForms();
-    console.log(this.historyDocuments);
   }
 
   public loadHistoryForms(): void {
@@ -29,6 +28,7 @@ export class AdminHistoryFormReviewDashboardComponent implements OnInit {
         schemes.forEach((scheme) => {
           // Assign form status text
           scheme.statusName = this.getStatusName(scheme.status);
+          scheme.decisionName = this.getStatusName(scheme.decision);
           this.historyDocuments.push(scheme);
         });
       });
