@@ -42,7 +42,7 @@ const routes: Routes = [
     canActivate: [AuthUserGuard],
   },
   {
-    path: 'admin/routePreview',
+    path: 'admin/routePreview', // on prrogress
     component: RouteReviewComponent,
     canActivate: [AuthAdminGuard],
   },

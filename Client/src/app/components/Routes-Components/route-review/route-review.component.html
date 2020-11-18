@@ -15,11 +15,7 @@
       <div class="switch">
         <label>
           Not Active
-          <input
-            type="checkbox"
-            [(ngModel)]="user.isAdmin"
-            [ngModelOptions]="{ standalone: true }"
-          />
+          <input type="checkbox" [ngModelOptions]="{ standalone: true }" />
           <span class="lever"></span>
           Active
         </label>
