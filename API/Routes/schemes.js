@@ -172,6 +172,25 @@ router.patch('/', verifyToken, async (req, res) => {
 	}
 });
 
+// DEACTIVATE SCHEME BY NAME
+// I: /name
+// O: Modified scheme name
+// E: 408, 401, 400
+router.patch('/deactivate/:name', verifyToken, async (req, res) => {
+	try {
+		const scheme = await Scheme.findOne({ name: req.params.name });
+		if (scheme == null) {
+			res.status(400).json({ message: 'Specified scheme not found' });
+			return;
+		}
+		scheme.isActive = false;
+		await scheme.Save();
+		res.json({ name: scheme.name });
+	} catch (error) {
+		res.status(408).json({ message: error });
+	}
+});
+
 /*DELETES*/
 
 // DELETE SCHEME BY NAME
