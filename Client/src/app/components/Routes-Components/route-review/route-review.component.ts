@@ -52,8 +52,10 @@ export class RouteReviewComponent implements OnInit {
    * Removes a scheme
    * @param routeName to patch (update)
    */
-  public onToggle() {
+  public onToggle(name: string) {
     // Todo: toggle on click
-    console.log('I was toggled everyone');
+    //console.log();
+    console.log(name);
+    this.routePreviewService.toggleRoute(name);
   }
 }
