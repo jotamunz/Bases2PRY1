@@ -1,0 +1,37 @@
+<div class="container">
+  <h2><i class="fa fa-archive"></i> All form schemes</h2>
+  <div *ngFor="let scheme of schemes" class="card">
+    <div class="card-content">
+      <span class="card-title">
+        {{ scheme.name }}
+      </span>
+      <!-- Display information -->
+      <div class="card-content">
+        <span>Route Name</span>
+        <br />
+        <span>Route SchemeName</span>
+      </div>
+      <!-- Activate Switch -->
+      <div class="switch">
+        <label>
+          Not Active
+          <input
+            type="checkbox"
+            [(ngModel)]="user.isAdmin"
+            [ngModelOptions]="{ standalone: true }"
+          />
+          <span class="lever"></span>
+          Active
+        </label>
+      </div>
+      <!-- View Button -->
+      <a class="btn gray btn-block">
+        <i class="fa fa-pencil"></i> View Route
+      </a>
+      <!-- Delete Button -->
+      <button (click)="onDeleteClick()" class="btn red btn-block">
+        <i class="fa fa-times-circle"></i> Delete Route
+      </button>
+    </div>
+  </div>
+</div>
