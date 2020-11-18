@@ -25,6 +25,11 @@ const ApprovalRouteSchema = mongoose.Schema({
 		ref: 'Schemes',
 		required: true
 	},
+	isActive: {
+		type: Boolean,
+		required: true,
+		default: true
+	},
 	authors: {
 		type: [UserSchema],
 		required: true
