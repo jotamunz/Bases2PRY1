@@ -17,6 +17,7 @@
             type="checkbox"
             [(ngModel)]="routePreview.isActive"
             [ngModelOptions]="{ standalone: true }"
+            (click)="onToggle()"
           />
           <span class="lever"></span>
           Active

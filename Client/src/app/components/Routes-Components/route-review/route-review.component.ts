@@ -47,4 +47,13 @@ export class RouteReviewComponent implements OnInit {
     // Todo delete on service
     console.log('I delete you son');
   }
+
+  /**
+   * Removes a scheme
+   * @param routeName to patch (update)
+   */
+  public onToggle() {
+    // Todo: toggle on click
+    console.log('I was toggled everyone');
+  }
 }

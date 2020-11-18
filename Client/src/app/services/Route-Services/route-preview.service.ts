@@ -41,4 +41,9 @@ export class RoutePreviewService {
       }
     );
   }
+
+  /**
+   * @params Route name
+   * Change isActive state of a route
+   */
 }
