@@ -43,7 +43,63 @@ export class RoutePreviewService {
   }
 
   /**
-   * @params Route name
-   * Change isActive state of a route
+   * Add a new Route
    */
+  public postRoute(route: any): Observable<any> {
+    return this.httpClient.post<any>(
+      'http://localhost:3000/approvalRoutes/',
+      route,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.authService.getToken()}`,
+        },
+      }
+    );
+  }
+
+  /**
+   * Delete a Route
+   */
+  public deleteRoute(routeName: String): Observable<any> {
+    return this.httpClient.delete<any>(
+      `http://localhost:3000/approvalRoutes/${routeName}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.authService.getToken()}`,
+        },
+      }
+    );
+  }
+
+  /**
+   * Toggle a Route
+   */
+  public toggleRoute(routeName: String): Observable<any> {
+    return this.httpClient.patch<any>(
+      `http://localhost:3000/approvalRoutes/toggle/${routeName}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.authService.getToken()}`,
+        },
+      }
+    );
+  }
+
+  /**
+   * Get a Route
+   */
+  public getSpesRoute(routeName: String): Observable<any> {
+    return this.httpClient.get<any>(
+      `http://localhost:3000/approvalRoutes/${routeName}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.authService.getToken()}`,
+        },
+      }
+    );
+  }
 }

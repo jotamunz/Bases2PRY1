@@ -81,6 +81,32 @@
       </li>
     </ul>
   </li>
+  <!-- Route management -->
+  <li *ngIf="this.isUserAuthenticated() && this.isAdmin()" class="no-padding">
+    <ul class="collapsible collapsible-accordion">
+      <li>
+        <a class="collapsible-header"
+          >Approval Routes<i class="material-icons">arrow_drop_down</i></a
+        >
+        <div class="collapsible-body">
+          <ul>
+            <li>
+              <!-- TODO => Pegar con Azucar -->
+              <a routerLink="/admin/schemes"
+                ><i class="fa fa-road"></i> All approval routes</a
+              >
+            </li>
+            <li>
+              <!-- TODO => Crear -->
+              <a routerLink="/admin/schemes/add"
+                ><i class="fa fa-plus"></i> Add new approval route</a
+              >
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </li>
   <!-- Form Management -->
   <li *ngIf="this.isUserAuthenticated()" class="no-padding">
     <ul class="collapsible collapsible-accordion">

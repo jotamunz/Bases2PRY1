@@ -5,7 +5,6 @@ const Scheme = require('../models/Scheme');
 const User = require('../models/User');
 const Form = require('../models/Form');
 
-
 const router = express.Router();
 
 /*GETS*/
@@ -200,16 +199,17 @@ router.post('/', verifyToken, async (req, res) => {
 	}
 });
 
-
-/*PATCHS*/
+/*PATCHES*/
 
 // TOGGLE ACTIVATE APPROVAL ROUTE BY NAME
 // I: /name
 // O: Modified active value
 // E: 408, 401, 400
-router.patch('/toggle/:name', async (req, res) => {
+router.patch('/toggle/:name', verifyToken, async (req, res) => {
 	try {
-		const approvalRoute = await ApprovalRoute.findOne({ name: req.params.name });
+		const approvalRoute = await ApprovalRoute.findOne({
+			name: req.params.name
+		});
 		if (approvalRoute == null) {
 			res.status(400).json({ message: 'Specified approval route not found' });
 			return;
@@ -234,15 +234,20 @@ router.patch('/toggle/:name', async (req, res) => {
 // E: 408, 401, 400
 router.delete('/:name', verifyToken, async (req, res) => {
 	try {
-		const approvalRoute = await ApprovalRoute.findOne({ name: req.params.name });
+		const approvalRoute = await ApprovalRoute.findOne({
+			name: req.params.name
+		});
 		if (approvalRoute == null) {
 			res.status(400).json({ message: 'Specified approval route not found' });
 			return;
 		}
-		const anyForm = await Form.findOne({ routes: { $elemMatch: { approvalRouteId: approvalRoute._id} } });
+		const anyForm = await Form.findOne({
+			routes: { $elemMatch: { approvalRouteId: approvalRoute._id } }
+		});
 		if (anyForm != null) {
 			res.status(400).json({
-				message: 'Specified approval route can´t be deleted because it has already been applied to one or more form submitions'
+				message:
+					'Specified approval route can´t be deleted because it has submitions'
 			});
 			return;
 		}
@@ -253,8 +258,4 @@ router.delete('/:name', verifyToken, async (req, res) => {
 	}
 });
 
-
-
-
 module.exports = router;
-
