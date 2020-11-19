@@ -26,13 +26,11 @@ import { AdminPendingFormReviewDashboardComponent } from './components/admin-pen
 import { RouteInfoDashboardComponent } from './components/Routes-Components/route-info-dashboard/route-info-dashboard.component';
 import { DynamicFormLayoutAdminComponent } from './components/View-Forms-Components/Admin/dynamic-form-layout-admin/dynamic-form-layout-admin.component';
 import { RouteReviewComponent } from './components/Routes-Components/route-review/route-review.component';
+import { AddRouteComponent } from './components/add-route/add-route.component';
 
 //SERVICES
 import { AuthUserGuard } from './guards/authuser.guard';
 import { AuthAdminGuard } from './guards/authadmin.guard';
-import { fromEventPattern } from 'rxjs';
-import { DynamicFormAdminComponent } from './components/View-Forms-Components/Admin/dynamic-form-admin/dynamic-form-admin.component';
-import { cpuUsage } from 'process';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
@@ -159,6 +157,11 @@ const routes: Routes = [
   {
     path: 'admin/schemes/:schemeName/edit',
     component: EditSchemeComponent,
+    canActivate: [AuthAdminGuard],
+  },
+  {
+    path: 'admin/approvalRoutes/add',
+    component: AddRouteComponent,
     canActivate: [AuthAdminGuard],
   },
 ];

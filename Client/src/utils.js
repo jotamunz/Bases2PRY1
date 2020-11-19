@@ -1,3 +1,5 @@
+// M.AutoInit();
+
 function $initializeComponents() {
   $(".sidenav").sidenav();
   $(".collapsible").collapsible();
@@ -13,5 +15,7 @@ $(document).ready(() => {
   $initializeComponents();
   // Event listeners
   $(".close-sidenav").on("click", $closeSideNav);
-  // $("ul.sidenav li a").on("click", $closeSideNav);
+  // Event listener modal
+  $(".modal").modal();
+  $(".tap-target").tapTarget();
 });

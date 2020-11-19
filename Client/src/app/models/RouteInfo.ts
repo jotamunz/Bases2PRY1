@@ -1,4 +1,5 @@
 export interface RouteInfo {
+  name?: string;
   currentApprovals?: number;
   currentRejections?: number;
   requiredApprovals?: number;

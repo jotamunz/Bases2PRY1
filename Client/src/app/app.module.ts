@@ -18,6 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 // LOCAL MODULES
 import { AppComponent } from './app.component';
@@ -58,6 +59,7 @@ import { DynamicFormAdminComponent } from './components/View-Forms-Components/Ad
 import { DynamicFormLayoutAdminComponent } from './components/View-Forms-Components/Admin/dynamic-form-layout-admin/dynamic-form-layout-admin.component';
 import { AdminUnansweredFormsDashboardComponent } from './components/View-Forms-Components/Admin/admin-unanswered-forms-dashboard/admin-unanswered-forms-dashboard.component';
 import { RouteReviewComponent } from './components/Routes-Components/route-review/route-review.component';
+import { AddRouteComponent } from './components/add-route/add-route.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +96,7 @@ import { RouteReviewComponent } from './components/Routes-Components/route-revie
     DynamicFormLayoutAdminComponent,
     AdminUnansweredFormsDashboardComponent,
     RouteReviewComponent,
+    AddRouteComponent,
   ],
 
   imports: [
@@ -112,6 +115,7 @@ import { RouteReviewComponent } from './components/Routes-Components/route-revie
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
+    MatExpansionModule,
   ],
   providers: [AuthService, AuthUserGuard, AuthAdminGuard, UserService],
   bootstrap: [AppComponent],
