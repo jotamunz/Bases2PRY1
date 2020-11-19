@@ -15,4 +15,5 @@ $(document).ready(() => {
   $(".close-sidenav").on("click", $closeSideNav);
   // Event listener modal
   $(".modal").modal();
+  $(".tap-target").tapTarget();
 });

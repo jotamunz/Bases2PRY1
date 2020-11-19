@@ -10,6 +10,7 @@ import { Scheme } from '../../../models/Scheme'; // test-model
 import { RoutePreview } from '../../../models/Routes-Models/RoutePreview';
 import { Observable } from 'rxjs';
 import { RouteDetailed } from 'src/app/models/Routes-Models/RouteDetailed';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-route-review',
@@ -19,8 +20,12 @@ import { RouteDetailed } from 'src/app/models/Routes-Models/RouteDetailed';
 export class RouteReviewComponent implements OnInit {
   //variables
   public schemes: Scheme[];
-  public routePreviews: RoutePreview[];
+  public routesDetailed: RouteDetailed[];
   public routes: RouteDetailed;
+  // target variables
+  public currentName: string = 'Nothing';
+  public currentRequiredApprovals: string = 'Nothing';
+  public currentRequiredRejections: string = 'Nothing';
 
   constructor(
     private flashMessagesService: FlashMessagesService,
@@ -32,11 +37,10 @@ export class RouteReviewComponent implements OnInit {
     // Todo: Get all routePreviews
     this.routePreviewService
       .getAllRoutesPreview()
-      .subscribe((routePreview: RoutePreview[]) => {
-        this.routePreviews = routePreview;
-        console.log(routePreview);
+      .subscribe((routeDetailed: RouteDetailed[]) => {
+        this.routesDetailed = routeDetailed;
+        console.log(this.routesDetailed);
       });
-    this.getSpesRoute('Dictadura');
   }
 
   /**
@@ -91,5 +95,13 @@ export class RouteReviewComponent implements OnInit {
         console.log(this.routes);
         console.log(this.routes.authors);
       });
+  }
+
+  public updateView(routes: RouteDetailed) {
+    this.currentName = routes.name;
+    this.currentRequiredApprovals =
+      'Approvals Amount: ' + routes.requiredApprovals.toString();
+    this.currentRequiredRejections =
+      'Rejections Amount: ' + routes.requiredRejections.toString();
   }
 }

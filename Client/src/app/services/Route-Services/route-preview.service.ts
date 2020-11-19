@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 import { Scheme } from '../../models/Scheme';
 import { RoutePreview } from '../../models/Routes-Models/RoutePreview';
+import { RouteDetailed } from 'src/app/models/Routes-Models/RouteDetailed';
 
 @Injectable({
   providedIn: 'root',
@@ -30,8 +31,8 @@ export class RoutePreviewService {
   /**
    * Get all routes previews
    */
-  public getAllRoutesPreview(): Observable<RoutePreview[]> {
-    return this.httpClient.get<Scheme[]>(
+  public getAllRoutesPreview(): Observable<RouteDetailed[]> {
+    return this.httpClient.get<RouteDetailed[]>(
       'http://localhost:3000/approvalRoutes/',
       {
         headers: {
