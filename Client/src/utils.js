@@ -1,3 +1,5 @@
+// M.AutoInit();
+
 function $initializeComponents() {
   $(".sidenav").sidenav();
   $(".collapsible").collapsible();

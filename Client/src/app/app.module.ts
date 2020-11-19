@@ -59,6 +59,7 @@ import { DynamicFormAdminComponent } from './components/View-Forms-Components/Ad
 import { DynamicFormLayoutAdminComponent } from './components/View-Forms-Components/Admin/dynamic-form-layout-admin/dynamic-form-layout-admin.component';
 import { AdminUnansweredFormsDashboardComponent } from './components/View-Forms-Components/Admin/admin-unanswered-forms-dashboard/admin-unanswered-forms-dashboard.component';
 import { RouteReviewComponent } from './components/Routes-Components/route-review/route-review.component';
+import { AddRouteComponent } from './components/add-route/add-route.component';
 
 @NgModule({
   declarations: [
@@ -95,6 +96,7 @@ import { RouteReviewComponent } from './components/Routes-Components/route-revie
     DynamicFormLayoutAdminComponent,
     AdminUnansweredFormsDashboardComponent,
     RouteReviewComponent,
+    AddRouteComponent,
   ],
 
   imports: [

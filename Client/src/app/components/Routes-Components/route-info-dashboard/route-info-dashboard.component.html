@@ -2,7 +2,7 @@
   <h1><i class="fa fa-road"></i> Route information</h1>
   <p>Here is the information of each route progress</p>
   <div *ngFor="let route of routeProgress; let i = index">
-    <h2>Route #{{ i + 1 }}</h2>
+    <h2>{{ route.name }}</h2>
     <table class="striped">
       <thead>
         <tr>

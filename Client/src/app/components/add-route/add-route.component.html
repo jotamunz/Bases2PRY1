@@ -1,0 +1,91 @@
+<div class="container">
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">
+        <i class="fa fa-road"></i> Add a new route
+      </span>
+      <form #approvalRouteForm="ngForm" (ngSubmit)="onSubmit()">
+        <!-- Name field -->
+        <div class="input-field">
+          <input
+            type="text"
+            name="name"
+            [(ngModel)]="newRoute.name"
+            id="name"
+          />
+          <label for="name">Route name</label>
+        </div>
+        <div class="input-field">
+          <input
+            type="number"
+            name="requiredApprovals"
+            [(ngModel)]="newRoute.requiredApprovals"
+            id="requiredApprovals"
+          />
+          <label class="active" for="requiredApprovals"
+            >Required approvals</label
+          >
+        </div>
+        <div class="input-field">
+          <input
+            type="number"
+            name="requiredRejections"
+            [(ngModel)]="newRoute.requiredRejections"
+            id="requiredRejections"
+          />
+          <label class="active" for="requiredRejections"
+            >Required rejections</label
+          >
+        </div>
+        <!-- Select schemes -->
+        <div class="margin-y">
+          <label>Schemes</label>
+          <p *ngFor="let scheme of schemes">
+            <label>
+              <input
+                class="with-gap"
+                name="schemeName"
+                (change)="onSchemeSelected(scheme.name)"
+                id="schemeName"
+                type="radio"
+              />
+              <span>{{ scheme.name }}</span>
+            </label>
+          </p>
+        </div>
+        <!-- Select authors -->
+        <div class="margin-y">
+          <label>Authors</label>
+          <div *ngFor="let author of authorItems">
+            <label>
+              <input
+                type="checkbox"
+                (change)="onAuthorSelected(author.username)"
+                name="{{ author.username }}"
+                [(ngModel)]="author.checked"
+              />
+              <span>{{ author.username }}</span>
+            </label>
+          </div>
+        </div>
+        <div class="margin-y">
+          <label>Approvers</label>
+          <div *ngFor="let approver of approverItems">
+            <label>
+              <input
+                type="checkbox"
+                (change)="onApproverSelected(approver.username)"
+                name="{{ approver.username }}"
+                [(ngModel)]="approver.checked"
+              />
+              <span>{{ approver.username }}</span>
+            </label>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-block green">
+          <i class="fa fa-plus"></i> Add approval route
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

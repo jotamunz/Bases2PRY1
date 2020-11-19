@@ -155,14 +155,12 @@ export class FormService {
    * Update decision in form
    * @param user User data to register
    */
-  public updateDecision(body : any): Observable<any> {
-    return this.httpClient.patch<any>(`http://localhost:3000/forms/`,body,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.authService.getToken()}`,
-        },
-      }
-    );
+  public updateDecision(body: any): Observable<any> {
+    return this.httpClient.patch<any>(`http://localhost:3000/forms/`, body, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.authService.getToken()}`,
+      },
+    });
   }
 }

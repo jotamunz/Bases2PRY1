@@ -25,6 +25,7 @@ export class RouteInfoDashboardComponent implements OnInit {
       this.formService
         .getRouteInformation(username, schemeName, date)
         .subscribe((response: RouteInfo[]) => {
+          console.log(response);
           // Check for decision
           for (let i = 0; i < response.length; i++) {
             for (let j = 0; j < response[i].decisions.length; j++) {
