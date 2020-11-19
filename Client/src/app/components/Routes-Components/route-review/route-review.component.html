@@ -1,36 +1,112 @@
-<div class="container">
-  <h2><i class="fa fa-archive"></i> All form schemes</h2>
-  <div *ngFor="let routePreview of routePreviews" class="card">
-    <div class="card-content">
-      <span class="card-title">
-        {{ routePreview.name }}
-      </span>
-      <!-- Display information -->
-      <div class="card-content">
-        <span>{{ routePreview.schemeName }}</span>
+<html>
+  <header></header>
+  <body>
+    <div class="container">
+      <h2><i class="fa fa-archive"></i> All form schemes</h2>
+      <div *ngFor="let routePreview of routesDetailed" class="card">
+        <div class="card-content">
+          <span class="card-title">
+            {{ routePreview.name }}
+          </span>
+          <!-- Display information -->
+          <div class="card-content">
+            <span>{{ routePreview.schemeName }}</span>
+          </div>
+          <!-- Activate Switch -->
+          <div class="switch">
+            <label>
+              Not Active
+              <input
+                type="checkbox"
+                [(ngModel)]="routePreview.isActive"
+                [ngModelOptions]="{ standalone: true }"
+                (click)="onToggle(routePreview.name)"
+              />
+              <span class="lever"></span>
+              Active
+            </label>
+          </div>
+
+          <!-- Modal Structure Authors -->
+          <div class="margins">
+            <mat-expansion-panel hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title> Authors</mat-panel-title>
+                <mat-panel-description>
+                  This is are the authors of the route
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div *ngIf="routePreview != undefined">
+                <div *ngFor="let authors of routePreview.authors" class="card">
+                  <mat-panel-description class="textAcordion">{{
+                    authors.name
+                  }}</mat-panel-description>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </div>
+
+          <!-- Modal Structure Approvers -->
+          <div class="margins">
+            <mat-expansion-panel hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title> Approvers</mat-panel-title>
+                <mat-panel-description>
+                  This is are the authors of the route
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div
+                *ngFor="let approvers of routePreview.approvers"
+                class="card"
+              >
+                <mat-panel-description class="textAcordion">{{
+                  approvers.name
+                }}</mat-panel-description>
+              </div>
+            </mat-expansion-panel>
+          </div>
+
+          <!-- View Button -->
+          <!-- Delete Button -->
+          <button
+            (click)="onDeleteClick(routePreview.name)"
+            class="btn red btn-block"
+          >
+            <i class="fa fa-times-circle"></i> Delete Route
+          </button>
+
+          <button
+            class="waves-effect waves-light btn btn-block"
+            onclick="$('.tap-target').tapTarget('open')"
+            (click)="updateView(routePreview)"
+          >
+            View Requirements
+          </button>
+        </div>
       </div>
-      <!-- Activate Switch -->
-      <div class="switch">
-        <label>
-          Not Active
-          <input
-            type="checkbox"
-            [(ngModel)]="routePreview.isActive"
-            [ngModelOptions]="{ standalone: true }"
-            (click)="onToggle(routePreview.name)"
-          />
-          <span class="lever"></span>
-          Active
-        </label>
-      </div>
-      <!-- View Button -->
-      <a class="btn gray btn-block">
-        <i class="fa fa-book"></i> View Route
-      </a>
-      <!-- Delete Button -->
-      <button (click)="onDeleteClick(routePreview.name)" class="btn red btn-block">
-        <i class="fa fa-times-circle"></i> Delete Route
-      </button>
     </div>
-  </div>
-</div>
+
+    <!--Icon pop up fresh -->
+    <div
+      class="fixed-action-btn direction-top active"
+      style="bottom: 45px; right: 24px"
+    >
+      <a id="menu" class="waves-effect waves-light btn btn-floating gray"
+        ><i class="material-icons">menu</i></a
+      >
+    </div>
+
+    <!-- Tap Target Structure -->
+    <div class="tap-target colorsPop" data-target="menu">
+      <div class="tap-target-content">
+        <h5>{{ currentName }}</h5>
+        <p>{{ currentRequiredApprovals }}</p>
+        <p>{{ currentRequiredRejections }}</p>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+  </body>
+</html>

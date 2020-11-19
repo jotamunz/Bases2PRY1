@@ -18,6 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 // LOCAL MODULES
 import { AppComponent } from './app.component';
@@ -114,6 +115,7 @@ import { AddRouteComponent } from './components/add-route/add-route.component';
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
+    MatExpansionModule,
   ],
   providers: [AuthService, AuthUserGuard, AuthAdminGuard, UserService],
   bootstrap: [AppComponent],
