@@ -6,8 +6,35 @@
 }
 
 .margin-y {
-  margin-top: 0.7rem;
-  margin-bottom: 0.7rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Progress bar utilities */
+.progress-bar {
+  width: 100%;
+  margin: 0.7rem 0;
+  min-height: 1.5rem;
+  background-color: #f3f3f3;
+  border-radius: 10px;
+}
+
+.progress-bar .progress-approvals {
+  min-height: 1.5rem;
+  padding-left: 0.3rem;
+  width: 0;
+  background-color: var(--dark-primary-color);
+  color: var(--light-color);
+  border-radius: 10px;
+}
+
+.progress-bar .progress-rejections {
+  min-height: 1.5rem;
+  padding-left: 0.3rem;
+  width: 0;
+  background-color: red;
+  color: var(--light-color);
+  border-radius: 10px;
 }
 
 /* Button utilities */

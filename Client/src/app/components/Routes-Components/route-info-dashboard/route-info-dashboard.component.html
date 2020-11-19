@@ -1,0 +1,31 @@
+<div class="container">
+  <h1><i class="fa fa-road"></i> Route information</h1>
+  <p>Here is the information of each route progress</p>
+  <div *ngFor="let route of routeProgress; let i = index">
+    <h2>{{ route.name }}</h2>
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>Reviewer name</th>
+          <th>Decision</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let decision of route.decisions">
+          <td>{{ decision.approverName }}</td>
+          <td
+            [ngClass]="{
+              'yellow-text': decision.decision == 0,
+              'green-text': decision.decision == 1,
+              'red-text': decision.decision == 2
+            }"
+          >
+            {{ decision.decisionName }}
+          </td>
+          <td>{{ decision.approvalDate }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -14,17 +14,23 @@ import { EditUserComponent } from './components/edit-user/edit-user.component';
 import { LayoutDynamicFormComponent } from './components/Request-Forms-Components/layout-dynamic-form/layout-dynamic-form.component';
 import { ListAllSchemesComponent } from './components/list-all-schemes/list-all-schemes.component';
 import { LoginComponent } from './components/login/login.component';
-import { UserAnsweredFormsDashboardComponent } from './components/View-Forms-Components/user-answered-forms-dashboard/user-answered-forms-dashboard.component';
 import { UsersComponent } from './components/users/users.component';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
 import { UserRegistrationComponent } from './components/user-registration/user-registration.component';
 import { UserRequestDashboardComponent } from './components/Request-Forms-Components/user-request-dashboard/user-request-dashboard.component';
-import { UserUnansweredFormsDashboardComponent } from './components/View-Forms-Components/user-unanswered-forms-dashboard/user-unanswered-forms-dashboard.component';
+import { DynamicFormLayoutPendingComponent } from './components/View-Forms-Components/User/dynamic-form-layout-pending/dynamic-form-layout-pending.component';
+import { AdminFormHistoryDashboardComponent } from './components/admin-form-history-dashboard/admin-form-history-dashboard.component';
+import { UserFormHistoryDashboardComponent } from './components/user-form-history-dashboard/user-form-history-dashboard.component';
+import { AdminHistoryFormReviewDashboardComponent } from './components/admin-history-form-review-dashboard/admin-history-form-review-dashboard.component';
+import { AdminPendingFormReviewDashboardComponent } from './components/admin-pending-form-review-dashboard/admin-pending-form-review-dashboard.component';
+import { RouteInfoDashboardComponent } from './components/Routes-Components/route-info-dashboard/route-info-dashboard.component';
+import { DynamicFormLayoutAdminComponent } from './components/View-Forms-Components/Admin/dynamic-form-layout-admin/dynamic-form-layout-admin.component';
+import { RouteReviewComponent } from './components/Routes-Components/route-review/route-review.component';
+import { AddRouteComponent } from './components/add-route/add-route.component';
 
 //SERVICES
 import { AuthUserGuard } from './guards/authuser.guard';
 import { AuthAdminGuard } from './guards/authadmin.guard';
-import { fromEventPattern } from 'rxjs';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
@@ -34,9 +40,50 @@ const routes: Routes = [
     canActivate: [AuthUserGuard],
   },
   {
+    path: 'admin/routePreview', // on prrogress
+    component: RouteReviewComponent,
+    canActivate: [AuthAdminGuard],
+  },
+  {
+    path:
+      'admin/viewForms/pendingDashboard/answered/view/:username/:schemeName/:createDate',
+    component: DynamicFormLayoutAdminComponent,
+    canActivate: [AuthAdminGuard],
+  },
+  {
+    path: 'admin/form/routeInfoDashboard/:username/:schemeName/:date',
+    component: RouteInfoDashboardComponent,
+    canActivate: [AuthAdminGuard],
+  },
+  {
+    path: 'user/form/routeInfoDashboard/:username/:schemeName/:date',
+    component: RouteInfoDashboardComponent,
+    canActivate: [AuthUserGuard],
+  },
+  {
     path: 'admin/dashboard',
     component: AdminDashboardComponent,
     canActivate: [AuthAdminGuard],
+  },
+  {
+    path: 'admin/pendingReviewDashboard',
+    component: AdminPendingFormReviewDashboardComponent,
+    canActivate: [AuthAdminGuard],
+  },
+  {
+    path: 'admin/historyReviewedDashboard',
+    component: AdminHistoryFormReviewDashboardComponent,
+    canActivate: [AuthAdminGuard],
+  },
+  {
+    path: 'admin/historyDashboard',
+    component: AdminFormHistoryDashboardComponent,
+    canActivate: [AuthAdminGuard],
+  },
+  {
+    path: 'user/historyDashboard',
+    component: UserFormHistoryDashboardComponent,
+    canActivate: [AuthUserGuard],
   },
   {
     path: 'user/form/dashboard/:schemeName/fill',
@@ -59,13 +106,21 @@ const routes: Routes = [
     canActivate: [AuthAdminGuard],
   },
   {
-    path: 'user/viewForms/dashboard/answered',
-    component: UserAnsweredFormsDashboardComponent,
-    // Todo: authorization
+    path:
+      'user/viewForms/dashboard/answered/view/:username/:schemaName/:createDate',
+    component: DynamicFormLayoutPendingComponent,
+    canActivate: [AuthUserGuard],
   },
   {
-    path: 'user/viewForms/dashboard/pending',
-    component: UserUnansweredFormsDashboardComponent,
+    path:
+      'admin/viewForms/dashboard/answered/view/:username/:schemaName/:createDate',
+    component: DynamicFormLayoutPendingComponent,
+    canActivate: [AuthAdminGuard],
+  },
+  {
+    path:
+      'user/viewForms/dashboard/pending/view/:username/:schemaName/:createDate',
+    component: DynamicFormLayoutPendingComponent,
     // Todo: authorization
   },
   {
@@ -102,6 +157,11 @@ const routes: Routes = [
   {
     path: 'admin/schemes/:schemeName/edit',
     component: EditSchemeComponent,
+    canActivate: [AuthAdminGuard],
+  },
+  {
+    path: 'admin/approvalRoutes/add',
+    component: AddRouteComponent,
     canActivate: [AuthAdminGuard],
   },
 ];

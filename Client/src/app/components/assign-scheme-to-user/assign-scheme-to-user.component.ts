@@ -52,7 +52,6 @@ export class AssignSchemeToUserComponent implements OnInit {
               name: scheme.name,
             };
           });
-          console.log(this.schemeItems);
         });
       });
     });
@@ -74,6 +73,9 @@ export class AssignSchemeToUserComponent implements OnInit {
     return isInUser;
   }
 
+  /**
+   * Gets the selected schemes by the user
+   */
   private getSelectedSchemes(): any {
     let selectedSchemes: any[] = [];
     this.schemeItems.forEach((scheme) => {
@@ -85,10 +87,8 @@ export class AssignSchemeToUserComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    // TODO: Submit form
     let selectedSchemes: any = this.getSelectedSchemes();
-    console.log(selectedSchemes);
-
+    // Edit user
     this.userService.editUserSchemas(selectedSchemes).subscribe(
       (response) => {
         this.flashMessagesService.show(`${this.user.name} has been updated`, {

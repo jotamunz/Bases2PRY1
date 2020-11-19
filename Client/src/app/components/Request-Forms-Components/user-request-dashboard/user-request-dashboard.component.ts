@@ -6,7 +6,6 @@ import { SchemeService } from '../../../services/scheme.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 
-
 //MODELS
 import { User } from '../../../models/User';
 import { Scheme } from '../../../models/Scheme';
@@ -25,13 +24,11 @@ export class UserRequestDashboardComponent implements OnInit {
     private userService: UserService,
     private schemeService: SchemeService,
     private activatedRoute: ActivatedRoute,
-    private authService : AuthService
-
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     this.loadSchemes();
-
   }
 
   public onSubmit(): void {
@@ -39,12 +36,14 @@ export class UserRequestDashboardComponent implements OnInit {
   }
 
   public loadSchemes(): void {
-    let username : String = this.authService.getCurrentUser().username;
-    this.schemeService.getAllSchemesForUser(username).subscribe((schemes: any[]) => {
-      // Map to items in form
-      schemes.forEach((scheme) => {
-        this.schemeItems.push(scheme);
+    let username: String = this.authService.getCurrentUser().username;
+    this.schemeService
+      .getAllSchemesForUser(username)
+      .subscribe((schemes: any[]) => {
+        // Map to items in form
+        schemes.forEach((scheme) => {
+          this.schemeItems.push(scheme);
+        });
       });
-    });
   }
 }

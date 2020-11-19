@@ -28,6 +28,10 @@
   <li *ngIf="this.isUserAuthenticated() && !this.isAdmin()">
     <a routerLink="/user/dashboard/"><i class="fa fa-home"></i>My Inbox</a>
   </li>
+  <!-- Admin link -->
+  <li *ngIf="this.isUserAuthenticated() && this.isAdmin()">
+    <a routerLink="/admin/dashboard/"><i class="fa fa-cog"></i>Dashboard</a>
+  </li>
   <!-- ADMIN LINKS -->
   <!-- User management -->
   <li *ngIf="this.isUserAuthenticated() && this.isAdmin()" class="no-padding">
@@ -77,6 +81,30 @@
       </li>
     </ul>
   </li>
+  <!-- Route management -->
+  <li *ngIf="this.isUserAuthenticated() && this.isAdmin()" class="no-padding">
+    <ul class="collapsible collapsible-accordion">
+      <li>
+        <a class="collapsible-header"
+          >Approval Routes<i class="material-icons">arrow_drop_down</i></a
+        >
+        <div class="collapsible-body">
+          <ul>
+            <li>
+              <a routerLink="admin/routePreview"
+                ><i class="fa fa-road"></i> All approval routes</a
+              >
+            </li>
+            <li>
+              <a routerLink="/admin/approvalRoutes/add"
+                ><i class="fa fa-plus"></i> Add new approval route</a
+              >
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </li>
   <!-- Form Management -->
   <li *ngIf="this.isUserAuthenticated()" class="no-padding">
     <ul class="collapsible collapsible-accordion">
@@ -86,8 +114,13 @@
         >
         <div class="collapsible-body">
           <ul>
-            <li>
-              <a routerLink="/admin/users"
+            <li *ngIf="this.isAdmin()">
+              <a routerLink="admin/historyDashboard"
+                ><i class="fa fa-list-alt"></i> Form history</a
+              >
+            </li>
+            <li *ngIf="!this.isAdmin()">
+              <a routerLink="user/historyDashboard"
                 ><i class="fa fa-list-alt"></i> Form history</a
               >
             </li>
@@ -102,13 +135,14 @@
               >
             </li>
             <li *ngIf="this.isAdmin()">
-              <a routerLink="/admin/users"
-                ><i class="fa fa-check-square-o"></i> Pending for review forms</a
+              <a routerLink="admin/pendingReviewDashboard"
+                ><i class="fa fa-check-square-o"></i> Pending for review
+                forms</a
               >
             </li>
             <li *ngIf="this.isAdmin()">
-              <a routerLink="/admin/users"
-                ><i class="fa fa-check-square-o"></i> History approved forms</a
+              <a routerLink="admin/historyReviewedDashboard"
+                ><i class="fa fa-check-square-o"></i> History reviewed forms</a
               >
             </li>
           </ul>
