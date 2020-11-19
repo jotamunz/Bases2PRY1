@@ -78,6 +78,7 @@ export class AssignSchemeToUserComponent implements OnInit {
    */
   private getSelectedSchemes(): any {
     let selectedSchemes: any[] = [];
+    // Get schemes that are selected
     this.schemeItems.forEach((scheme) => {
       if (scheme.checked) {
         selectedSchemes.push({ name: scheme.name });

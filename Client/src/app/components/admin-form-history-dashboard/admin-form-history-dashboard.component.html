@@ -1,5 +1,5 @@
 <div class="container">
-  <h1><i class="fa fa-envelope"></i> My Form History</h1>
+  <h1><i class="fa fa-file-text"></i> My Form History</h1>
   <p>Here are your history of past documents</p>
   <!-- Pending documents -->
   <div class="card" *ngFor="let document of historyDocuments">
@@ -19,10 +19,20 @@
           >{{ document.statusName }}</span
         >
       </p>
-      <a routerLink = "/admin/viewForms/dashboard/answered/view/{{this.authService.getCurrentUser().username}}/{{ document.schemeName }}/{{document.creationDate}}" class="btn grey btn-block darken-2"
-        ><i class="fa fa-book"></i> Form info</a>
-      <a routerLink="/admin/form/routeInfoDashboard/{{document.authorUsername}}/{{ document.schemeName }}/{{document.creationDate}}" class="btn grey btn-block darken-2"
-        ><i class="fa fa-road"></i> Route info</a>
+      <a
+        routerLink="/admin/viewForms/dashboard/answered/view/{{
+          this.authService.getCurrentUser().username
+        }}/{{ document.schemeName }}/{{ document.creationDate }}"
+        class="btn grey btn-block darken-2"
+        ><i class="fa fa-book"></i> Form info</a
+      >
+      <a
+        routerLink="/admin/form/routeInfoDashboard/{{
+          document.authorUsername
+        }}/{{ document.schemeName }}/{{ document.creationDate }}"
+        class="btn grey btn-block darken-2"
+        ><i class="fa fa-road"></i> Route info</a
+      >
     </div>
   </div>
 </div>

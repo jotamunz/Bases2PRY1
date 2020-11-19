@@ -22,7 +22,7 @@ export class AdminDashboardComponent implements OnInit {
     this.loadPendingForms();
   }
 
-  public loadPendingForms(): void { 
+  public loadPendingForms(): void {
     this.formService
       .getPendingFormForUser(this.username)
       .subscribe((schemes: any[]) => {
@@ -131,9 +131,9 @@ export class AdminDashboardComponent implements OnInit {
 
     return (currentTotalRejections / requiredRejections) * 100;
   }
-  
-  public onDeleteClick(schemeName: String, date : String) {
-    this.formService.deleteForm(this.username,schemeName,date).subscribe(
+
+  public onDeleteClick(schemeName: String, date: String) {
+    this.formService.deleteForm(this.username, schemeName, date).subscribe(
       (response) => {
         this.flashMessagesService.show(
           `The form has been deleted succesfully`,
@@ -148,17 +148,16 @@ export class AdminDashboardComponent implements OnInit {
         });
       }
     );
-    this.removeForm(schemeName,date);
+    this.removeForm(schemeName, date);
   }
 
-  public removeForm(schemeName: String, date : String): void {
+  public removeForm(schemeName: String, date: String): void {
     let formTemp = [];
     this.pendingDocuments.forEach((form) => {
-      if ((form.schemeName != schemeName) && (form.creationDate != date)) {
+      if (form.schemeName != schemeName && form.creationDate != date) {
         formTemp.push(form);
       }
     });
     this.pendingDocuments = formTemp;
   }
-  
 }

@@ -42,6 +42,21 @@ export class ListAllSchemesComponent implements OnInit {
     this.removeScheme(schemeName);
   }
 
+  public onToggle(name: string) {
+    this.schemeService.toggleScheme(name).subscribe(
+      (res) => {
+        this.flashMessagesService.show('Scheme status changed', {
+          cssClass: 'alert success-alert',
+        });
+      },
+      (error) => {
+        this.flashMessagesService.show(error.error.message, {
+          cssClass: 'alert danger-alert',
+        });
+      }
+    );
+  }
+
   /**
    * Removes a scheme
    * @param schemeName The name of the scheme to remove
