@@ -78,7 +78,8 @@ export class RoutePreviewService {
    */
   public toggleRoute(routeName: String): Observable<any> {
     return this.httpClient.patch<any>(
-      `http://localhost:3000/approvalRoutes/toggle/${routeName}`,{},
+      `http://localhost:3000/approvalRoutes/toggle/${routeName}`,
+      {},
       {
         headers: {
           'Content-Type': 'application/json',
@@ -91,8 +92,8 @@ export class RoutePreviewService {
   /**
    * Get a Route
    */
-  public getSpesRoute(routeName: String): Observable<any> {
-    return this.httpClient.get<any>(
+  public getSpesRoute(routeName: String): Observable<RoutePreview> {
+    return this.httpClient.get<RoutePreview>(
       `http://localhost:3000/approvalRoutes/${routeName}`,
       {
         headers: {
