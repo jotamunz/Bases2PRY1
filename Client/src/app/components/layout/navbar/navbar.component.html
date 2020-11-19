@@ -4,8 +4,7 @@
     <div class="container">
       <div class="nav-wrapper">
         <a routerLink="/" class="brand-logo center">
-          <i class="fa fa-list-alt" aria-hidden="true"></i
-          ><span>Form System</span>
+          <i class="fa fa-file" aria-hidden="true"></i><span> Form System</span>
         </a>
         <a
           href="#"
@@ -15,7 +14,7 @@
         ></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li *ngIf="this.isUserAuthenticated()">
-            Welcome {{ this.getCurrentUser().name }}
+            <i class="fa fa-user"></i> Welcome {{ this.getCurrentUser().name }}
           </li>
         </ul>
       </div>
@@ -26,7 +25,7 @@
 <ul class="sidenav" id="mobile-sidenav">
   <!-- USER LINKS -->
   <li *ngIf="this.isUserAuthenticated() && !this.isAdmin()">
-    <a routerLink="/user/dashboard/"><i class="fa fa-home"></i>My Inbox</a>
+    <a routerLink="/user/dashboard/"><i class="fa fa-cog"></i>Dashboard</a>
   </li>
   <!-- Admin link -->
   <li *ngIf="this.isUserAuthenticated() && this.isAdmin()">
@@ -44,7 +43,7 @@
           <ul>
             <li>
               <a routerLink="/admin/users"
-                ><i class="fa fa-user"></i> All users</a
+                ><i class="fa fa-users"></i> All users</a
               >
             </li>
             <li>
@@ -136,7 +135,7 @@
             </li>
             <li *ngIf="this.isAdmin()">
               <a routerLink="admin/pendingReviewDashboard"
-                ><i class="fa fa-check-square-o"></i> Pending for review
+                ><i class="fa fa-pencil-square-o"></i> Pending for review
                 forms</a
               >
             </li>

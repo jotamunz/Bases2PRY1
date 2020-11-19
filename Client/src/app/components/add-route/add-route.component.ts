@@ -63,22 +63,54 @@ export class AddRouteComponent implements OnInit {
     });
   }
 
+  /**
+   * Removes the selected author from the approvers
+   * @param username The username of the selected author
+   */
   public onAuthorSelected(username: string): void {
-    this.approverItems.forEach((approver) => {
+    // Map approver items
+    this.approverItems = this.approverItems.map((approver) => {
+      // Remove approver
       if (approver.username === username) {
-        approver.checked = false;
+        return {
+          username: approver.username,
+          checked: false,
+        };
       }
+      // Keep the same state for the rest of the approvers
+      return {
+        username: approver.username,
+        checked: approver.checked,
+      };
     });
   }
 
+  /**
+   * Removes the selected approver from the authors
+   * @param username The selected approver
+   */
   public onApproverSelected(username: string): void {
-    this.authorItems.forEach((author) => {
+    // Map author items
+    this.authorItems = this.authorItems.map((author) => {
+      // Remove author
       if (author.username === username) {
-        author.checked = false;
+        return {
+          username: author.username,
+          checked: false,
+        };
       }
+      // Keep the same state for the rest of the approvers
+      return {
+        username: author.username,
+        checked: author.checked,
+      };
     });
   }
 
+  /**
+   * Changes the name of the selected scheme
+   * @param schemeName The name of the selected scheme
+   */
   public onSchemeSelected(schemeName: string): void {
     this.newRoute.schemeName = schemeName;
   }
@@ -100,13 +132,17 @@ export class AddRouteComponent implements OnInit {
       return;
     }
     // Get authors
+    this.newRoute.authors = [];
     this.authorItems.forEach((author) => {
+      // Get checked authors
       if (author.checked) {
         this.newRoute.authors.push(author);
       }
     });
     // Get approvers
+    this.newRoute.approvers = [];
     this.approverItems.forEach((approver) => {
+      // Get checked approvers
       if (approver.checked) {
         this.newRoute.approvers.push(approver);
       }
