@@ -15,6 +15,7 @@
           />
           <label for="name">Route name</label>
         </div>
+        <!-- Required approvals -->
         <div class="input-field">
           <input
             type="number"
@@ -26,6 +27,7 @@
             >Required approvals</label
           >
         </div>
+        <!-- Required rejections -->
         <div class="input-field">
           <input
             type="number"
@@ -63,11 +65,13 @@
                 (change)="onAuthorSelected(author.username)"
                 name="{{ author.username }}"
                 [(ngModel)]="author.checked"
+                [checked]="author.checked"
               />
               <span>{{ author.username }}</span>
             </label>
           </div>
         </div>
+        <!-- Select approvers -->
         <div class="margin-y">
           <label>Approvers</label>
           <div *ngFor="let approver of approverItems">
@@ -77,6 +81,7 @@
                 (change)="onApproverSelected(approver.username)"
                 name="{{ approver.username }}"
                 [(ngModel)]="approver.checked"
+                [checked]="approver.checked"
               />
               <span>{{ approver.username }}</span>
             </label>

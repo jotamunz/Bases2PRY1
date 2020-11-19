@@ -64,18 +64,32 @@ export class AddRouteComponent implements OnInit {
   }
 
   public onAuthorSelected(username: string): void {
-    this.approverItems.forEach((approver) => {
+    this.approverItems = this.approverItems.map((approver) => {
       if (approver.username === username) {
-        approver.checked = false;
+        return {
+          username: approver.username,
+          checked: false,
+        };
       }
+      return {
+        username: approver.username,
+        checked: approver.checked,
+      };
     });
   }
 
   public onApproverSelected(username: string): void {
-    this.authorItems.forEach((author) => {
+    this.authorItems = this.authorItems.map((author) => {
       if (author.username === username) {
-        author.checked = false;
+        return {
+          username: author.username,
+          checked: false,
+        };
       }
+      return {
+        username: author.username,
+        checked: author.checked,
+      };
     });
   }
 
@@ -100,12 +114,16 @@ export class AddRouteComponent implements OnInit {
       return;
     }
     // Get authors
+    // TODO: Fix adding authors
+    this.newRoute.authors = [];
     this.authorItems.forEach((author) => {
       if (author.checked) {
         this.newRoute.authors.push(author);
       }
     });
+    // TODO: Fix adding approvers
     // Get approvers
+    this.newRoute.approvers = [];
     this.approverItems.forEach((approver) => {
       if (approver.checked) {
         this.newRoute.approvers.push(approver);
