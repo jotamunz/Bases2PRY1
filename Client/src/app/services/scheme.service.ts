@@ -26,16 +26,19 @@ export class SchemeService {
     });
   }
 
-   /**
+  /**
    * Get all schemes for a specified user
    */
-  public getAllSchemesForUser(username : String): Observable<Scheme[]> {
-    return this.httpClient.get<Scheme[]>(`http://localhost:3000/schemes/user/${username}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.authService.getToken()}`,
-      },
-    });
+  public getAllSchemesForUser(username: String): Observable<Scheme[]> {
+    return this.httpClient.get<Scheme[]>(
+      `http://localhost:3000/schemes/user/${username}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.authService.getToken()}`,
+        },
+      }
+    );
   }
 
   /**
@@ -99,9 +102,10 @@ export class SchemeService {
   /**
    * Toggle a Route
    */
-  public toggleScheme(schemeName : String): Observable<any> {
+  public toggleScheme(schemeName: String): Observable<any> {
     return this.httpClient.patch<any>(
       `http://localhost:3000/schemes/toggle/${schemeName}`,
+      {},
       {
         headers: {
           'Content-Type': 'application/json',

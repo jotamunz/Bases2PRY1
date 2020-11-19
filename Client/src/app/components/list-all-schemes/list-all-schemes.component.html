@@ -6,6 +6,20 @@
       <span class="card-title">
         {{ scheme.name }}
       </span>
+      <!-- Activate Switch -->
+      <div class="switch">
+        <label>
+          Not Active
+          <input
+            type="checkbox"
+            [(ngModel)]="scheme.isActive"
+            [ngModelOptions]="{ standalone: true }"
+            (click)="onToggle(scheme.name)"
+          />
+          <span class="lever"></span>
+          Active
+        </label>
+      </div>
       <a
         routerLink="/admin/schemes/{{ scheme.name }}/edit"
         class="btn green btn-block"
