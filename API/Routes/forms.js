@@ -470,7 +470,7 @@ router.get(
 					appRouteProgress = form.routes[key];
 					let appRoute = await ApprovalRoute.findOne(
 						{ _id: appRouteProgress.approvalRouteId },
-						{ _id: 0, requiredApprovals: 1, requiredRejections: 1 }
+						{ _id: 0, name: 1, requiredApprovals: 1, requiredRejections: 1 }
 					);
 					if (appRoute == null) {
 						res.status(400).json({ message: 'Specified route not found' });
