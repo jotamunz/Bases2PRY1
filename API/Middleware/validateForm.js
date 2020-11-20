@@ -19,6 +19,10 @@ module.exports = async function validateForm(req, res, next) {
 		) {
 			value = req.body.responses[key];
 			field = scheme.fields[key];
+			if (field.isRequired && value.value == '') {
+				res.status(400).json({ message: 'Missing required field' });
+				return;
+			}
 			switch (field.expectType) {
 				case 'number':
 					if (isNaN(value.value)) {

@@ -99,15 +99,6 @@ router.post('/', verifyToken, async (req, res) => {
 			res.status(400).json({ message: 'Specified scheme not found' });
 			return;
 		}
-		if (
-			!isInteger(req.body.requiredApprovals) ||
-			!isInteger(req.body.requiredRejections)
-		) {
-			res.status(400).json({
-				message: 'Incorrect type: expected whole number'
-			});
-			return;
-		}
 		const approverAmount = req.body.approvers.length;
 		const authorAmount = req.body.authors.length;
 		if (approverAmount == 0 || authorAmount == 0) {

@@ -180,10 +180,7 @@ router.patch('/addSchemes', verifyToken, async (req, res) => {
 			if (req.body.accessibleSchemes.hasOwnProperty(key)) {
 				schemeName = req.body.accessibleSchemes[key];
 				let schemeId = await Scheme.findOne(
-					{
-						name: schemeName.name,
-						isActive: true
-					},
+					{ $and: [{ name: schemeName.name }, { name: { $not: /\[/i } }] },
 					{ _id: 1 }
 				);
 				if (schemeId == null) {
