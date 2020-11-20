@@ -101,7 +101,7 @@ router.post('/', verifyToken, async (req, res) => {
 		}
 		const approverAmount = req.body.approvers.length;
 		const authorAmount = req.body.authors.length;
-		if (approverAmount == 0 || authorAmount == 0) {
+		if (approverAmount <= 0 || authorAmount <= 0) {
 			res.status(400).json({
 				message: 'Invalid amount of authors or approvers'
 			});
