@@ -40,6 +40,7 @@ export class DynamicFormComponent implements OnInit {
   ) {}
 
   getFieldValues() {
+    this.fields = []
     let fieldName = '';
     let value = '';
     let values = this.form.getRawValue();
@@ -62,6 +63,7 @@ export class DynamicFormComponent implements OnInit {
     this.mongoForm.responses = this.fields;
     this.mongoForm.schemeName = this.schemeName;
     this.mongoForm.userUsername = this.authService.getCurrentUser().username;
+
     console.log(this.mongoForm);
 
     this.formService.registerNewForm(this.mongoForm).subscribe(
@@ -74,9 +76,8 @@ export class DynamicFormComponent implements OnInit {
       (err) => {
         this.flashMessagesService.show(err.error.message, {
           cssClass: 'alert danger-alert',
-        })
+        });
       }
     );
-    
   }
 }

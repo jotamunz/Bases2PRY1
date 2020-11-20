@@ -19,28 +19,37 @@ module.exports = async function validateForm(req, res, next) {
 		) {
 			value = req.body.responses[key];
 			field = scheme.fields[key];
-			switch (field.expectType) {
-				case 'number':
-					if (isNaN(value.value)) {
-						res
-							.status(400)
-							.json({ message: 'Incorrect type: expected number' });
-						return;
-					}
-					break;
-				case 'text':
-					break;
-				case 'date':
-					const isValid =
-						dayjs(value.value, 'DD/MM/YYYY', true).format('DD/MM/YYYY') ===
-						value.value;
-					if (!isValid) {
-						res.status(400).json({ message: 'Incorrect type: expected date' });
-						return;
-					}
-					break;
-				default:
-					res.status(500).json({ message: 'Incorrect scheme format' });
+			if (field.isRequired && value.value == '') {
+				res.status(400).json({ message: 'Missing required field' });
+				return;
+			}
+			if (value.value != '') {
+				switch (field.expectType) {
+					case 'number':
+						if (isNaN(value.value)) {
+							res.status(400).json({
+								message: 'Incorrect type: expected number in ' + field.name
+							});
+							return;
+						}
+						break;
+					case 'text':
+						break;
+					case 'date':
+						const isValid =
+							dayjs(value.value, 'DD/MM/YYYY', true).format('DD/MM/YYYY') ===
+							value.value;
+						if (!isValid) {
+							res.status(400).json({
+								message:
+									'Incorrect type: expected date (DD/MM/YYYY) in ' + field.name
+							});
+							return;
+						}
+						break;
+					default:
+						res.status(500).json({ message: 'Incorrect scheme format' });
+				}
 			}
 		}
 	}

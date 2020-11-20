@@ -414,11 +414,15 @@ router.get(
 				) {
 					value = form.responses[key];
 					field = scheme.fields[key];
+					if (value.value == '' && !field.isRequired) {
+						value.value = 'NA';
+					}
 					fieldsWithValue.push({
 						name: field.name,
 						label: field.label,
 						component: field.component,
-						value: value.value
+						value: value.value,
+						isRequired: field.isRequired
 					});
 				}
 			}

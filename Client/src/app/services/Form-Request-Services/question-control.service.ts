@@ -16,7 +16,7 @@ export class QuestionControlService {
     const group: any = {};
 
     questions.forEach((question) => {
-      group[question.name] = question.required
+      group[question.name] = question.isRequired
         ? new FormControl(question.value || '', Validators.required)
         : new FormControl(question.value || '');
     });

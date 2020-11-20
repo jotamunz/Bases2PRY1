@@ -25,6 +25,10 @@ const FieldSchema = mongoose.Schema(
 			type: mongoose.Schema.Types.Mixed,
 			required: true,
 			default: []
+		},
+		isRequired: {
+			type: Boolean,
+			required: true
 		}
 	},
 	{ _id: false }
