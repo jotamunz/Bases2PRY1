@@ -62,7 +62,9 @@ export class DynamicFormComponent implements OnInit {
     this.mongoForm.responses = this.fields;
     this.mongoForm.schemeName = this.schemeName;
     this.mongoForm.userUsername = this.authService.getCurrentUser().username;
+    console.log('Answer');
     console.log(this.mongoForm);
+    console.log('Answer');
 
     this.formService.registerNewForm(this.mongoForm).subscribe(
       (res) => {
@@ -74,9 +76,8 @@ export class DynamicFormComponent implements OnInit {
       (err) => {
         this.flashMessagesService.show(err.error.message, {
           cssClass: 'alert danger-alert',
-        })
+        });
       }
     );
-    
   }
 }

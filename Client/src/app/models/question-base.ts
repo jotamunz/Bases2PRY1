@@ -1,30 +1,31 @@
 export class QuestionBase<T> {
-  value: T;
+  value: string;
   name: string;
   label: string;
-  required: boolean;
+  isRequired: boolean;
   component: string;
-  type: string;
+  expectType: string;
   displayables: { value: string }[];
 
   constructor(
     options: {
-      value?: T;
+      value?: string;
       name?: string;
       label?: string;
-      required?: boolean;
+      isRequired?: boolean;
       order?: number;
       component?: string;
       type?: string;
+      expectType?: string;
       displayables?: { key: string; value: string }[];
     } = {}
   ) {
-    this.value = options.value;
+    this.value = '';
     this.name = options.name || '';
     this.label = options.label || '';
-    this.required = !!options.required;
+    this.isRequired = !!options.isRequired;
     this.component = options.component || '';
-    this.type = options.type || '';
+    this.expectType = options.expectType || '';
     this.displayables = options.displayables || [];
   }
 }
