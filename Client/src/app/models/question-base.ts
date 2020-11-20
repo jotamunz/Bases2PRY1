@@ -20,7 +20,7 @@ export class QuestionBase<T> {
       displayables?: { key: string; value: string }[];
     } = {}
   ) {
-    this.value = '';
+    this.value = options.value || '';
     this.name = options.name || '';
     this.label = options.label || '';
     this.isRequired = !!options.isRequired;

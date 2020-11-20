@@ -47,7 +47,9 @@ export class DynamicFormLayoutPendingComponent implements OnInit {
         .subscribe((scheme: any) => {
           scheme.responses.forEach((question) => {
             this.questions.push(new QuestionBase<any>(question));
+            console.log('View question');
             console.log(this.questions);
+            console.log('View question');
           });
         });
     });
