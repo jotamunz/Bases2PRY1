@@ -19,6 +19,9 @@
         <div class="input-field">
           <input
             type="number"
+            min="1"
+            step="1"
+            oninput="this.value = Math.round(this.value);"
             name="requiredApprovals"
             [(ngModel)]="newRoute.requiredApprovals"
             id="requiredApprovals"
@@ -31,6 +34,9 @@
         <div class="input-field">
           <input
             type="number"
+            min="1"
+            step="1"
+            oninput="this.value = Math.round(this.value);"
             name="requiredRejections"
             [(ngModel)]="newRoute.requiredRejections"
             id="requiredRejections"
