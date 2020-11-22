@@ -6,6 +6,8 @@ import { SchemeService } from '../../services/scheme.service';
 import { Scheme } from '../../models/Scheme';
 import { SchemeField } from '../../models/SchemeField';
 
+declare var M: any;
+
 @Component({
   selector: 'app-add-scheme',
   templateUrl: './add-scheme.component.html',
@@ -23,7 +25,7 @@ export class AddSchemeComponent implements OnInit {
     component: 'textbox',
     displayables: [],
     label: '',
-    isRequired : false
+    isRequired: false,
   };
   public currentDisplayable: string = '';
 
@@ -33,7 +35,11 @@ export class AddSchemeComponent implements OnInit {
     private schemeService: SchemeService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // Initialize dropdowns for forms
+    let elems = document.querySelectorAll('select');
+    M.FormSelect.init(elems, {});
+  }
 
   public onSubmit(): void {
     // Check if name exists
@@ -124,9 +130,7 @@ export class AddSchemeComponent implements OnInit {
       component: 'textbox',
       displayables: [],
       label: '',
-      isRequired : false
+      isRequired: false,
     };
-
-    
   }
 }

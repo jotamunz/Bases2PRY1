@@ -20,6 +20,9 @@
       <p><strong>Name: </strong> {{ field.name }}</p>
       <p><strong>Type: </strong> {{ field.expectType }}</p>
       <p><strong>Component: </strong>{{ field.component }}</p>
+      <p>
+        <strong>Required field: </strong> {{ field.isRequired ? "Yes" : "No" }}
+      </p>
       <ul class="collection">
         <li
           *ngFor="let displayable of field.displayables"
@@ -57,14 +60,12 @@
             id="component"
             (change)="resetDisplayables()"
           >
-            <!-- TODO: Revisar esto -->
             <option value="textbox" selected>Text Box</option>
             <option value="dropdown">Dropdown menu</option>
           </select>
           <label>Component type</label>
         </div>
         <!-- Select type -->
-        <!-- TODO: Revisar si el type igual hay que ingresarlo para dropdowns -->
         <div
           [ngClass]="{
             'input-field': true,

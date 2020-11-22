@@ -7,6 +7,8 @@ import { SchemeUpdate } from '../../models/SchemeUpdate';
 import { Scheme } from '../../models/Scheme';
 import { SchemeField } from '../../models/SchemeField';
 
+declare var M: any;
+
 @Component({
   selector: 'app-edit-scheme',
   templateUrl: './edit-scheme.component.html',
@@ -24,6 +26,7 @@ export class EditSchemeComponent implements OnInit {
     component: 'textbox',
     displayables: [],
     label: '',
+    isRequired: false,
   };
   public updateScheme: SchemeUpdate = {
     newName: '',
@@ -40,6 +43,10 @@ export class EditSchemeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Initialize dropdowns for forms
+    let elems = document.querySelectorAll('select');
+    M.FormSelect.init(elems, {});
+
     this.activatedRoute.params.subscribe((params) => {
       const { schemeName } = params;
       this.schemeService

@@ -21,6 +21,9 @@
       <p><strong>Name: </strong> {{ field.name }}</p>
       <p><strong>Type: </strong> {{ field.expectType }}</p>
       <p><strong>Component: </strong>{{ field.component }}</p>
+      <p>
+        <strong>Required field: </strong> {{ field.isRequired ? "Yes" : "No" }}
+      </p>
       <ul class="collection">
         <li
           *ngFor="let displayable of field.displayables"
@@ -123,19 +126,19 @@
           Add displayable
         </button>
         <div class="switch">
-              <label>
-                Optional
-                <input
-                  type="checkbox"
-                  name="isRequired"
-                  id="isRequired"
-                  [(ngModel)]="currentSchemeField.isRequired"
-                  [ngModelOptions]="{ standalone: true }"
-                />
-                <span class="lever"></span>
-                Required
-              </label>
-            </div>
+          <label>
+            Optional
+            <input
+              type="checkbox"
+              name="isRequired"
+              id="isRequired"
+              [(ngModel)]="currentSchemeField.isRequired"
+              [ngModelOptions]="{ standalone: true }"
+            />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
         <button type="submit" class="btn green margin-y">
           <i class="fa fa-plus"></i> Add Field
         </button>
