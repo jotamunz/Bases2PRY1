@@ -5,6 +5,8 @@ import { AuthService } from '../../../services/auth.service';
 
 import { User } from '../../../models/User';
 
+declare var M: any;
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -31,6 +33,8 @@ export class NavbarComponent implements OnInit {
   }
 
   public isUserAuthenticated(): boolean {
+    let elems = document.querySelectorAll('.collapsible');
+    var instances = M.Collapsible.init(elems, {});
     return this.authService.getIsAuthenticated();
   }
 
