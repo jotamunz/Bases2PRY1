@@ -53,6 +53,7 @@ export class RouteReviewComponent implements OnInit {
         this.flashMessagesService.show(name + 'deleted successfully', {
           cssClass: 'alert success-alert',
         });
+        this.clearDeleted(name);
       },
       (error) => {
         this.flashMessagesService.show(error.error.message, {
@@ -103,5 +104,16 @@ export class RouteReviewComponent implements OnInit {
       'Approvals Amount: ' + routes.requiredApprovals.toString();
     this.currentRequiredRejections =
       'Rejections Amount: ' + routes.requiredRejections.toString();
+  }
+
+  public clearDeleted(route : String){
+    let temp = []
+    this.routesDetailed.forEach(element => {
+      if (element.name != route){
+        temp.push(element)
+      }
+    });
+    this.routesDetailed = temp
+
   }
 }

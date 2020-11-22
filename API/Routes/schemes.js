@@ -24,7 +24,7 @@ router.get('/', verifyToken, async (req, res) => {
 	}
 });
 
-// GET ALL SCHEMES BY USERNAME
+// GET ALL SCHEMES BY USER USERNAME
 // I: /userUsername
 // O: all active schemes names sorted
 // E: 408, 401, 400
@@ -43,14 +43,16 @@ router.get('/user/:userUsername', verifyToken, async (req, res) => {
 			if (userSchemes.accessibleSchemes.hasOwnProperty(key)) {
 				schemeId = userSchemes.accessibleSchemes[key];
 				let schemeName = await Scheme.findOne(
-					{ _id: schemeId.schemeId, isActive: true },
-					{ _id: 0, name: 1 }
+					{ _id: schemeId.schemeId },
+					{ _id: 0, name: 1, isActive: 1 }
 				);
 				if (schemeName == null) {
 					res.status(400).json({ message: 'Specified scheme not found' });
 					return;
 				}
-				accessibleSchemesNames.push({ name: schemeName.name });
+				if (schemeName.isActive) {
+					accessibleSchemesNames.push({ name: schemeName.name });
+				}
 			}
 		}
 		accessibleSchemesNames.sort(function (a, b) {
@@ -93,7 +95,8 @@ router.get('/:name', verifyToken, async (req, res) => {
 		label: String,
 		expectType: String,
 		component: String,
-		displayables: Mixed
+		displayables: Mixed,
+		isRequired: Boolean
 	]
 */
 // O: Saved scheme name
@@ -131,7 +134,8 @@ router.post('/', verifyToken, async (req, res) => {
 		label: String,
 		expectType: String,
 		component: String,
-		displayables: Mixed
+		displayables: Mixed,
+		isRequired: Boolean
 	]	
 */
 // O: Updated scheme name
@@ -143,6 +147,10 @@ router.patch('/', verifyToken, async (req, res) => {
 		});
 		if (oldScheme == null) {
 			res.status(400).json({ message: 'Specified scheme not found' });
+			return;
+		}
+		if (req.body.newName.includes('[') || req.body.newName.includes(']')) {
+			res.status(400).json({ message: 'Invalid character []' });
 			return;
 		}
 		const anyForm = await Form.findOne({ schemeId: oldScheme._id });

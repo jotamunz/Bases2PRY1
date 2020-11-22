@@ -4,4 +4,5 @@ export interface SchemeField {
   component?: string;
   displayables?: any[];
   label?: string;
+  isRequired?: boolean;
 }

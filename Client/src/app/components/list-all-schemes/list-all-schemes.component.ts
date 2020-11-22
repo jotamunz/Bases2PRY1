@@ -32,6 +32,7 @@ export class ListAllSchemesComponent implements OnInit {
             cssClass: 'alert success-alert',
           }
         );
+        this.removeScheme(schemeName);
       },
       (err) => {
         this.flashMessagesService.show(err.error.message, {
@@ -39,7 +40,7 @@ export class ListAllSchemesComponent implements OnInit {
         });
       }
     );
-    this.removeScheme(schemeName);
+    
   }
 
   public onToggle(name: string) {

@@ -21,14 +21,12 @@ export class UserDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadPendingForms();
-    console.log(this.pendingDocuments)
   }
 
   public loadPendingForms(): void {
     this.formService
       .getPendingFormForUser(this.username)
       .subscribe((schemes: any[]) => {
-        console.log('Current schemes', schemes);
 
         // Map to items in form
         schemes.forEach((scheme) => {
@@ -59,11 +57,8 @@ export class UserDashboardComponent implements OnInit {
           if (scheme.requiredTotalRejections == 0) {
             scheme.rejectionProgress = '0%';
           } else {
-            scheme.rejectionProgress =
-              this.calculateRejectionProgress(
-                progress,
-                scheme.requiredTotalRejections
-              )
+            let maxRoute = this.getMaxRejectionsRoute(progress)
+            scheme.rejectionProgress = this.calculateRejectionProgress(maxRoute)
                 .toFixed(1)
                 .toString() + '%';
           }
@@ -72,7 +67,6 @@ export class UserDashboardComponent implements OnInit {
           this.pendingDocuments.push(scheme);
         });
 
-        console.log(this.pendingDocuments);
       });
   }
 
@@ -125,17 +119,13 @@ export class UserDashboardComponent implements OnInit {
    * @param progress The progress of each approval route
    * @param requiredRejections The required rejections for a route
    */
-  private calculateRejectionProgress(
-    progress: any[],
-    requiredRejections: number
-  ): number {
+  private calculateRejectionProgress( progress: any[]): number {
     let currentTotalRejections = 0;
     progress.forEach((progress) => {
       const { currentRejections } = progress;
       currentTotalRejections += currentRejections;
     });
-
-    return (currentTotalRejections / requiredRejections) * 100;
+    return (currentTotalRejections / progress[0].requiredRejections) * 100;
   }
 
   public onDeleteClick(schemeName: String, date : String) {
@@ -147,6 +137,7 @@ export class UserDashboardComponent implements OnInit {
             cssClass: 'alert success-alert',
           }
         );
+        this.removeForm(schemeName,date);
       },
       (err) => {
         this.flashMessagesService.show(err.error.message, {
@@ -154,17 +145,27 @@ export class UserDashboardComponent implements OnInit {
         });
       }
     );
-    this.removeForm(schemeName,date);
+    
   }
 
   public removeForm(schemeName: String, date : String): void {
     let formTemp = [];
     this.pendingDocuments.forEach((form) => {
-      if ((form.schemeName != schemeName) && (form.creationDate != date)) {
+      if ((form.schemeName != schemeName) || (form.creationDate != date)) {
         formTemp.push(form);
       }
     });
     this.pendingDocuments = formTemp;
+  }
+
+  public getMaxRejectionsRoute(progress : any[]): any[] {
+    let maxRoute = progress[0];
+    progress.forEach(element => {
+      if (maxRoute.currentRejections <= element.currentRejections){
+        maxRoute = element;
+      }
+    });
+    return [maxRoute]
   }
   
 }

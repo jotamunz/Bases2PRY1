@@ -33,9 +33,6 @@
             <mat-expansion-panel hideToggle>
               <mat-expansion-panel-header>
                 <mat-panel-title> Authors</mat-panel-title>
-                <mat-panel-description>
-                  This is are the authors of the route
-                </mat-panel-description>
               </mat-expansion-panel-header>
               <div *ngIf="routePreview != undefined">
                 <div *ngFor="let authors of routePreview.authors" class="card">
@@ -52,9 +49,6 @@
             <mat-expansion-panel hideToggle>
               <mat-expansion-panel-header>
                 <mat-panel-title> Approvers</mat-panel-title>
-                <mat-panel-description>
-                  This is are the authors of the route
-                </mat-panel-description>
               </mat-expansion-panel-header>
               <div
                 *ngFor="let approvers of routePreview.approvers"
