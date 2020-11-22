@@ -149,6 +149,10 @@ router.patch('/', verifyToken, async (req, res) => {
 			res.status(400).json({ message: 'Specified scheme not found' });
 			return;
 		}
+		if (req.body.newName.includes('[') || req.body.newName.includes(']')) {
+			res.status(400).json({ message: 'Invalid character []' });
+			return;
+		}
 		const anyForm = await Form.findOne({ schemeId: oldScheme._id });
 		if (anyForm != null) {
 			const newScheme = new Scheme({

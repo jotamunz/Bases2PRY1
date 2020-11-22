@@ -154,7 +154,7 @@ export class AdminDashboardComponent implements OnInit {
   public removeForm(schemeName: String, date: String): void {
     let formTemp = [];
     this.pendingDocuments.forEach((form) => {
-      if (form.schemeName != schemeName && form.creationDate != date) {
+      if (form.schemeName != schemeName || form.creationDate != date) {
         formTemp.push(form);
       }
     });

@@ -42,16 +42,10 @@ export class LayoutDynamicFormComponent implements OnInit {
         .getCompleteScheme(schemeName)
         .subscribe((scheme: Scheme) => {
           this.schemaFields = scheme;
-          console.log('Scheme');
-          console.log(scheme);
-          console.log('Scheme');
 
           this.schemaFields.fields.forEach((question) => {
             this.questions.push(new QuestionBase<any>(question));
           });
-          console.log('Questions');
-          console.log(this.questions);
-          console.log('Questions');
         });
     });
   }

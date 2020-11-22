@@ -122,21 +122,20 @@
         >
           Add displayable
         </button>
-        <!-- Required -->
-        <!-- <div class="switch">
+        <div class="switch">
               <label>
-                Required
+                Optional
                 <input
                   type="checkbox"
-                  name="required"
-                  id="required"
-                  [(ngModel)]="currentSchemeField.required"
+                  name="isRequired"
+                  id="isRequired"
+                  [(ngModel)]="currentSchemeField.isRequired"
                   [ngModelOptions]="{ standalone: true }"
                 />
                 <span class="lever"></span>
-                Optional
+                Required
               </label>
-            </div> -->
+            </div>
         <button type="submit" class="btn green margin-y">
           <i class="fa fa-plus"></i> Add Field
         </button>
