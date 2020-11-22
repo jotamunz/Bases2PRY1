@@ -142,15 +142,15 @@ router.post('/', verifyToken, async (req, res) => {
 // E: 408, 401, 400
 router.patch('/', verifyToken, async (req, res) => {
 	try {
+		if (req.body.newName.includes('[') || req.body.newName.includes(']')) {
+			res.status(400).json({ message: 'Invalid character []' });
+			return;
+		}
 		const oldScheme = await Scheme.findOne({
 			$and: [{ name: req.body.oldName }, { name: { $not: /\[/i } }]
 		});
 		if (oldScheme == null) {
 			res.status(400).json({ message: 'Specified scheme not found' });
-			return;
-		}
-		if (req.body.newName.includes('[') || req.body.newName.includes(']')) {
-			res.status(400).json({ message: 'Invalid character []' });
 			return;
 		}
 		const anyForm = await Form.findOne({ schemeId: oldScheme._id });
@@ -163,7 +163,7 @@ router.patch('/', verifyToken, async (req, res) => {
 			});
 			oldScheme.isActive = false;
 			oldScheme.name = oldScheme.name.concat(
-				' [mod ' + oldScheme.modification.toString() + ']'
+				' [ver ' + oldScheme.modification.toString() + ']'
 			);
 			await oldScheme.save();
 			await newScheme.save();
