@@ -26,6 +26,7 @@ export class EditSchemeComponent implements OnInit {
     component: 'textbox',
     displayables: [],
     label: '',
+    isRequired: false,
   };
   public updateScheme: SchemeUpdate = {
     newName: '',
