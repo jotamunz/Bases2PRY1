@@ -33,6 +33,7 @@ export class NavbarComponent implements OnInit {
   }
 
   public isUserAuthenticated(): boolean {
+    // Initialize collapsibles
     let elems = document.querySelectorAll('.collapsible');
     var instances = M.Collapsible.init(elems, {});
     return this.authService.getIsAuthenticated();
