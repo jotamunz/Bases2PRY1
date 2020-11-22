@@ -3,6 +3,9 @@
   <p>Here is the information of each route progress</p>
   <div *ngFor="let route of routeProgress; let i = index">
     <h2>{{ route.name }}</h2>
+    <label>Approvals Required: {{route.requiredApprovals}}</label>
+    <br>
+    <label>Rejections Required: {{route.requiredRejections}} </label>
     <table class="striped">
       <thead>
         <tr>

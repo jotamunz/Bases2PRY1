@@ -23,6 +23,7 @@ export class AddSchemeComponent implements OnInit {
     component: 'textbox',
     displayables: [],
     label: '',
+    isRequired : false
   };
   public currentDisplayable: string = '';
 
@@ -123,6 +124,9 @@ export class AddSchemeComponent implements OnInit {
       component: 'textbox',
       displayables: [],
       label: '',
+      isRequired : false
     };
+
+    
   }
 }
