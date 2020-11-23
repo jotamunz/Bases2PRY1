@@ -15,13 +15,14 @@
     </div>
 
     <div *ngSwitchCase="'dropdown'">
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" class="down1">
         <mat-label class="color1">{{ question.value }}</mat-label>
         <mat-select [id]="question.name" [formControlName]="question.name">
           <mat-option *ngFor="let opt of question.displayables" [value]="opt">
             {{ opt }}
           </mat-option>
         </mat-select>
+        <mat-hint>{{ question.label }}</mat-hint>
       </mat-form-field>
     </div>
   </div>
