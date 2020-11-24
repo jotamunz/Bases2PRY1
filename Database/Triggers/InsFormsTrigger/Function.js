@@ -8,7 +8,7 @@ exports = async function (changeEvent) {
   const formCreatorId = insertedForm.userId;
   const formSchemeId = insertedForm.schemeId;
   const validApprovalRoutes = await approvalroutes.find(
-    { schemeId: formSchemeId, authors: { $elemMatch: { userId: formCreatorId } } } 
+    { schemeId: formSchemeId, authors: { $elemMatch: { userId: formCreatorId } }, isActive: true } 
     ).toArray();
   if (validApprovalRoutes.length > 0) {
     let routes = [];
@@ -17,8 +17,7 @@ exports = async function (changeEvent) {
       for (const approver of validApprovalRoute.approvers) {
         let newApprover = {
           userId: approver.userId,
-          decision: 0,
-          approvalDate: null 
+          decision: 0
         };
         newApprovers.push (newApprover);
       }
@@ -42,3 +41,5 @@ exports = async function (changeEvent) {
     );
   }
 }
+
+
